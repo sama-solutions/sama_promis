@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="public_objective_page" name="Objectif Stratégique - Page Publique">
+            <t t-call="sama_etat.modern_public_layout">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="senegal-card">
+                            <div class="card-header bg-primary text-white">
+                                <h2 class="card-title mb-0">
+                                    <i class="fa fa-bullseye me-2"/>
+                                    <t t-esc="objective['name']"/>
+                                </h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <strong>Code :</strong> <t t-esc="objective['code']"/><br/>
+                                        <strong>Axe Stratégique :</strong>
+                                        <t t-if="objective['axis_id']">
+                                            <a t-attf-href="/senegal2050/axis/#{objective['axis_id'][0]}" class="text-decoration-none">
+                                                <t t-esc="objective['axis_id'][1]"/>
+                                            </a>
+                                        </t>
+                                        <t t-else="">Non défini</t>
+                                    </div>
+                                </div>
+
+                                <t t-if="objective['description']">
+                                    <h4>Description</h4>
+                                    <p t-esc="objective['description']" class="lead"/>
+                                </t>
+
+                                <t t-if="objective['linked_projects']">
+                                    <h4>Projets Liés</h4>
+                                    <ul>
+                                        <t t-foreach="objective['linked_projects']" t-as="project_id">
+                                            <t t-set="project" t-value="env['government.project'].sudo().browse(project_id)"/>
+                                            <li><a t-attf-href="/senegal2050/project/#{project.id}"><t t-esc="project.name"/></a></li>
+                                        </t>
+                                    </ul>
+                                </t>
+
+                                <t t-if="objective['linked_decisions']">
+                                    <h4>Décisions Liées</h4>
+                                    <ul>
+                                        <t t-foreach="objective['linked_decisions']" t-as="decision_id">
+                                            <t t-set="decision" t-value="env['government.decision'].sudo().browse(decision_id)"/>
+                                            <li><a t-attf-href="/senegal2050/decision/#{decision.id}"><t t-esc="decision.title"/></a></li>
+                                        </t>
+                                    </ul>
+                                </t>
+
+                                <t t-if="objective['linked_events']">
+                                    <h4>Événements Liés</h4>
+                                    <ul>
+                                        <t t-foreach="objective['linked_events']" t-as="event_id">
+                                            <t t-set="event" t-value="env['government.event'].sudo().browse(event_id)"/>
+                                            <li><a t-attf-href="/senegal2050/event/#{event.id}"><t t-esc="event.name"/></a></li>
+                                        </t>
+                                    </ul>
+                                </t>
+
+                                <t t-if="objective['kpi_ids']">
+                                    <h4>Indicateurs Clés de Performance (KPIs)</h4>
+                                    <ul>
+                                        <t t-foreach="objective['kpi_ids']" t-as="kpi_id">
+                                            <t t-set="kpi" t-value="env['strategic.kpi'].sudo().browse(kpi_id)"/>
+                                            <li><t t-esc="kpi.name"/>: <t t-esc="kpi.current_value"/> <t t-esc="kpi.unit_of_measure"/> (Cible: <t t-esc="kpi.target_value"/> <t t-esc="kpi.unit_of_measure"/>)</li>
+                                        </t>
+                                    </ul>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="qr-code-container">
+                            <h5>Partager cet Objectif</h5>
+                            <img t-attf-src="data:image/png;base64,#{qr_code}" 
+                                 alt="QR Code de l'objectif" class="img-fluid mb-3" style="max-width: 200px;"/>
+                            <p class="small text-muted mb-3">Scannez ce code QR pour partager</p>
+                            <input type="text" class="form-control" 
+                                   t-att-value="objective_url" readonly="readonly"
+                                   onclick="this.select();"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

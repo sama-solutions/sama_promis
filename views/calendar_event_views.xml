@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_calendar_event_form_simplified" model="ir.ui.view">
+            <field name="name">calendar.event.form.simplified</field>
+            <field name="model">calendar.event</field>
+            <field name="arch" type="xml">
+                <form string="Event">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="start"/>
+                            <field name="stop"/>
+                            <field name="location"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Ministries Demo Data -->
+        <record id="ministry_finance" model="government.ministry">
+            <field name="name">Ministère des Finances et du Budget</field>
+            <field name="code">MFB</field>
+            <field name="description">Responsable de la politique financière et budgétaire de l'État.</field>
+        </record>
+
+        <record id="ministry_education" model="government.ministry">
+            <field name="name">Ministère de l'Éducation Nationale</field>
+            <field name="code">MEN</field>
+            <field name="description">Chargé de l'élaboration et de la mise en œuvre de la politique éducative.</field>
+        </record>
+
+        <record id="ministry_health" model="government.ministry">
+            <field name="name">Ministère de la Santé et de l'Action Sociale</field>
+            <field name="code">MSAS</field>
+            <field name="description">Garant de la santé publique et de la protection sociale.</field>
+        </record>
+
+        <record id="ministry_infrastructure" model="government.ministry">
+            <field name="name">Ministère des Infrastructures, des Transports Terrestres et du Désenclavement</field>
+            <field name="code">MITTD</field>
+            <field name="description">En charge du développement et de l'entretien des infrastructures nationales.</field>
+        </record>
+
+        <record id="ministry_justice" model="government.ministry">
+            <field name="name">Ministère de la Justice</field>
+            <field name="code">MJ</field>
+            <field name="description">Garant de l'application des lois et de l'administration de la justice.</field>
+        </record>
+
+        <record id="ministry_agriculture" model="government.ministry">
+            <field name="name">Ministère de l'Agriculture et de l'Équipement Rural</field>
+            <field name="code">MAER</field>
+            <field name="description">Chargé de la politique agricole et du développement rural.</field>
+        </record>
+
+        <!-- Strategic Plan Demo Data -->
+        <record id="strategic_plan_pse" model="strategic.plan">
+            <field name="name">Plan Sénégal Émergent (PSE)</field>
+            <field name="vision">Un Sénégal émergent en 2035, avec une société solidaire dans un État de droit.</field>
+            <field name="start_date">2014-01-01</field>
+            <field name="end_date">2035-12-31</field>
+            <field name="state">validated</field>
+        </record>
+
+        <!-- Strategic Pillars Demo Data (linked to PSE) -->
+        <record id="pillar_transformation_structurelle" model="strategic.pillar">
+            <field name="name">Transformation Structurelle de l'Économie</field>
+            <field name="code">PSE-P1</field>
+            <field name="plan_id" ref="strategic_plan_pse"/>
+            <field name="description"><![CDATA[Ce pilier vise à impulser une croissance forte, durable, inclusive et créatrice d'emplois.]]></field>
+        </record>
+
+        <record id="pillar_capital_humain" model="strategic.pillar">
+            <field name="name">Capital Humain, Protection Sociale et Développement Durable</field>
+            <field name="code">PSE-P2</field>
+            <field name="plan_id" ref="strategic_plan_pse"/>
+            <field name="description"><![CDATA[Ce pilier met l'accent sur le bien-être des populations et la préservation de l'environnement.]]></field>
+        </record>
+
+        <record id="pillar_gouvernance" model="strategic.pillar">
+            <field name="name">Gouvernance, Institutions, Paix et Sécurité</field>
+            <field name="code">PSE-P3</field>
+            <field name="plan_id" ref="strategic_plan_pse"/>
+            <field name="description"><![CDATA[Ce pilier vise à renforcer l'État de droit, la démocratie et la sécurité.]]></field>
+        </record>
+
+        <!-- Strategic Axes Demo Data (linked to Pillars) -->
+        <record id="axis_agriculture" model="strategic.axis">
+            <field name="name">Développement de l'Agriculture et de l'Agro-industrie</field>
+            <field name="pillar_id" ref="pillar_transformation_structurelle"/>
+            <field name="description">Axe visant à moderniser et diversifier l'agriculture sénégalaise.</field>
+        </record>
+
+        <record id="axis_sante" model="strategic.axis">
+            <field name="name">Amélioration de la Santé et de la Couverture Maladie Universelle</field>
+            <field name="pillar_id" ref="pillar_capital_humain"/>
+            <field name="description">Axe axé sur l'accès aux soins de qualité pour tous.</field>
+        </record>
+
+        <record id="axis_justice" model="strategic.axis">
+            <field name="name">Renforcement de la Justice et de l'État de Droit</field>
+            <field name="pillar_id" ref="pillar_gouvernance"/>
+            <field name="description">Axe visant à garantir une justice équitable et transparente.</field>
+        </record>
+
+        <!-- Strategic Objectives Demo Data (linked to Axes) -->
+        <record id="objective_autosuffisance_riz" model="strategic.objective">
+            <field name="name">Atteindre l'autosuffisance en riz</field>
+            <field name="axis_id" ref="axis_agriculture"/>
+            <field name="description">Augmenter la production nationale de riz pour réduire les importations.</field>
+        </record>
+
+        <record id="objective_reduction_mortalite_infantile" model="strategic.objective">
+            <field name="name">Réduire la mortalité infantile</field>
+            <field name="axis_id" ref="axis_sante"/>
+            <field name="description">Mettre en œuvre des programmes de santé maternelle et infantile.</field>
+        </record>
+
+        <record id="objective_numerisation_justice" model="strategic.objective">
+            <field name="name">Numériser les services de la justice</field>
+            <field name="axis_id" ref="axis_justice"/>
+            <field name="description">Moderniser l'administration judiciaire par les technologies de l'information.</field>
+        </record>
+
+        <!-- Strategic KPI Demo Data (linked to Objectives) -->
+        <record id="kpi_production_riz" model="strategic.kpi">
+            <field name="name">Taux de croissance de la production de riz</field>
+            <field name="objective_id" ref="objective_autosuffisance_riz"/>
+            <field name="description">Mesure l'augmentation annuelle de la production de riz.</field>
+            <field name="target_value">15.0</field>
+            <field name="current_value">10.0</field>
+            <field name="unit_of_measure">%</field>
+            <field name="date_updated">2024-07-18</field>
+        </record>
+
+        <record id="kpi_taux_mortalite_infantile" model="strategic.kpi">
+            <field name="name">Taux de mortalité infantile</field>
+            <field name="objective_id" ref="objective_reduction_mortalite_infantile"/>
+            <field name="description">Nombre de décès d'enfants de moins d'un an pour 1000 naissances vivantes.</field>
+            <field name="target_value">30.0</field>
+            <field name="current_value">45.0</field>
+            <field name="unit_of_measure">‰</field>
+            <field name="date_updated">2024-07-18</field>
+        </record>
+
+        <!-- Government Projects Demo Data -->
+        <record id="project_pudc" model="government.project">
+            <field name="name">Programme d'Urgence de Développement Communautaire (PUDC)</field>
+            <field name="description">Programme visant à améliorer l'accès des populations rurales aux services sociaux de base.</field>
+            <field name="start_date">2015-01-01</field>
+            <field name="end_date">2025-12-31</field>
+            <field name="status">in_progress</field>
+            <field name="strategic_objective_id" ref="objective_autosuffisance_riz"/>
+            <field name="ministry_id" ref="ministry_infrastructure"/>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+            <!-- manager_id will be set manually or linked to a demo user -->
+        </record>
+
+        <record id="project_cmus" model="government.project">
+            <field name="name">Projet de Couverture Maladie Universelle au Sénégal (CMUS)</field>
+            <field name="description">Projet visant à étendre la couverture maladie à l'ensemble de la population.</field>
+            <field name="start_date">2013-01-01</field>
+            <field name="end_date">2030-12-31</field>
+            <field name="status">in_progress</field>
+            <field name="strategic_objective_id" ref="objective_reduction_mortalite_infantile"/>
+            <field name="ministry_id" ref="ministry_health"/>
+            <field name="latitude">14.758945</field>
+            <field name="longitude">-17.393754</field>
+        </record>
+
+        <!-- Government Decisions Demo Data -->
+        <record id="decision_numerisation_etat_civil" model="government.decision">
+            <field name="title">Décret sur la numérisation de l'état civil</field>
+            <field name="reference">Décret n° 2023-1234</field>
+            <field name="decision_type">decree</field>
+            <field name="decision_date">2023-03-15</field>
+            <field name="description">Décret portant sur la mise en place d'un système numérique de gestion de l'état civil.</field>
+            <field name="strategic_objective_id" ref="objective_numerisation_justice"/>
+            <field name="ministry_id" ref="ministry_justice"/>
+            <field name="is_public">True</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <!-- Government Events Demo Data -->
+        <record id="event_forum_agriculture" model="government.event">
+            <field name="name">Forum National sur l'Agriculture</field>
+            <field name="date_start">2024-09-10 09:00:00</field>
+            <field name="date_end">2024-09-12 17:00:00</field>
+            <field name="location">Centre International de Conférences de Dakar (CICAD)</field>
+            <field name="organizer_id" ref="ministry_agriculture"/>
+            <field name="event_type">Conférence</field>
+            <field name="strategic_objective_id" ref="objective_autosuffisance_riz"/>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <!-- Government Budgets Demo Data -->
+        <record id="budget_pudc_2024" model="government.budget">
+            <field name="name">Budget PUDC 2024</field>
+            <field name="fiscal_year">2024</field>
+            <field name="allocated_amount" eval="10000000000.0"/>
+            <field name="used_amount" eval="7500000000.0"/>
+            <field name="currency_id" ref="base.XOF"/>
+            <field name="ministry_id" ref="ministry_infrastructure"/>
+            <field name="strategic_objective_id" ref="objective_autosuffisance_riz"/>
+        </record>
+
+    </data>
+</odoo>

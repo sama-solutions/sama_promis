@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_strategic_plan_user,strategic.plan.user,model_strategic_plan,base.group_user,1,0,0,0
+access_strategic_pillar_user,strategic.pillar.user,model_strategic_pillar,base.group_user,1,0,0,0
+access_strategic_axis_user,strategic.axis.user,model_strategic_axis,base.group_user,1,0,0,0
+access_strategic_objective_user,strategic.objective.user,model_strategic_objective,base.group_user,1,0,0,0
+access_strategic_kpi_user,strategic.kpi.user,model_strategic_kpi,base.group_user,1,0,0,0
+
+access_government_project_user,government.project.user,model_government_project,base.group_user,1,1,1,0
+access_government_decision_user,government.decision.user,model_government_decision,base.group_user,1,1,1,0
+access_government_event_user,government.event.user,model_government_event,base.group_user,1,1,1,0
+access_government_budget_user,government.budget.user,model_government_budget,base.group_user,1,1,1,0
+access_government_ministry_user,government.ministry.user,model_government_ministry,base.group_user,1,0,0,0
+access_government_project_wizard,government.project.wizard,model_government_project_wizard,base.group_user,1,1,1,1
+access_senegal_plan_dashboard_user,senegal.plan.dashboard.user,model_senegal_plan_dashboard,base.group_user,1,1,1,1

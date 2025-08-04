@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="fullscreen_map_page" name="Fullscreen Map - Plan Sénégal 2050">
+        <t t-call="sama_etat.modern_public_layout">
+            <t t-set="head">
+                <style>
+                    body, html {
+                        height: 100%;
+                        margin: 0;
+                        padding: 0;
+                        overflow: hidden;
+                    }
+                    
+                    .fullscreen-container {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 1000;
+                        background: #f8f9fa;
+                    }
+                    
+                    #back-to-dashboard {
+                        position: fixed;
+                        top: 20px;
+                        left: 20px;
+                        z-index: 1002;
+                        background: white;
+                        padding: 12px 20px;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                        text-decoration: none;
+                        color: #333;
+                        font-weight: 600;
+                        border: 2px solid #007bff;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    #back-to-dashboard:hover {
+                        background: #007bff;
+                        color: white;
+                        text-decoration: none;
+                        transform: translateY(-2px);
+                    }
+                    
+                    .fullscreen-map-card {
+                        position: absolute;
+                        top: 20px;
+                        left: 200px;
+                        right: 20px;
+                        bottom: 20px;
+                        background: white;
+                        border-radius: 15px;
+                        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+                        overflow: hidden;
+                    }
+                    
+                    .map-header {
+                        background: linear-gradient(135deg, #007bff, #0056b3);
+                        color: white;
+                        padding: 20px 30px;
+                        border-bottom: 3px solid #004085;
+                    }
+                    
+                    .map-header h4 {
+                        margin: 0;
+                        font-weight: 700;
+                        font-size: 1.5rem;
+                    }
+                    
+                    .map-header p {
+                        margin: 5px 0 0 0;
+                        opacity: 0.9;
+                        font-size: 0.95rem;
+                    }
+                    
+                    .map-content {
+                        position: relative;
+                        height: calc(100% - 120px);
+                        display: flex;
+                    }
+                    
+                    .map-container {
+                        flex: 1;
+                        position: relative;
+                    }
+                    
+                    #enhanced-map {
+                        width: 100%;
+                        height: 100%;
+                    }
+                    
+                    .map-controls {
+                        width: 300px;
+                        background: #f8f9fa;
+                        border-left: 1px solid #dee2e6;
+                        padding: 20px;
+                        overflow-y: auto;
+                    }
+                    
+                    .control-section h6 {
+                        color: #495057;
+                        font-weight: 600;
+                        margin-bottom: 15px;
+                        padding-bottom: 8px;
+                        border-bottom: 2px solid #007bff;
+                    }
+                    
+                    .form-check {
+                        margin-bottom: 15px;
+                        padding: 15px;
+                        border: 1px solid #dee2e6;
+                        border-radius: 10px;
+                        background: white;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .form-check:hover {
+                        border-color: #007bff;
+                        box-shadow: 0 2px 8px rgba(0,123,255,0.15);
+                        transform: translateY(-1px);
+                    }
+                    
+                    .form-check-input:checked {
+                        background-color: #007bff;
+                        border-color: #007bff;
+                    }
+                    
+                    .form-check-label {
+                        font-weight: 600;
+                        color: #495057;
+                    }
+                    
+                    .badge {
+                        font-size: 0.75em;
+                        margin-left: 8px;
+                    }
+                    
+                    .btn-fit-map {
+                        width: 100%;
+                        margin-top: 20px;
+                        padding: 12px;
+                        font-weight: 600;
+                        border-radius: 8px;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .btn-fit-map:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+                    }
+                </style>
+            </t>
+            
+            <div class="fullscreen-container">
+                <a href="/senegal2050/dashboard" id="back-to-dashboard">
+                    <i class="fas fa-arrow-left me-2"></i>Retour au tableau de bord
+                </a>
+                
+                <div class="fullscreen-map-card">
+                    <div class="map-header">
+                        <h4>
+                            <i class="fas fa-map-marker-alt me-2"></i>
+                            Carte Interactive - Plan Sénégal 2050
+                        </h4>
+                        <p>Visualisation complète des projets, décisions et événements gouvernementaux</p>
+                    </div>
+                    
+                    <div class="map-content">
+                        <div class="map-container">
+                            <div id="enhanced-map"></div>
+                        </div>
+                        
+                        <div class="map-controls">
+                            <div class="control-section">
+                                <h6><i class="fas fa-filter me-2"></i>Filtres de la carte</h6>
+                                
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="show_projects" checked="checked"/>
+                                    <label class="form-check-label" for="show_projects">
+                                        <i class="fas fa-project-diagram text-primary me-2"></i>
+                                        Projets
+                                        <span class="badge bg-primary" id="project-count">0</span>
+                                    </label>
+                                    <small class="d-block text-muted mt-1">Projets de développement en cours</small>
+                                </div>
+                                
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="show_decisions" checked="checked"/>
+                                    <label class="form-check-label" for="show_decisions">
+                                        <i class="fas fa-gavel text-warning me-2"></i>
+                                        Décisions
+                                        <span class="badge bg-warning text-dark" id="decision-count">0</span>
+                                    </label>
+                                    <small class="d-block text-muted mt-1">Décrets, arrêtés et circulaires</small>
+                                </div>
+                                
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="show_events" checked="checked"/>
+                                    <label class="form-check-label" for="show_events">
+                                        <i class="fas fa-calendar-alt text-info me-2"></i>
+                                        Événements
+                                        <span class="badge bg-info" id="event-count">0</span>
+                                    </label>
+                                    <small class="d-block text-muted mt-1">Conférences et forums publics</small>
+                                </div>
+                                
+                                <button id="fit-to-map-btn" class="btn btn-primary btn-fit-map">
+                                    <i class="fas fa-expand-arrows-alt me-2"></i>Ajuster la carte
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copy the working map code from public_map.xml -->
+            <t t-call="sama_etat.standalone_map_section"/>
+            
+        </t>
+    </template>
+</odoo>

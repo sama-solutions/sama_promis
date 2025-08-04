@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tableau de bord public moderne -->
+        <template id="modern_public_dashboard_page" name="Dashboard Public Moderne - Plan Sénégal 2050">
+            <t t-call="sama_etat.modern_public_layout">
+                <!-- Hero Section -->
+                <div class="text-center mb-5 animate-fade-in-up">
+                    <div class="d-inline-flex align-items-center bg-white rounded-pill px-4 py-2 shadow-sm mb-3">
+                        <div class="me-2" style="width: 8px; height: 8px; background: var(--senegal-green); border-radius: 50%;"></div>
+                        <small class="text-muted fw-medium">Système en ligne</small>
+                    </div>
+                    <h1 class="display-5 fw-bold mb-3">Tableau de Bord Public</h1>
+                    <p class="lead text-muted">Suivi en temps réel des projets et initiatives du Plan Sénégal 2050</p>
+                </div>
+
+                <!-- Statistiques principales -->
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card green animate-fade-in-up">
+                            <div class="stat-icon green">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <h2 class="stat-number" t-esc="total_projects">0</h2>
+                            <p class="stat-label">Total Projets</p>
+                            <div class="stat-trend trend-up">
+                                <i class="fas fa-arrow-up me-1"></i>
+                                <span>+12% ce mois</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card blue animate-fade-in-up" style="animation-delay: 0.1s;">
+                            <div class="stat-icon blue">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <h2 class="stat-number" t-esc="active_projects">0</h2>
+                            <p class="stat-label">Projets Actifs</p>
+                            <div class="stat-trend trend-up">
+                                <i class="fas fa-arrow-up me-1"></i>
+                                <span>+8% ce mois</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card yellow animate-fade-in-up" style="animation-delay: 0.2s;">
+                            <div class="stat-icon yellow">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <h2 class="stat-number" t-esc="total_ministries">0</h2>
+                            <p class="stat-label">Ministères</p>
+                            <div class="stat-trend">
+                                <i class="fas fa-minus me-1 text-muted"></i>
+                                <span class="text-muted">Stable</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stat-card cyan animate-fade-in-up" style="animation-delay: 0.3s;">
+                            <div class="stat-icon cyan">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h2 class="stat-number" t-esc="upcoming_events">0</h2>
+                            <p class="stat-label">Événements à Venir</p>
+                            <div class="stat-trend trend-up">
+                                <i class="fas fa-arrow-up me-1"></i>
+                                <span>+3 cette semaine</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section Navigation Rapide -->
+                <div class="row mb-5">
+                    <div class="col-12">
+                        <div class="modern-card animate-fade-in-up" style="animation-delay: 0.4s;">
+                            <div class="modern-card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <h4 class="mb-3">
+                                            <i class="fas fa-compass me-2 text-primary"></i>
+                                            Navigation Rapide
+                                        </h4>
+                                        <p class="text-muted mb-4">Accédez directement aux différentes sections du Plan Sénégal 2050</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="text-end">
+                                            <div class="d-inline-flex bg-light rounded-pill p-1">
+                                                <div class="bg-white rounded-circle p-2 shadow-sm">
+                                                    <i class="fas fa-rocket text-primary"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-lg-3 col-md-6">
+                                        <a href="#projets-section" class="btn btn-outline-primary w-100 py-3 border-2 rounded-3">
+                                            <i class="fas fa-tasks mb-2 d-block fs-4"></i>
+                                            <span class="fw-medium">Projets</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <a href="#ministeres-section" class="btn btn-outline-success w-100 py-3 border-2 rounded-3">
+                                            <i class="fas fa-university mb-2 d-block fs-4"></i>
+                                            <span class="fw-medium">Ministères</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <a href="#decisions-section" class="btn btn-outline-warning w-100 py-3 border-2 rounded-3">
+                                            <i class="fas fa-gavel mb-2 d-block fs-4"></i>
+                                            <span class="fw-medium">Décisions</span>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6">
+                                        <a href="#evenements-section" class="btn btn-outline-info w-100 py-3 border-2 rounded-3">
+                                            <i class="fas fa-calendar mb-2 d-block fs-4"></i>
+                                            <span class="fw-medium">Événements</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section Projets Récents avec Navigation -->
+                <div class="row mb-5" id="projets-section">
+                    <div class="col-lg-8">
+                        <div class="modern-card animate-fade-in-up" style="animation-delay: 0.5s;">
+                            <div class="modern-card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h4 class="mb-1">
+                                            <i class="fas fa-project-diagram me-2 text-primary"></i>
+                                            Projets Récents
+                                        </h4>
+                                        <p class="text-muted small mb-0">Dernières mises à jour des projets gouvernementaux</p>
+                                    </div>
+                                    <a href="#" class="btn btn-sm btn-outline-primary rounded-pill">
+                                        Voir tous <i class="fas fa-arrow-right ms-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="modern-card-body">
+                                <div class="row g-3">
+                                    <t t-foreach="recent_projects" t-as="project">
+                                        <div class="col-12">
+                                            <div class="d-flex align-items-center p-3 bg-light rounded-3">
+                                                <div class="me-3">
+                                                    <div class="bg-primary bg-opacity-10 p-2 rounded-3">
+                                                        <i class="fas fa-project-diagram text-primary"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-1">
+                                                        <a t-attf-href="/senegal2050/project/#{project.id}" class="text-decoration-none text-primary fw-medium">
+                                                            <t t-esc="project.project_code"/> - <t t-esc="project.name"/>
+                                                        </a>
+                                                    </h6>
+                                                    <p class="text-muted small mb-1">
+                                                        <t t-if="project.ministry_id">
+                                                            <a t-attf-href="/senegal2050/ministry/#{project.ministry_id.id}" class="text-muted text-decoration-none">
+                                                                <i class="fas fa-building me-1"></i>
+                                                                <t t-esc="project.ministry_id.name"/>
+                                                            </a>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <i class="fas fa-building me-1"></i>
+                                                            Ministère non défini
+                                                        </t>
+                                                    </p>
+                                                    <div class="d-flex align-items-center gap-3">
+                                                        <span t-field="project.status" t-options='{"widget": "badge"}' class="badge bg-success bg-opacity-10 text-success"/>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="modern-progress me-2" style="width: 80px;">
+                                                                <div class="modern-progress-bar" t-attf-style="width: #{project.progress}%;"></div>
+                                                            </div>
+                                                            <small class="text-muted"><t t-esc="round(project.progress, 1)"/>%</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <small class="text-muted"><span t-field="project.write_date" t-options='{"widget": "relative"}'/></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QR Code et Actions -->
+                    <div class="col-lg-4">
+                        <div class="modern-qr-container mb-4 animate-fade-in-up" style="animation-delay: 0.6s;">
+                            <h5 class="qr-title">
+                                <i class="fas fa-share-alt me-2"></i>
+                                Partager le Dashboard
+                            </h5>
+                            <img t-attf-src="data:image/png;base64,#{qr_code}" 
+                                 alt="QR Code du tableau de bord" 
+                                 class="qr-code-image img-fluid"/>
+                            <p class="small text-muted mb-3">Scannez pour partager ce dashboard</p>
+                            <input type="text" class="share-input" 
+                                   t-att-value="dashboard_url" 
+                                   readonly="readonly"
+                                   onclick="this.select();"/>
+                            <button class="btn btn-outline-primary btn-sm mt-2 w-100" onclick="navigator.clipboard.writeText(this.previousElementSibling.value)">
+                                <i class="fas fa-copy me-1"></i>
+                                Copier le lien
+                            </button>
+                        </div>
+
+                        <!-- Statistiques Avancées -->
+                        <div class="modern-card animate-fade-in-up" style="animation-delay: 0.7s;">
+                            <div class="modern-card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-chart-pie me-2 text-info"></i>
+                                    Vue d'Ensemble
+                                </h5>
+                            </div>
+                            <div class="modern-card-body">
+                                <div class="row text-center g-3">
+                                    <div class="col-4">
+                                        <div class="p-2">
+                                            <div class="bg-success bg-opacity-10 rounded-circle p-3 d-inline-flex mb-2">
+                                                <i class="fas fa-check-circle text-success"></i>
+                                            </div>
+                                            <h5 class="mb-0" t-esc="completed_projects">0</h5>
+                                            <small class="text-muted">Achevés</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="p-2">
+                                            <div class="bg-primary bg-opacity-10 rounded-circle p-3 d-inline-flex mb-2">
+                                                <i class="fas fa-gavel text-primary"></i>
+                                            </div>
+                                            <h5 class="mb-0" t-esc="public_decisions">0</h5>
+                                            <small class="text-muted">Décisions</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="p-2">
+                                            <div class="bg-info bg-opacity-10 rounded-circle p-3 d-inline-flex mb-2">
+                                                <i class="fas fa-calendar-check text-info"></i>
+                                            </div>
+                                            <h5 class="mb-0" t-esc="upcoming_events">0</h5>
+                                            <small class="text-muted">Événements</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-3"/>
+                                <div class="d-grid gap-2">
+                                    <a href="/senegal2050/dashboard" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-sync-alt me-1"></i>
+                                        Actualiser les données
+                                    </a>
+                                    <a href="/senegal2050/fullscreen_map" class="btn btn-outline-success btn-sm">
+                                        <i class="fas fa-expand me-1"></i>
+                                        Voir la carte en plein écran
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sections de Navigation (ajout pour le drill-down) -->
+                <div class="row g-4">
+                    <!-- Section Ministères -->
+                    <div class="col-lg-6" id="ministeres-section">
+                        <div class="modern-card animate-fade-in-up" style="animation-delay: 0.8s;">
+                            <div class="modern-card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-university me-2 text-success"></i>
+                                    Ministères Actifs
+                                </h5>
+                            </div>
+                            <div class="modern-card-body">
+                                <div class="d-grid gap-2">
+                                    <a href="/senegal2050/ministry/1" class="btn btn-outline-light text-start border-0 bg-light">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-success bg-opacity-10 p-2 rounded me-3">
+                                                <i class="fas fa-digital-tachograph text-success"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-medium">Transformation Numérique</div>
+                                                <small class="text-muted">12 projets actifs</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="/senegal2050/ministry/2" class="btn btn-outline-light text-start border-0 bg-light">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-primary bg-opacity-10 p-2 rounded me-3">
+                                                <i class="fas fa-graduation-cap text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-medium">Éducation Nationale</div>
+                                                <small class="text-muted">8 projets actifs</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Événements -->
+                    <div class="col-lg-6" id="evenements-section">
+                        <div class="modern-card animate-fade-in-up" style="animation-delay: 0.9s;">
+                            <div class="modern-card-header">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-calendar-alt me-2 text-info"></i>
+                                    Prochains Événements
+                                </h5>
+                            </div>
+                            <div class="modern-card-body">
+                                <div class="d-grid gap-2">
+                                    <a href="/senegal2050/event/1" class="btn btn-outline-light text-start border-0 bg-light">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-info bg-opacity-10 p-2 rounded me-3">
+                                                <i class="fas fa-calendar text-info"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-medium">Lancement Digital Sénégal</div>
+                                                <small class="text-muted">25 juillet 2024</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <a href="/senegal2050/event/2" class="btn btn-outline-light text-start border-0 bg-light">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-warning bg-opacity-10 p-2 rounded me-3">
+                                                <i class="fas fa-handshake text-warning"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-medium">Forum Innovation Publique</div>
+                                                <small class="text-muted">30 juillet 2024</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

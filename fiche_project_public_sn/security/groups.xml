@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Catégorie de groupes pour les projets publics -->
+        <record id="module_category_project_public" model="ir.module.category">
+            <field name="name">Projets Publics</field>
+            <field name="description">Gestion des droits d'accès pour les projets publics</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Groupe pour la gestion financière -->
+        <record id="group_finance_manager" model="res.groups">
+            <field name="name">Gestionnaire Financier</field>
+            <field name="category_id" ref="module_category_project_public"/>
+            <field name="comment">Accès aux informations budgétaires et financières des projets</field>
+        </record>
+
+        <!-- Groupe pour la gestion des marchés publics -->
+        <record id="group_procurement_manager" model="res.groups">
+            <field name="name">Gestionnaire Marchés Publics</field>
+            <field name="category_id" ref="module_category_project_public"/>
+            <field name="comment">Accès aux informations sur les marchés publics et la passation</field>
+        </record>
+
+        <!-- Groupe pour le suivi et évaluation -->
+        <record id="group_monitoring_evaluation_manager" model="res.groups">
+            <field name="name">Gestionnaire Suivi-Évaluation</field>
+            <field name="category_id" ref="module_category_project_public"/>
+            <field name="comment">Accès aux indicateurs de performance et au suivi-évaluation</field>
+        </record>
+
+        <!-- Groupe pour la gestion des risques et environnement -->
+        <record id="group_risk_environment_manager" model="res.groups">
+            <field name="name">Gestionnaire Risques et Environnement</field>
+            <field name="category_id" ref="module_category_project_public"/>
+            <field name="comment">Accès à l'analyse des risques et aux aspects environnementaux</field>
+        </record>
+
+        <!-- Groupe pour l'administrateur des projets publics -->
+        <record id="group_project_public_admin" model="res.groups">
+            <field name="name">Administrateur Projets Publics</field>
+            <field name="category_id" ref="module_category_project_public"/>
+            <field name="comment">Accès complet à tous les aspects des projets publics</field>
+            <field name="implied_ids" eval="[(4, ref('group_finance_manager')), 
+                                             (4, ref('group_procurement_manager')), 
+                                             (4, ref('group_monitoring_evaluation_manager')), 
+                                             (4, ref('group_risk_environment_manager'))]"/>
+        </record>
+    </data>
+</odoo>
+

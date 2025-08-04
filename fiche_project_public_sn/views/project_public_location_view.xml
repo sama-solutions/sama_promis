@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vue formulaire pour project.public.location.departement -->
+        <record id="view_project_public_location_departement_form" model="ir.ui.view">
+            <field name="name">project.public.location.departement.form</field>
+            <field name="model">project.public.location.departement</field>
+            <field name="arch" type="xml">
+                <form string="Département">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="state_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vue liste pour project.public.location.departement -->
+        <record id="view_project_public_location_departement_tree" model="ir.ui.view">
+            <field name="name">project.public.location.departement.tree</field>
+            <field name="model">project.public.location.departement</field>
+            <field name="arch" type="xml">
+                <tree string="Départements">
+                    <field name="name"/>
+                    <field name="state_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action pour project.public.location.departement -->
+        <record id="project_public_location_departement_action" model="ir.actions.act_window">
+            <field name="name">Départements</field>
+            <field name="res_model">project.public.location.departement</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Vue formulaire pour project.public.location.commune -->
+        <record id="view_project_public_location_commune_form" model="ir.ui.view">
+            <field name="name">project.public.location.commune.form</field>
+            <field name="model">project.public.location.commune</field>
+            <field name="arch" type="xml">
+                <form string="Commune">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="departement_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vue liste pour project.public.location.commune -->
+        <record id="view_project_public_location_commune_tree" model="ir.ui.view">
+            <field name="name">project.public.location.commune.tree</field>
+            <field name="model">project.public.location.commune</field>
+            <field name="arch" type="xml">
+                <tree string="Communes">
+                    <field name="name"/>
+                    <field name="departement_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action pour project.public.location.commune -->
+        <record id="project_public_location_commune_action" model="ir.actions.act_window">
+            <field name="name">Communes</field>
+            <field name="res_model">project.public.location.commune</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
+

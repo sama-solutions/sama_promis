@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Décisions du Conseil des Ministres - Données de démo -->
+        
+        <!-- Décisions liées aux projets -->
+        <record id="government_decision_demo_1" model="government.decision">
+            <field name="title">Validation du financement du Plan Sénégal 2050</field>
+            <field name="reference">DCM-2025-001</field>
+            <field name="decision_type">decree</field>
+            <field name="decision_date">2025-01-10</field>
+            <field name="status">published</field>
+            <field name="strategic_objective_id" ref="objective_quality_education"/>
+            <field name="project_id" ref="project_education_reform"/>
+            <field name="ministry_id" ref="ministry_presidency"/>
+            <field name="is_public">1</field>
+            <field name="implementation_status">completed</field>
+            <field name="implementation_deadline">2025-03-31</field>
+            <field name="progress_percentage">100.0</field>
+            <field name="last_follow_up_date">2025-03-15</field>
+            <field name="description">Le Conseil des Ministres approuve le financement intégral du Plan Sénégal 2050 avec allocation de 500 milliards de FCFA pour les projets prioritaires de la première phase.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="government_decision_demo_2" model="government.decision">
+            <field name="title">Lancement accéléré de la transformation digitale</field>
+            <field name="reference">DCM-2025-005</field>
+            <field name="decision_type">order</field>
+            <field name="decision_date">2025-02-05</field>
+            <field name="status">published</field>
+            <field name="strategic_objective_id" ref="objective_technical_education"/>
+            <field name="project_id" ref="project_digital_schools"/>
+            <field name="ministry_id" ref="ministry_digital"/>
+            <field name="is_public">1</field>
+            <field name="implementation_status">in_progress</field>
+            <field name="implementation_deadline">2025-12-31</field>
+            <field name="progress_percentage">65.0</field>
+            <field name="last_follow_up_date">2025-07-20</field>
+            <field name="next_follow_up_date">2025-08-15</field>
+            <field name="description">Décision d'accélérer la mise en œuvre de la transformation digitale avec création d'une Task Force interministérielle et déblocage d'un budget d'urgence de 50 milliards FCFA.</field>
+            <field name="latitude">14.758945</field>
+            <field name="longitude">-17.393754</field>
+        </record>
+
+        <record id="government_decision_demo_3" model="government.decision">
+            <field name="title">Création de zones économiques spéciales pour l'économie verte</field>
+            <field name="reference">DCM-2025-012</field>
+            <field name="decision_type">decree</field>
+            <field name="decision_date">2025-03-18</field>
+            <field name="status">published</field>
+            <field name="strategic_objective_id" ref="objective_higher_education"/>
+            <field name="project_id" ref="project_industrial_parks"/>
+            <field name="ministry_id" ref="ministry_environment"/>
+            <field name="is_public">1</field>
+            <field name="implementation_status">in_progress</field>
+            <field name="implementation_deadline">2026-06-30</field>
+            <field name="progress_percentage">25.0</field>
+            <field name="last_follow_up_date">2025-07-10</field>
+            <field name="next_follow_up_date">2025-09-01</field>
+            <field name="description">Création de 5 zones économiques spéciales dédiées aux énergies renouvelables et à l'économie circulaire avec incitations fiscales exceptionnelles pour les investisseurs.</field>
+            <field name="latitude">14.165208</field>
+            <field name="longitude">-16.075775</field>
+        </record>
+
+        <record id="government_decision_demo_4" model="government.decision">
+            <field name="title">Programme national d'emploi des jeunes - Phase d'urgence</field>
+            <field name="reference">DCM-2025-018</field>
+            <field name="decision_type">order</field>
+            <field name="decision_date">2025-04-02</field>
+            <field name="status">published</field>
+            <field name="strategic_objective_id" ref="objective_universal_health"/>
+            <field name="project_id" ref="project_youth_entrepreneurship"/>
+            <field name="ministry_id" ref="ministry_youth"/>
+            <field name="is_public">1</field>
+            <field name="implementation_status">not_started</field>
+            <field name="implementation_deadline">2025-12-31</field>
+            <field name="progress_percentage">0.0</field>
+            <field name="next_follow_up_date">2025-08-30</field>
+            <field name="description">Lancement d'un programme d'urgence pour l'emploi des jeunes avec objectif de créer 100,000 emplois directs et indirects d'ici fin 2025.</field>
+            <field name="latitude">13.772589</field>
+            <field name="longitude">-13.671006</field>
+        </record>
+
+        <!-- Décisions liées aux événements -->
+        <record id="government_decision_demo_5" model="government.decision">
+            <field name="title">Institution du Grand Dialogue National sur le Plan Sénégal 2050</field>
+            <field name="reference">DCM-2025-003</field>
+            <field name="decision_type">decree</field>
+            <field name="decision_date">2025-01-12</field>
+            <field name="status">published</field>
+            <field name="strategic_objective_id" ref="objective_quality_education"/>
+            <field name="event_id" ref="government_event_demo_1"/>
+            <field name="ministry_id" ref="ministry_presidency"/>
+            <field name="is_public">1</field>
+            <field name="implementation_status">completed</field>
+            <field name="implementation_deadline">2025-01-31</field>
+            <field name="progress_percentage">100.0</field>
+            <field name="last_follow_up_date">2025-01-20</field>
+            <field name="description">Institution d'un grand dialogue national impliquant tous les acteurs de la société civile pour valider les orientations du Plan Sénégal 2050.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="government_decision_demo_6" model="government.decision">
+            <field name="title">Création de l'Agence Nationale de Transformation Digitale</field>
+            <field name="reference">DCM-2025-008</field>
+            <field name="decision_type">decree</field>
+            <field name="decision_date">2025-02-08</field>
+            <field name="status">published</field>
+            <field name="strategic_objective_id" ref="objective_technical_education"/>
+            <field name="event_id" ref="government_event_demo_2"/>
+            <field name="ministry_id" ref="ministry_digital"/>
+            <field name="is_public">1</field>
+            <field name="implementation_status">partially_completed</field>
+            <field name="implementation_deadline">2025-09-30</field>
+            <field name="progress_percentage">70.0</field>
+            <field name="last_follow_up_date">2025-07-15</field>
+            <field name="next_follow_up_date">2025-08-20</field>
+            <field name="description">Création d'une agence dédiée à la coordination de la transformation digitale avec budget autonome et pouvoirs étendus.</field>
+            <field name="latitude">14.7833</field>
+            <field name="longitude">-17.4000</field>
+        </record>
+
+        <record id="government_decision_demo_7" model="government.decision">
+            <field name="title">Fonds National pour l'Innovation Verte</field>
+            <field name="reference">DCM-2025-015</field>
+            <field name="decision_type">decree</field>
+            <field name="decision_date">2025-03-22</field>
+            <field name="status">published</field>
+            <field name="strategic_objective_id" ref="objective_higher_education"/>
+            <field name="event_id" ref="government_event_demo_3"/>
+            <field name="ministry_id" ref="ministry_environment"/>
+            <field name="is_public">1</field>
+            <field name="implementation_status">in_progress</field>
+            <field name="implementation_deadline">2025-10-31</field>
+            <field name="progress_percentage">40.0</field>
+            <field name="last_follow_up_date">2025-07-01</field>
+            <field name="next_follow_up_date">2025-08-25</field>
+            <field name="description">Création d'un fonds de 100 milliards FCFA pour financer les innovations dans le domaine de l'économie verte et des technologies propres.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <!-- Décisions stratégiques transversales -->
+        <record id="government_decision_demo_8" model="government.decision">
+            <field name="title">Réforme de la gouvernance des projets publics</field>
+            <field name="reference">DCM-2025-025</field>
+            <field name="decision_type">decree</field>
+            <field name="decision_date">2025-05-10</field>
+            <field name="status">published</field>
+            <field name="strategic_objective_id" ref="objective_quality_education"/>
+            <field name="ministry_id" ref="ministry_presidency"/>
+            <field name="is_public">1</field>
+            <field name="implementation_status">delayed</field>
+            <field name="implementation_deadline">2025-11-30</field>
+            <field name="progress_percentage">15.0</field>
+            <field name="last_follow_up_date">2025-07-18</field>
+            <field name="next_follow_up_date">2025-08-10</field>
+            <field name="description">Réforme majeure des processus de gestion des projets publics avec introduction d'outils digitaux de suivi et de nouveaux indicateurs de performance.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="government_decision_demo_9" model="government.decision">
+            <field name="title">Partenariat Public-Privé pour les infrastructures de santé</field>
+            <field name="reference">DCM-2025-030</field>
+            <field name="decision_type">order</field>
+            <field name="decision_date">2025-06-15</field>
+            <field name="status">published</field>
+            <field name="strategic_objective_id" ref="objective_youth_entrepreneurship"/>
+            <field name="event_id" ref="government_event_demo_8"/>
+            <field name="ministry_id" ref="ministry_health"/>
+            <field name="is_public">1</field>
+            <field name="implementation_status">not_started</field>
+            <field name="implementation_deadline">2026-03-31</field>
+            <field name="progress_percentage">0.0</field>
+            <field name="next_follow_up_date">2025-09-15</field>
+            <field name="description">Lancement d'un programme de partenariat public-privé pour moderniser les infrastructures de santé avec investissement cible de 200 milliards FCFA.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="government_decision_demo_10" model="government.decision">
+            <field name="title">Initiative Education 4.0 - Transformation du système éducatif</field>
+            <field name="reference">DCM-2025-035</field>
+            <field name="decision_type">decree</field>
+            <field name="decision_date">2025-07-20</field>
+            <field name="status">published</field>
+            <field name="strategic_objective_id" ref="objective_youth_employment"/>
+            <field name="event_id" ref="government_event_demo_9"/>
+            <field name="ministry_id" ref="ministry_education"/>
+            <field name="is_public">1</field>
+            <field name="implementation_status">not_started</field>
+            <field name="implementation_deadline">2027-06-30</field>
+            <field name="progress_percentage">0.0</field>
+            <field name="next_follow_up_date">2025-10-01</field>
+            <field name="description">Transformation complète du système éducatif avec intégration des technologies 4.0, formation des enseignants et révision des programmes scolaires.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <!-- Décision critique en retard -->
+        <record id="government_decision_demo_11" model="government.decision">
+            <field name="title">Modernisation du système de transport public</field>
+            <field name="reference">DCM-2024-087</field>
+            <field name="decision_type">decree</field>
+            <field name="decision_date">2024-11-20</field>
+            <field name="status">published</field>
+            <field name="strategic_objective_id" ref="objective_food_security"/>
+            <field name="ministry_id" ref="ministry_infrastructure"/>
+            <field name="is_public">1</field>
+            <field name="implementation_status">blocked</field>
+            <field name="implementation_deadline">2025-06-30</field>
+            <field name="progress_percentage">30.0</field>
+            <field name="last_follow_up_date">2025-07-10</field>
+            <field name="next_follow_up_date">2025-08-05</field>
+            <field name="follow_up_notes">Projet bloqué en raison de difficultés de financement et de résistance des syndicats de transport. Nécessite une intervention de haut niveau pour débloquer la situation.</field>
+            <field name="description">Modernisation complète du système de transport public de Dakar avec introduction de bus électriques et digitalisation des systèmes de paiement.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.2667</field>
+        </record>
+
+        <!-- Décision d'urgence récente -->
+        <record id="government_decision_demo_12" model="government.decision">
+            <field name="title">Plan d'urgence contre les inondations - Saison des pluies 2025</field>
+            <field name="reference">DCM-2025-040</field>
+            <field name="decision_type">order</field>
+            <field name="decision_date">2025-07-22</field>
+            <field name="status">published</field>
+            <field name="strategic_objective_id" ref="objective_food_security"/>
+            <field name="ministry_id" ref="ministry_infrastructure"/>
+            <field name="is_public">1</field>
+            <field name="implementation_status">in_progress</field>
+            <field name="implementation_deadline">2025-09-30</field>
+            <field name="progress_percentage">80.0</field>
+            <field name="last_follow_up_date">2025-07-24</field>
+            <field name="next_follow_up_date">2025-08-01</field>
+            <field name="follow_up_notes">Mise en œuvre accélérée en cours. Toutes les équipes mobilisées. Suivi quotidien nécessaire compte tenu de l'urgence climatique.</field>
+            <field name="description">Plan d'urgence pour prévenir et gérer les inondations avec déploiement de moyens exceptionnels et coordination renforcée entre services.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+    </data>
+</odoo>

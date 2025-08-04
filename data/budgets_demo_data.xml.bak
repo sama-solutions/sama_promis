@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ================================================ -->
+        <!-- BUDGETS GOUVERNEMENTAUX - DÉMONSTRATION         -->
+        <!-- ================================================ -->
+
+        <!-- Budgets par secteur -->
+        <record id="budget_education_2025" model="government.budget">
+            <field name="name">Budget Éducation 2025</field>
+            <field name="fiscal_year">2025</field>
+            <field name="allocated_amount">850000000000</field>
+            <field name="used_amount">320000000000</field>
+            <field name="ministry_id" ref="ministry_education"/>
+            <field name="strategic_objective_id" ref="objective_quality_education"/>
+        </record>
+
+        <record id="budget_health_2025" model="government.budget">
+            <field name="name">Budget Santé 2025</field>
+            <field name="fiscal_year">2025</field>
+            <field name="allocated_amount">680000000000</field>
+            <field name="used_amount">290000000000</field>
+            <field name="ministry_id" ref="ministry_health"/>
+            <field name="strategic_objective_id" ref="objective_universal_health"/>
+        </record>
+
+        <record id="budget_agriculture_2025" model="government.budget">
+            <field name="name">Budget Agriculture 2025</field>
+            <field name="fiscal_year">2025</field>
+            <field name="allocated_amount">420000000000</field>
+            <field name="used_amount">150000000000</field>
+            <field name="ministry_id" ref="ministry_agriculture"/>
+            <field name="strategic_objective_id" ref="objective_food_security"/>
+        </record>
+
+        <record id="budget_infrastructure_2025" model="government.budget">
+            <field name="name">Budget Infrastructures 2025</field>
+            <field name="fiscal_year">2025</field>
+            <field name="allocated_amount">920000000000</field>
+            <field name="used_amount">380000000000</field>
+            <field name="ministry_id" ref="ministry_infrastructure"/>
+            <field name="strategic_objective_id" ref="objective_quality_education"/>
+        </record>
+
+        <record id="budget_digital_2025" model="government.budget">
+            <field name="name">Budget Numérique 2025</field>
+            <field name="fiscal_year">2025</field>
+            <field name="allocated_amount">310000000000</field>
+            <field name="used_amount">125000000000</field>
+            <field name="ministry_id" ref="ministry_digital"/>
+            <field name="strategic_objective_id" ref="objective_digital_infrastructure"/>
+        </record>
+
+        <record id="budget_energy_2025" model="government.budget">
+            <field name="name">Budget Énergie 2025</field>
+            <field name="fiscal_year">2025</field>
+            <field name="allocated_amount">560000000000</field>
+            <field name="used_amount">210000000000</field>
+            <field name="ministry_id" ref="ministry_mines_energy"/>
+            <field name="strategic_objective_id" ref="objective_digital_infrastructure"/>
+        </record>
+
+        <record id="budget_youth_employment_2025" model="government.budget">
+            <field name="name">Budget Emploi des Jeunes 2025</field>
+            <field name="fiscal_year">2025</field>
+            <field name="allocated_amount">280000000000</field>
+            <field name="used_amount">95000000000</field>
+            <field name="ministry_id" ref="ministry_employment"/>
+            <field name="strategic_objective_id" ref="objective_youth_entrepreneurship"/>
+        </record>
+
+        <record id="budget_industry_2025" model="government.budget">
+            <field name="name">Budget Industrie 2025</field>
+            <field name="fiscal_year">2025</field>
+            <field name="allocated_amount">390000000000</field>
+            <field name="used_amount">145000000000</field>
+            <field name="ministry_id" ref="ministry_industry"/>
+            <field name="strategic_objective_id" ref="objective_industrial_parks"/>
+        </record>
+
+        <record id="budget_water_2025" model="government.budget">
+            <field name="name">Budget Hydraulique 2025</field>
+            <field name="fiscal_year">2025</field>
+            <field name="allocated_amount">240000000000</field>
+            <field name="used_amount">87000000000</field>
+            <field name="ministry_id" ref="ministry_water"/>
+            <field name="strategic_objective_id" ref="objective_universal_health"/>
+        </record>
+
+        <!-- Budgets spéciaux -->
+        <record id="budget_emergency_fund_2025" model="government.budget">
+            <field name="name">Fonds d'Urgence Nationale 2025</field>
+            <field name="fiscal_year">2025</field>
+            <field name="allocated_amount">150000000000</field>
+            <field name="used_amount">45000000000</field>
+            <field name="ministry_id" ref="ministry_interior"/>
+            <field name="strategic_objective_id" ref="objective_universal_health"/>
+        </record>
+
+        <record id="budget_diaspora_2025" model="government.budget">
+            <field name="name">Budget Diaspora 2025</field>
+            <field name="fiscal_year">2025</field>
+            <field name="allocated_amount">75000000000</field>
+            <field name="used_amount">28000000000</field>
+            <field name="ministry_id" ref="ministry_foreign_affairs"/>
+            <field name="strategic_objective_id" ref="objective_youth_entrepreneurship"/>
+        </record>
+
+    </data>
+</odoo>

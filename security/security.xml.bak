@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Security Groups -->
+        <record id="group_gov_planner" model="res.groups">
+            <field name="name">Gouvernance Numérique / Planificateur</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_gov_admin" model="res.groups">
+            <field name="name">Gouvernance Numérique / Administrateur</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_gov_user" model="res.groups">
+            <field name="name">Gouvernance Numérique / Utilisateur</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_public" model="res.groups">
+            <field name="name">Gouvernance Numérique / Public</field>
+        </record>
+
+        <!-- Access Rights for Planner Group -->
+        <record id="access_strategic_plan_planner" model="ir.model.access">
+            <field name="name">strategic.plan.planner</field>
+            <field name="model_id" ref="model_strategic_plan"/>
+            <field name="group_id" ref="group_gov_planner"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="access_strategic_pillar_planner" model="ir.model.access">
+            <field name="name">strategic.pillar.planner</field>
+            <field name="model_id" ref="model_strategic_pillar"/>
+            <field name="group_id" ref="group_gov_planner"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="access_strategic_axis_planner" model="ir.model.access">
+            <field name="name">strategic.axis.planner</field>
+            <field name="model_id" ref="model_strategic_axis"/>
+            <field name="group_id" ref="group_gov_planner"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="access_strategic_objective_planner" model="ir.model.access">
+            <field name="name">strategic.objective.planner</field>
+            <field name="model_id" ref="model_strategic_objective"/>
+            <field name="group_id" ref="group_gov_planner"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="access_strategic_kpi_planner" model="ir.model.access">
+            <field name="name">strategic.kpi.planner</field>
+            <field name="model_id" ref="model_strategic_kpi"/>
+            <field name="group_id" ref="group_gov_planner"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="access_government_ministry_planner" model="ir.model.access">
+            <field name="name">government.ministry.planner</field>
+            <field name="model_id" ref="model_government_ministry"/>
+            <field name="group_id" ref="group_gov_planner"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <!-- Access Rights for Admin Group -->
+        <record id="access_government_project_admin" model="ir.model.access">
+            <field name="name">government.project.admin</field>
+            <field name="model_id" ref="model_government_project"/>
+            <field name="group_id" ref="group_gov_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="access_government_decision_admin" model="ir.model.access">
+            <field name="name">government.decision.admin</field>
+            <field name="model_id" ref="model_government_decision"/>
+            <field name="group_id" ref="group_gov_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="access_government_event_admin" model="ir.model.access">
+            <field name="name">government.event.admin</field>
+            <field name="model_id" ref="model_government_event"/>
+            <field name="group_id" ref="group_gov_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record id="access_government_budget_admin" model="ir.model.access">
+            <field name="name">government.budget.admin</field>
+            <field name="model_id" ref="model_government_budget"/>
+            <field name="group_id" ref="group_gov_admin"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <!-- Access Rights for User Group -->
+        <record id="access_government_project_user" model="ir.model.access">
+            <field name="name">government.project.user</field>
+            <field name="model_id" ref="model_government_project"/>
+            <field name="group_id" ref="group_gov_user"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="access_government_decision_user" model="ir.model.access">
+            <field name="name">government.decision.user</field>
+            <field name="model_id" ref="model_government_decision"/>
+            <field name="group_id" ref="group_gov_user"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="access_government_event_user" model="ir.model.access">
+            <field name="name">government.event.user</field>
+            <field name="model_id" ref="model_government_event"/>
+            <field name="group_id" ref="group_gov_user"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="access_government_budget_user" model="ir.model.access">
+            <field name="name">government.budget.user</field>
+            <field name="model_id" ref="model_government_budget"/>
+            <field name="group_id" ref="group_gov_user"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="access_government_ministry_user" model="ir.model.access">
+            <field name="name">government.ministry.user</field>
+            <field name="model_id" ref="model_government_ministry"/>
+            <field name="group_id" ref="group_gov_user"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <!-- Access Rights for Public Group -->
+        <record id="access_strategic_plan_public" model="ir.model.access">
+            <field name="name">strategic.plan.public</field>
+            <field name="model_id" ref="model_strategic_plan"/>
+            <field name="group_id" ref="group_public"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record id="access_government_decision_public" model="ir.model.access">
+            <field name="name">government.decision.public</field>
+            <field name="model_id" ref="model_government_decision"/>
+            <field name="group_id" ref="group_public"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="public_decision_page" name="Décision - Page Publique">
+            <t t-call="sama_etat.modern_public_layout">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="senegal-card">
+                            <div class="card-header bg-primary text-white">
+                                <h2 class="card-title mb-0">
+                                    <i class="fa fa-gavel me-2"/>
+                                    <t t-esc="decision['title']"/>
+                                </h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <strong>Référence :</strong> <t t-esc="decision['reference']"/><br/>
+                                        <strong>Type :</strong> <t t-esc="dict(env['government.decision']._fields['decision_type'].selection).get(decision['decision_type'])"/><br/>
+                                        <strong>Date :</strong> <span t-esc="decision['decision_date']" t-options='{"widget": "date"}'/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Ministère Émetteur :</strong><br/>
+                                        <t t-if="decision['ministry_id']">
+                                            <a t-attf-href="/senegal2050/ministry/#{decision['ministry_id'][0]}" class="text-decoration-none">
+                                                <t t-esc="decision['ministry_id'][1]"/>
+                                            </a>
+                                        </t>
+                                        <t t-else="">Non défini</t>
+                                    </div>
+                                </div>
+
+                                <t t-if="decision['description']">
+                                    <h4>Description</h4>
+                                    <p t-esc="decision['description']" class="lead"/>
+                                </t>
+
+                                <t t-if="decision['project_id']">
+                                    <h4>Projet Associé</h4>
+                                    <div class="alert alert-info">
+                                        <a t-attf-href="/senegal2050/project/#{decision['project_id'][0]}" class="alert-link">
+                                            <strong t-esc="decision['project_id'][1]"/>
+                                        </a>
+                                    </div>
+                                </t>
+
+                                <t t-if="decision['strategic_objective_id']">
+                                    <h4>Objectif Stratégique</h4>
+                                    <div class="alert alert-success">
+                                        <a t-attf-href="/senegal2050/objective/#{decision['strategic_objective_id'][0]}" class="alert-link">
+                                            <strong t-esc="decision['strategic_objective_id'][1]"/>
+                                        </a>
+                                    </div>
+                                </t>
+
+                                <t t-if="decision['document']">
+                                    <h4>Document Officiel</h4>
+                                    <a t-attf-href="/web/content/government.decision/#{decision['id']}/document/#{decision['document_name']}" class="btn btn-primary">
+                                        <i class="fa fa-download me-2"/> Télécharger le document
+                                    </a>
+                                </t>
+
+                                <t t-if="decision['latitude'] and decision['longitude']">
+                                    <h4>Localisation</h4>
+                                    <p>Latitude: <span t-esc="decision['latitude']"/>, Longitude: <span t-esc="decision['longitude']"/></p>
+                                    <div id="decision_map" style="height: 300px; width: 100%;"></div>
+                                    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+                                    <script>
+//<![CDATA[
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            var decisionMap = L.map('decision_map').setView([<t t-esc="decision['latitude']"/>, <t t-esc="decision['longitude']"/>], 13);
+
+                                            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                                attribution: '&#169; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                            }).addTo(decisionMap);
+
+                                            L.marker([<t t-esc="decision['latitude']"/>, <t t-esc="decision['longitude']"/>])
+                                                .addTo(decisionMap)
+                                                .bindPopup('<b>' + "<t t-esc="decision['title']"/>" + '</b>').openPopup();
+
+                                            setTimeout(function() { decisionMap.invalidateSize(); }, 200);
+                                        });
+//]]>
+                                    </script>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="qr-code-container">
+                            <h5>Partager cette décision</h5>
+                            <img t-attf-src="data:image/png;base64,#{qr_code}" 
+                                 alt="QR Code de la décision" class="img-fluid mb-3" style="max-width: 200px;"/>
+                            <p class="small text-muted mb-3">Scannez ce code QR pour partager</p>
+                            <input type="text" class="form-control" 
+                                   t-att-value="decision_url" readonly="readonly"
+                                   onclick="this.select();"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

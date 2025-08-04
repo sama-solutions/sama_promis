@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="public_pillar_page" name="Pilier Stratégique - Page Publique">
+            <t t-call="sama_etat.modern_public_layout">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="senegal-card">
+                            <div class="card-header bg-primary text-white">
+                                <h2 class="card-title mb-0">
+                                    <i class="fa fa-sitemap me-2"/>
+                                    <t t-esc="pillar['name']"/>
+                                </h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <strong>Code :</strong> <t t-esc="pillar['code']"/><br/>
+                                        <strong>Plan Stratégique :</strong>
+                                        <t t-if="pillar['plan_id']">
+                                            <a t-attf-href="/senegal2050/plan/#{pillar['plan_id'][0]}" class="text-decoration-none">
+                                                <t t-esc="pillar['plan_id'][1]"/>
+                                            </a>
+                                        </t>
+                                        <t t-else="">Non défini</t>
+                                    </div>
+                                </div>
+
+                                <t t-if="pillar['description']">
+                                    <h4>Description</h4>
+                                    <p t-esc="pillar['description']" class="lead"/>
+                                </t>
+
+                                <t t-if="pillar['axis_ids']">
+                                    <h4>Axes Stratégiques Liés</h4>
+                                    <ul>
+                                        <t t-foreach="pillar['axis_ids']" t-as="axis_id">
+                                            <t t-set="axis" t-value="env['strategic.axis'].sudo().browse(axis_id)"/>
+                                            <li><a t-attf-href="/senegal2050/axis/#{axis.id}"><t t-esc="axis.name"/></a></li>
+                                        </t>
+                                    </ul>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="qr-code-container">
+                            <h5>Partager ce Pilier</h5>
+                            <img t-attf-src="data:image/png;base64,#{qr_code}" 
+                                 alt="QR Code du pilier" class="img-fluid mb-3" style="max-width: 200px;"/>
+                            <p class="small text-muted mb-3">Scannez ce code QR pour partager</p>
+                            <input type="text" class="form-control" 
+                                   t-att-value="pillar_url" readonly="readonly"
+                                   onclick="this.select();"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="public_axis_page" name="Axe Stratégique - Page Publique">
+            <t t-call="sama_etat.modern_public_layout">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="senegal-card">
+                            <div class="card-header bg-primary text-white">
+                                <h2 class="card-title mb-0">
+                                    <i class="fa fa-compass me-2"/>
+                                    <t t-esc="axis['name']"/>
+                                </h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <strong>Code :</strong> <t t-esc="axis['code']"/><br/>
+                                        <strong>Pilier Stratégique :</strong>
+                                        <t t-if="axis['pillar_id']">
+                                            <a t-attf-href="/senegal2050/pillar/#{axis['pillar_id'][0]}" class="text-decoration-none">
+                                                <t t-esc="axis['pillar_id'][1]"/>
+                                            </a>
+                                        </t>
+                                        <t t-else="">Non défini</t>
+                                    </div>
+                                </div>
+
+                                <t t-if="axis['description']">
+                                    <h4>Description</h4>
+                                    <p t-esc="axis['description']" class="lead"/>
+                                </t>
+
+                                <t t-if="axis['objective_ids']">
+                                    <h4>Objectifs Liés</h4>
+                                    <ul>
+                                        <t t-foreach="axis['objective_ids']" t-as="objective_id">
+                                            <t t-set="objective" t-value="env['strategic.objective'].sudo().browse(objective_id)"/>
+                                            <li><a t-attf-href="/senegal2050/objective/#{objective.id}"><t t-esc="objective.name"/></a></li>
+                                        </t>
+                                    </ul>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="qr-code-container">
+                            <h5>Partager cet Axe</h5>
+                            <img t-attf-src="data:image/png;base64,#{qr_code}" 
+                                 alt="QR Code de l'axe" class="img-fluid mb-3" style="max-width: 200px;"/>
+                            <p class="small text-muted mb-3">Scannez ce code QR pour partager</p>
+                            <input type="text" class="form-control" 
+                                   t-att-value="axis_url" readonly="readonly"
+                                   onclick="this.select();"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

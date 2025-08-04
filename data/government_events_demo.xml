@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Government Event 1: Groundbreaking ceremony for the new hospital in Dakar -->
+        <record id="event_1" model="government.event">
+            <field name="name">Groundbreaking ceremony for the new hospital in Dakar</field>
+            <field name="description">The President will attend the groundbreaking ceremony for the new hospital in Dakar.</field>
+            <field name="event_date" eval="(datetime.now() - timedelta(days=15)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="ministry_id" ref="ministry_health"/>
+            <field name="project_id" ref="project_project_1"/>
+            <field name="latitude">14.7167</field>
+            <field name="longitude">-17.4677</field>
+        </record>
+
+        <!-- Government Event 2: Inauguration of the new road in Thiès -->
+        <record id="event_2" model="government.event">
+            <field name="name">Inauguration of the new road in Thiès</field>
+            <field name="description">The Prime Minister will inaugurate the newly constructed road in the Thiès region.</field>
+            <field name="event_date" eval="(datetime.now() + timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="ministry_id" ref="ministry_infrastructure"/>
+            <field name="project_id" ref="project_project_2"/>
+            <field name="latitude">14.7833</field>
+            <field name="longitude">-16.9333</field>
+        </record>
+
+        <!-- Government Event 3: Workshop for farmers in Saint-Louis -->
+        <record id="event_3" model="government.event">
+            <field name="name">Workshop for farmers in Saint-Louis</field>
+            <field name="description">A workshop will be held to train farmers on new agricultural techniques as part of the support program.</field>
+            <field name="event_date" eval="(datetime.now() + timedelta(days=10)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="ministry_id" ref="ministry_agriculture"/>
+            <field name="project_id" ref="project_project_3"/>
+            <field name="latitude">16.0333</field>
+            <field name="longitude">-16.4833</field>
+        </record>
+
+        <!-- Government Event 4: Renewable energy conference in Ziguinchor -->
+        <record id="event_4" model="government.event">
+            <field name="name">Renewable energy conference in Ziguinchor</field>
+            <field name="description">Annual conference on renewable energy solutions in Ziguinchor.</field>
+            <field name="event_date" eval="(datetime.now() + timedelta(days=45)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="ministry_id" ref="ministry_mines_energy"/>
+            <field name="project_id" ref="project_project_4"/>
+            <field name="latitude">12.5833</field>
+            <field name="longitude">-16.2667</field>
+        </record>
+
+        <!-- Government Event 5: Girls' education summit in Kaolack -->
+        <record id="event_5" model="government.event">
+            <field name="name">Girls' education summit in Kaolack</field>
+            <field name="description">Summit to discuss and promote girls' education initiatives in Kaolack.</field>
+            <field name="event_date" eval="(datetime.now() + timedelta(days=20)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="ministry_id" ref="ministry_education"/>
+            <field name="project_id" ref="project_project_5"/>
+            <field name="latitude">14.1667</field>
+            <field name="longitude">-16.0833</field>
+        </record>
+
+        <!-- Government Event 6: Water infrastructure inauguration in Touba -->
+        <record id="event_6" model="government.event">
+            <field name="name">Water infrastructure inauguration in Touba</field>
+            <field name="description">Inauguration ceremony for new water facilities in Touba.</field>
+            <field name="event_date" eval="(datetime.now() + timedelta(days=60)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="ministry_id" ref="ministry_water"/>
+            <field name="project_id" ref="project_project_6"/>
+            <field name="latitude">14.8667</field>
+            <field name="longitude">-15.8833</field>
+        </record>
+
+        <!-- Government Event 7: Digital services launch in Mbour -->
+        <record id="event_7" model="government.event">
+            <field name="name">Digital services launch in Mbour</field>
+            <field name="description">Launch event for new digital public services in Mbour.</field>
+            <field name="event_date" eval="(datetime.now() + timedelta(days=15)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="ministry_id" ref="ministry_digital"/>
+            <field name="project_id" ref="project_project_7"/>
+            <field name="latitude">14.4167</field>
+            <field name="longitude">-16.9667</field>
+        </record>
+
+        <!-- Government Event 8: Rural electrification workshop in Kolda -->
+        <record id="event_8" model="government.event">
+            <field name="name">Rural electrification workshop in Kolda</field>
+            <field name="description">Workshop on strategies for rural electrification in Kolda region.</field>
+            <field name="event_date" eval="(datetime.now() + timedelta(days=75)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="ministry_id" ref="ministry_mines_energy"/>
+            <field name="project_id" ref="project_project_8"/>
+            <field name="latitude">12.8833</field>
+            <field name="longitude">-14.9500</field>
+        </record>
+
+        <!-- Government Event 9: Fishery community meeting in Joal-Fadiouth -->
+        <record id="event_9" model="government.event">
+            <field name="name">Fishery community meeting in Joal-Fadiouth</field>
+            <field name="description">Meeting with local fishery communities in Joal-Fadiouth.</field>
+            <field name="event_date" eval="(datetime.now() + timedelta(days=30)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="ministry_id" ref="ministry_fisheries"/>
+            <field name="project_id" ref="project_project_9"/>
+            <field name="latitude">14.1667</field>
+            <field name="longitude">-16.8333</field>
+        </record>
+
+        <!-- Government Event 10: Urban planning exhibition in Rufisque -->
+        <record id="event_10" model="government.event">
+            <field name="name">Urban planning exhibition in Rufisque</field>
+            <field name="description">Exhibition showcasing new urban development plans for Rufisque.</field>
+            <field name="event_date" eval="(datetime.now() + timedelta(days=10)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="ministry_id" ref="ministry_urban_planning"/>
+            <field name="project_id" ref="project_project_10"/>
+            <field name="latitude">14.7333</field>
+            <field name="longitude">-17.2667</field>
+        </record>
+
+        <!-- Government Event 11: Tourism investment forum in Saly Portudal -->
+        <record id="event_11" model="government.event">
+            <field name="name">Tourism investment forum in Saly Portudal</field>
+            <field name="description">Forum to attract investments in the tourism sector in Saly Portudal.</field>
+            <field name="event_date" eval="(datetime.now() + timedelta(days=50)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="ministry_id" ref="ministry_tourism"/>
+            <field name="project_id" ref="project_project_11"/>
+            <field name="latitude">14.4500</field>
+            <field name="longitude">-17.0333</field>
+        </record>
+
+        <!-- Government Event 12: Saloum Delta conservation workshop -->
+        <record id="event_12" model="government.event">
+            <field name="name">Saloum Delta conservation workshop</field>
+            <field name="description">Workshop on conservation strategies for the Saloum Delta National Park.</field>
+            <field name="event_date" eval="(datetime.now() + timedelta(days=90)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="ministry_id" ref="ministry_environment"/>
+            <field name="project_id" ref="project_project_12"/>
+            <field name="latitude">13.8000</field>
+            <field name="longitude">-16.7500</field>
+        </record>
+    </data>
+</odoo>

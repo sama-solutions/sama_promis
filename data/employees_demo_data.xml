@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ================================================ -->
+        <!-- EMPLOYÉS / CHEFS DE PROJETS - SÉNÉGAL           -->
+        <!-- ================================================ -->
+
+        <!-- Chefs de projets Éducation -->
+        <record id="employee_aminata_fall" model="hr.employee">
+            <field name="name">Aminata FALL</field>
+            <field name="work_email">aminata.fall@education.gouv.sn</field>
+            <field name="mobile_phone">+221 77 123 45 67</field>
+            <field name="job_title">Directrice de la Réforme Éducative</field>
+            <field name="gender">female</field>
+            <field name="marital">married</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 849 54 84</field>
+        </record>
+
+        <record id="employee_ousmane_diop" model="hr.employee">
+            <field name="name">Ousmane DIOP</field>
+            <field name="work_email">ousmane.diop@education.gouv.sn</field>
+            <field name="mobile_phone">+221 76 234 56 78</field>
+            <field name="job_title">Chef de Projet Écoles Numériques</field>
+            <field name="gender">male</field>
+            <field name="marital">single</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 849 54 85</field>
+        </record>
+
+        <!-- Chefs de projets Santé -->
+        <record id="employee_fatou_ndiaye" model="hr.employee">
+            <field name="name">Fatou NDIAYE</field>
+            <field name="work_email">fatou.ndiaye@sante.gouv.sn</field>
+            <field name="mobile_phone">+221 77 345 67 89</field>
+            <field name="job_title">Coordinatrice Couverture Sanitaire Universelle</field>
+            <field name="gender">female</field>
+            <field name="marital">married</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 00 50</field>
+        </record>
+
+        <record id="employee_moussa_ba" model="hr.employee">
+            <field name="name">Moussa BA</field>
+            <field name="work_email">moussa.ba@sante.gouv.sn</field>
+            <field name="mobile_phone">+221 78 456 78 90</field>
+            <field name="job_title">Directeur des Infrastructures Sanitaires</field>
+            <field name="gender">male</field>
+            <field name="marital">married</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 00 51</field>
+        </record>
+
+        <!-- Chefs de projets Agriculture -->
+        <record id="employee_awa_sow" model="hr.employee">
+            <field name="name">Awa SOW</field>
+            <field name="work_email">awa.sow@agriculture.gouv.sn</field>
+            <field name="mobile_phone">+221 77 567 89 01</field>
+            <field name="job_title">Responsable Programme Autosuffisance Riz</field>
+            <field name="gender">female</field>
+            <field name="marital">single</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 57 00</field>
+        </record>
+
+        <record id="employee_ibrahima_sarr" model="hr.employee">
+            <field name="name">Ibrahima SARR</field>
+            <field name="work_email">ibrahima.sarr@agriculture.gouv.sn</field>
+            <field name="mobile_phone">+221 76 678 90 12</field>
+            <field name="job_title">Chef de Projet Mécanisation Agricole</field>
+            <field name="gender">male</field>
+            <field name="marital">married</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 57 01</field>
+        </record>
+
+        <!-- Chefs de projets Emploi -->
+        <record id="employee_khadija_toure" model="hr.employee">
+            <field name="name">Khadija TOURÉ</field>
+            <field name="work_email">khadija.toure@emploi.gouv.sn</field>
+            <field name="mobile_phone">+221 77 789 01 23</field>
+            <field name="job_title">Directrice Fonds Entrepreneuriat Jeunes</field>
+            <field name="gender">female</field>
+            <field name="marital">married</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 60 79</field>
+        </record>
+
+        <record id="employee_mamadou_kane" model="hr.employee">
+            <field name="name">Mamadou KANE</field>
+            <field name="work_email">mamadou.kane@emploi.gouv.sn</field>
+            <field name="mobile_phone">+221 78 890 12 34</field>
+            <field name="job_title">Coordinateur Formation Professionnelle Jeunes</field>
+            <field name="gender">male</field>
+            <field name="marital">single</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 60 80</field>
+        </record>
+
+        <!-- Chefs de projets Industrie -->
+        <record id="employee_aissata_diallo" model="hr.employee">
+            <field name="name">Aïssata DIALLO</field>
+            <field name="work_email">aissata.diallo@industrie.gouv.sn</field>
+            <field name="mobile_phone">+221 77 901 23 45</field>
+            <field name="job_title">Directrice Zones Économiques Spéciales</field>
+            <field name="gender">female</field>
+            <field name="marital">married</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 40 20</field>
+        </record>
+
+        <record id="employee_cheikh_ndoye" model="hr.employee">
+            <field name="name">Cheikh NDOYE</field>
+            <field name="work_email">cheikh.ndoye@industrie.gouv.sn</field>
+            <field name="mobile_phone">+221 76 012 34 56</field>
+            <field name="job_title">Chef de Projet Contenu Local</field>
+            <field name="gender">male</field>
+            <field name="marital">married</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 40 21</field>
+        </record>
+
+        <!-- Chefs de projets Numérique -->
+        <record id="employee_ndeye_gueye" model="hr.employee">
+            <field name="name">Ndèye GUEYE</field>
+            <field name="work_email">ndeye.gueye@numerique.gouv.sn</field>
+            <field name="mobile_phone">+221 77 123 45 60</field>
+            <field name="job_title">Directrice Infrastructure Fibre Optique</field>
+            <field name="gender">female</field>
+            <field name="marital">single</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 10 25</field>
+        </record>
+
+        <record id="employee_abdou_diouf" model="hr.employee">
+            <field name="name">Abdou DIOUF</field>
+            <field name="work_email">abdou.diouf@numerique.gouv.sn</field>
+            <field name="mobile_phone">+221 78 234 56 71</field>
+            <field name="job_title">Chef de Projet e-Gouvernement</field>
+            <field name="gender">male</field>
+            <field name="marital">married</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 10 26</field>
+        </record>
+
+        <!-- Chefs de projets Infrastructure -->
+        <record id="employee_coumba_ly" model="hr.employee">
+            <field name="name">Coumba LY</field>
+            <field name="work_email">coumba.ly@infrastructures.gouv.sn</field>
+            <field name="mobile_phone">+221 77 345 67 82</field>
+            <field name="job_title">Directrice Programme Désenclavement</field>
+            <field name="gender">female</field>
+            <field name="marital">married</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 71 28</field>
+        </record>
+
+        <!-- Chefs de projets Énergie -->
+        <record id="employee_omar_faye" model="hr.employee">
+            <field name="name">Omar FAYE</field>
+            <field name="work_email">omar.faye@energie.gouv.sn</field>
+            <field name="mobile_phone">+221 76 456 78 93</field>
+            <field name="job_title">Directeur Énergies Renouvelables</field>
+            <field name="gender">male</field>
+            <field name="marital">single</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 38 34</field>
+        </record>
+
+        <!-- Chef de projet Eau -->
+        <record id="employee_mariama_dieng" model="hr.employee">
+            <field name="name">Mariama DIENG</field>
+            <field name="work_email">mariama.dieng@hydraulique.gouv.sn</field>
+            <field name="mobile_phone">+221 77 567 89 04</field>
+            <field name="job_title">Coordinatrice Accès Eau Potable</field>
+            <field name="gender">female</field>
+            <field name="marital">married</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 849 71 71</field>
+        </record>
+
+        <!-- Chef de projet Smart Cities -->
+        <record id="employee_seydou_wade" model="hr.employee">
+            <field name="name">Seydou WADE</field>
+            <field name="work_email">seydou.wade@urbanisme.gouv.sn</field>
+            <field name="mobile_phone">+221 78 678 90 15</field>
+            <field name="job_title">Chef de Projet Villes Intelligentes</field>
+            <field name="gender">male</field>
+            <field name="marital">married</field>
+            <field name="country_id" ref="base.sn"/>
+            <field name="work_phone">+221 33 823 92 44</field>
+        </record>
+
+        <!-- Créer des utilisateurs correspondants pour pouvoir les assigner aux projets -->
+        <record id="user_aminata_fall" model="res.users">
+            <field name="name">Aminata FALL</field>
+            <field name="login">aminata.fall</field>
+            <field name="email">aminata.fall@education.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_ousmane_diop" model="res.users">
+            <field name="name">Ousmane DIOP</field>
+            <field name="login">ousmane.diop</field>
+            <field name="email">ousmane.diop@education.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_fatou_ndiaye" model="res.users">
+            <field name="name">Fatou NDIAYE</field>
+            <field name="login">fatou.ndiaye</field>
+            <field name="email">fatou.ndiaye@sante.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_moussa_ba" model="res.users">
+            <field name="name">Moussa BA</field>
+            <field name="login">moussa.ba</field>
+            <field name="email">moussa.ba@sante.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_awa_sow" model="res.users">
+            <field name="name">Awa SOW</field>
+            <field name="login">awa.sow</field>
+            <field name="email">awa.sow@agriculture.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_ibrahima_sarr" model="res.users">
+            <field name="name">Ibrahima SARR</field>
+            <field name="login">ibrahima.sarr</field>
+            <field name="email">ibrahima.sarr@agriculture.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_khadija_toure" model="res.users">
+            <field name="name">Khadija TOURÉ</field>
+            <field name="login">khadija.toure</field>
+            <field name="email">khadija.toure@emploi.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_mamadou_kane" model="res.users">
+            <field name="name">Mamadou KANE</field>
+            <field name="login">mamadou.kane</field>
+            <field name="email">mamadou.kane@emploi.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_aissata_diallo" model="res.users">
+            <field name="name">Aïssata DIALLO</field>
+            <field name="login">aissata.diallo</field>
+            <field name="email">aissata.diallo@industrie.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_cheikh_ndoye" model="res.users">
+            <field name="name">Cheikh NDOYE</field>
+            <field name="login">cheikh.ndoye</field>
+            <field name="email">cheikh.ndoye@industrie.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_ndeye_gueye" model="res.users">
+            <field name="name">Ndèye GUEYE</field>
+            <field name="login">ndeye.gueye</field>
+            <field name="email">ndeye.gueye@numerique.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_abdou_diouf" model="res.users">
+            <field name="name">Abdou DIOUF</field>
+            <field name="login">abdou.diouf</field>
+            <field name="email">abdou.diouf@numerique.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_coumba_ly" model="res.users">
+            <field name="name">Coumba LY</field>
+            <field name="login">coumba.ly</field>
+            <field name="email">coumba.ly@infrastructures.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_omar_faye" model="res.users">
+            <field name="name">Omar FAYE</field>
+            <field name="login">omar.faye</field>
+            <field name="email">omar.faye@energie.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_mariama_dieng" model="res.users">
+            <field name="name">Mariama DIENG</field>
+            <field name="login">mariama.dieng</field>
+            <field name="email">mariama.dieng@hydraulique.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <record id="user_seydou_wade" model="res.users">
+            <field name="name">Seydou WADE</field>
+            <field name="login">seydou.wade</field>
+            <field name="email">seydou.wade@urbanisme.gouv.sn</field>
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_user'), ref('project.group_project_manager')])]"/>
+        </record>
+
+        <!-- Lier les employés aux utilisateurs -->
+        <record id="employee_aminata_fall" model="hr.employee">
+            <field name="user_id" ref="user_aminata_fall"/>
+        </record>
+        <record id="employee_ousmane_diop" model="hr.employee">
+            <field name="user_id" ref="user_ousmane_diop"/>
+        </record>
+        <record id="employee_fatou_ndiaye" model="hr.employee">
+            <field name="user_id" ref="user_fatou_ndiaye"/>
+        </record>
+        <record id="employee_moussa_ba" model="hr.employee">
+            <field name="user_id" ref="user_moussa_ba"/>
+        </record>
+        <record id="employee_awa_sow" model="hr.employee">
+            <field name="user_id" ref="user_awa_sow"/>
+        </record>
+        <record id="employee_ibrahima_sarr" model="hr.employee">
+            <field name="user_id" ref="user_ibrahima_sarr"/>
+        </record>
+        <record id="employee_khadija_toure" model="hr.employee">
+            <field name="user_id" ref="user_khadija_toure"/>
+        </record>
+        <record id="employee_mamadou_kane" model="hr.employee">
+            <field name="user_id" ref="user_mamadou_kane"/>
+        </record>
+        <record id="employee_aissata_diallo" model="hr.employee">
+            <field name="user_id" ref="user_aissata_diallo"/>
+        </record>
+        <record id="employee_cheikh_ndoye" model="hr.employee">
+            <field name="user_id" ref="user_cheikh_ndoye"/>
+        </record>
+        <record id="employee_ndeye_gueye" model="hr.employee">
+            <field name="user_id" ref="user_ndeye_gueye"/>
+        </record>
+        <record id="employee_abdou_diouf" model="hr.employee">
+            <field name="user_id" ref="user_abdou_diouf"/>
+        </record>
+        <record id="employee_coumba_ly" model="hr.employee">
+            <field name="user_id" ref="user_coumba_ly"/>
+        </record>
+        <record id="employee_omar_faye" model="hr.employee">
+            <field name="user_id" ref="user_omar_faye"/>
+        </record>
+        <record id="employee_mariama_dieng" model="hr.employee">
+            <field name="user_id" ref="user_mariama_dieng"/>
+        </record>
+        <record id="employee_seydou_wade" model="hr.employee">
+            <field name="user_id" ref="user_seydou_wade"/>
+        </record>
+
+    </data>
+</odoo>

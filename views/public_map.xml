@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="standalone_map_section" name="Enhanced Map">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">
+                                <i class="fas fa-map-marker-alt me-2"></i>
+                                Carte Interactive des Projets, Décisions et Événements Publics
+                            </h5>
+                            <p class="mb-0 small">Découvrez les initiatives gouvernementales près de chez vous</p>
+                        </div>
+                        <div class="card-body">
+                            <div id="enhanced-map" style="width: 100%; height: 500px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 10px 0;">
+                            </div>
+                            <div class="text-center mt-3 mb-3">
+                                <button id="fit-to-map-btn" class="btn btn-primary px-4 shadow" title="Ajuster à la carte">
+                                    <i class="fas fa-expand-arrows-alt me-2"></i> Ajuster la carte
+                                </button>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-md-4">
+                                    <div class="form-check p-3 border rounded bg-light">
+                                        <input class="form-check-input" type="checkbox" id="show_projects" checked="checked"/>
+                                        <label class="form-check-label fw-bold" for="show_projects">
+                                            <i class="fas fa-project-diagram text-primary me-2"></i>
+                                            Projets <span class="badge bg-primary" id="project-count">0</span>
+                                        </label>
+                                        <small class="d-block text-muted">Projets de développement en cours</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check p-3 border rounded bg-light">
+                                        <input class="form-check-input" type="checkbox" id="show_decisions" checked="checked"/>
+                                        <label class="form-check-label fw-bold" for="show_decisions">
+                                            <i class="fas fa-gavel text-warning me-2"></i>
+                                            Décisions <span class="badge bg-warning text-dark" id="decision-count">0</span>
+                                        </label>
+                                        <small class="d-block text-muted">Décrets, arrêtés et circulaires</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check p-3 border rounded bg-light">
+                                        <input class="form-check-input" type="checkbox" id="show_events" checked="checked"/>
+                                        <label class="form-check-label fw-bold" for="show_events">
+                                            <i class="fas fa-calendar-alt text-info me-2"></i>
+                                            Événements <span class="badge bg-info" id="event-count">0</span>
+                                        </label>
+                                        <small class="d-block text-muted">Conférences et forums publics</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="map-loading" class="text-center py-3" style="display: none;">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Chargement...</span>
+                                </div>
+                                <p class="mt-2">Chargement de la carte...</p>
+                            </div>
+
+                            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+                            <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+                            <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+                            <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+                            <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+                            <script type="text/javascript">
+//<![CDATA[
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        console.log('Initializing enhanced map with dynamic data...');
+        document.getElementById('map-loading').style.display = 'block';
+
+        // Add padding to map container
+        document.getElementById('enhanced-map').style.padding = '10px';
+
+        // Hide popup instruction when document is clicked
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.leaflet-popup') && !e.target.closest('.leaflet-marker-icon')) {
+                document.querySelector('.popup-instruction small').style.display = 'none';
+            }
+        });
+
+        try {
+            // Initialize map centered on Senegal
+            var map = L.map('enhanced-map', {
+                zoomControl: true,
+                attributionControl: true,
+                closePopupOnClick: false
+            }).setView([14.5, -14.5], 7);
+
+            // Adjust map padding
+            map._container.style.padding = '0';
+
+            // Add a popup close instruction
+            var popupCloseInstruction = L.control({position: 'bottomleft'});
+            popupCloseInstruction.onAdd = function (map) {
+                var div = L.DomUtil.create('div', 'info popup-instruction');
+                div.innerHTML = '<small class="bg-white px-2 py-1 rounded shadow-sm" style="display: none;"><i class="fas fa-times text-danger me-1"></i> Cliquez sur X pour fermer les infobulles</small>';
+                return div;
+            };
+            popupCloseInstruction.addTo(map);
+
+            // Debug map initialization
+            console.log('Map initialized:', map);
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors | Données gouvernementales du Sénégal',
+                maxZoom: 18
+            }).addTo(map);
+
+            // Create marker cluster groups for different marker types
+            var projectLayer = L.markerClusterGroup({
+                disableClusteringAtZoom: 10,
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: false,
+                zoomToBoundsOnClick: true,
+                maxClusterRadius: 50,
+                iconCreateFunction: function(cluster) {
+                    var childCount = cluster.getChildCount();
+                    var c = ' marker-cluster-';
+                    if (childCount < 10) {
+                        c += 'small';
+                    } else if (childCount < 20) {
+                        c += 'medium';
+                    } else {
+                        c += 'large';
+                    }
+                    return new L.DivIcon({
+                        html: '<div><span>' + childCount + '</span></div>',
+                        className: 'marker-cluster marker-cluster-project' + c,
+                        iconSize: new L.Point(40, 40)
+                    });
+                }
+            });
+
+            var decisionLayer = L.markerClusterGroup({
+                disableClusteringAtZoom: 10,
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: false,
+                zoomToBoundsOnClick: true,
+                maxClusterRadius: 50,
+                iconCreateFunction: function(cluster) {
+                    var childCount = cluster.getChildCount();
+                    var c = ' marker-cluster-';
+                    if (childCount < 10) {
+                        c += 'small';
+                    } else if (childCount < 20) {
+                        c += 'medium';
+                    } else {
+                        c += 'large';
+                    }
+                    return new L.DivIcon({
+                        html: '<div><span>' + childCount + '</span></div>',
+                        className: 'marker-cluster marker-cluster-decision' + c,
+                        iconSize: new L.Point(40, 40)
+                    });
+                }
+            });
+
+            var eventLayer = L.markerClusterGroup({
+                disableClusteringAtZoom: 10,
+                spiderfyOnMaxZoom: true,
+                showCoverageOnHover: false,
+                zoomToBoundsOnClick: true,
+                maxClusterRadius: 50,
+                iconCreateFunction: function(cluster) {
+                    var childCount = cluster.getChildCount();
+                    var c = ' marker-cluster-';
+                    if (childCount < 10) {
+                        c += 'small';
+                    } else if (childCount < 20) {
+                        c += 'medium';
+                    } else {
+                        c += 'large';
+                    }
+                    return new L.DivIcon({
+                        html: '<div><span>' + childCount + '</span></div>',
+                        className: 'marker-cluster marker-cluster-event' + c,
+                        iconSize: new L.Point(40, 40)
+                    });
+                }
+            });
+
+            // Custom marker icons with better styling
+            var projectIcon = L.divIcon({
+                className: 'custom-icon',
+                html: '<div style="background: linear-gradient(45deg, #007bff, #0056b3); color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.3); font-weight: bold; font-size: 12px;">P</div>',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15],
+                popupAnchor: [0, -15]
+            });
+
+            var decisionIcon = L.divIcon({
+                className: 'custom-icon',
+                html: '<div style="background: linear-gradient(45deg, #ffc107, #e0a800); color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.3); font-weight: bold; font-size: 12px;">D</div>',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15],
+                popupAnchor: [0, -15]
+            });
+
+            var eventIcon = L.divIcon({
+                className: 'custom-icon',
+                html: '<div style="background: linear-gradient(45deg, #17a2b8, #138496); color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.3); font-weight: bold; font-size: 12px;">E</div>',
+                iconSize: [30, 30],
+                iconAnchor: [15, 15],
+                popupAnchor: [0, -15]
+            });
+
+            // Global variables for map data
+            var mapData = {
+                projects: [],
+                decisions: [],
+                events: []
+            };
+
+            // Fetch data from backend
+            function fetchMapData() {
+                return fetch('/sama_etat/get_map_data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        jsonrpc: '2.0',
+                        method: 'call',
+                        params: {}
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.result) {
+                        mapData = data.result;
+                        console.log('Map data loaded:', mapData);
+                        // Ensure we're using real coordinates, not demo data
+                        if (mapData.projects && mapData.projects.length > 0) {
+                            // Verify we have real data by checking if all coordinates are not the same
+                            var coordinatesSet = new Set();
+                            mapData.projects.forEach(function(project) {
+                                if (project.latitude && project.longitude) {
+                                    coordinatesSet.add(project.latitude + ',' + project.longitude);
+                                }
+                            });
+
+                            if (coordinatesSet.size <= 1 && mapData.projects.length > 1) {
+                                console.warn('Warning: All projects have the same coordinates. Data may be demo data.');
+                            }
+                        }
+                        updateMap();
+                        document.getElementById('map-loading').style.display = 'none';
+                    } else {
+                        throw new Error('No data received from server');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching map data:', error);
+                    document.getElementById('map-loading').style.display = 'none';
+                    // Do not use fallback demo data anymore, as we want real coordinates
+                    mapData = {
+                        projects: [],
+                        decisions: [],
+                        events: []
+                    };
+                    updateMap();
+
+                    // Show an error message in the map
+                    var mapContainer = document.getElementById('enhanced-map');
+                    var mapDiv = mapContainer.querySelector('div');
+                    if (mapDiv) {
+                        mapDiv.innerHTML += '<div class="alert alert-warning" style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); max-width:80%; z-index:500; background: rgba(255,255,255,0.9); padding:15px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.15);"><h6><i class="fas fa-exclamation-triangle me-2"></i>Erreur de chargement des données</h6><p>Impossible de charger les coordonnées réelles. Veuillez rafraîchir la page.</p></div>';
+                    }
+                });
+            }
+
+            // Function to create citizen-friendly tooltips
+            function createProjectTooltip(project) {
+                console.log("Creating project tooltip for:", project);
+                var statusText = '';
+                var statusClass = '';
+                switch(project.status) {
+                    case 'in_progress': statusText = 'En cours'; statusClass = 'success'; break;
+                    case 'validated': statusText = 'Validé'; statusClass = 'primary'; break;
+                    case 'completed': statusText = 'Achevé'; statusClass = 'secondary'; break;
+                    case 'draft': statusText = 'En préparation'; statusClass = 'warning'; break;
+                    case 'suspended': statusText = 'Suspendu'; statusClass = 'danger'; break;
+                    case 'cancelled': statusText = 'Annulé'; statusClass = 'dark'; break;
+                    default: statusText = 'Statut inconnu'; statusClass = 'light';
+                }
+
+                // Get the base URL for the project detail page
+                var baseUrl = window.location.origin;
+                var projectUrl = `${baseUrl}/senegal2050/project/${project.id}`;
+
+                // Handle responsible person information
+                var responsiblePerson = '';
+                if (project.manager_id && project.manager_id[0]) {
+                    var managerId = project.manager_id[0];
+                    var managerName = project.manager_id[1];
+                    var managerImage = project.manager_image || '/web/static/img/user_placeholder.png';
+                    responsiblePerson = `
+                        <div class="d-flex align-items-center mt-2 mb-2 p-2 border rounded bg-light">
+                            <div class="me-2">
+                                <img src="${managerImage}" alt="Photo" class="rounded-circle border" width="32" height="32" style="object-fit: cover;">
+                            </div>
+                            <div class="small">
+                                <div class="fw-medium">${managerName}</div>
+                                <small class="text-muted">Responsable</small>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div style="width: 300px; max-width: 100%;">
+                        <h6 class="text-primary mb-2"><i class="fas fa-project-diagram me-1"></i>${project.name}</h6>
+                        <p class="small mb-2">${project.description || 'Description non disponible'}</p>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-${statusClass}">${statusText}</span>
+                            ${project.progress !== undefined ? `<div class="progress" style="width: 100px; height: 6px;"><div class="progress-bar bg-${statusClass}" role="progressbar" style="width: ${Math.round(project.progress)}%"></div></div>` : ''}
+                        </div>
+
+                        ${responsiblePerson}
+
+                        <div class="mt-2 bg-light p-2 rounded">
+                            <div class="row g-0">
+                                <div class="col-12">
+                                    <p class="small mb-1">
+                                        <i class="fas fa-phone-alt me-1 text-success"></i>
+                                        <small>${project.contact_phone || 'Non disponible'}</small>
+                                    </p>
+                                </div>
+                                <div class="col-12">
+                                    <p class="small mb-0">
+                                        <i class="fas fa-envelope me-1 text-primary"></i>
+                                        <small>${project.contact_email || 'Non disponible'}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-2">
+
+                        <div class="d-flex justify-content-end align-items-center">
+                            <a href="${projectUrl}" target="_blank" class="btn btn-sm btn-primary text-white">
+                                <i class="fas fa-external-link-alt me-1"></i> Voir détails
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function createDecisionTooltip(decision) {
+                console.log("Creating decision tooltip for:", decision);
+                var typeText = '';
+                switch(decision.decision_type) {
+                    case 'decree': typeText = 'Décret'; break;
+                    case 'order': typeText = 'Arrêté'; break;
+                    case 'circular': typeText = 'Circulaire'; break;
+                    case 'instruction': typeText = 'Instruction'; break;
+                    default: typeText = 'Décision officielle';
+                }
+
+                // Get the base URL for the decision detail page
+                var baseUrl = window.location.origin;
+                var decisionUrl = `${baseUrl}/senegal2050/decision/${decision.id}`;
+
+                // Handle responsible person information
+                var responsiblePerson = '';
+                if (decision.responsible_user_id && decision.responsible_user_id[0]) {
+                    var responsibleId = decision.responsible_user_id[0];
+                    var responsibleName = decision.responsible_user_id[1];
+                    var responsibleImage = decision.responsible_image || '/web/static/img/user_placeholder.png';
+                    responsiblePerson = `
+                        <div class="d-flex align-items-center mt-2 mb-2 p-2 border rounded bg-light">
+                            <div class="me-2">
+                                <img src="${responsibleImage}" alt="Photo" class="rounded-circle border" width="32" height="32" style="object-fit: cover;">
+                            </div>
+                            <div class="small">
+                                <div class="fw-medium">${responsibleName}</div>
+                                <small class="text-muted">Responsable</small>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div style="width: 300px; max-width: 100%;">
+                        <h6 class="text-warning mb-2"><i class="fas fa-gavel me-1"></i>${decision.title || decision.name}</h6>
+                        <p class="small mb-2">${decision.description || 'Description non disponible'}</p>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-warning text-dark">${typeText}</span>
+                            ${decision.reference ? `<span class="badge bg-light text-dark border">Réf: ${decision.reference}</span>` : ''}
+                        </div>
+
+                        ${responsiblePerson}
+
+                        <div class="mt-2 bg-light p-2 rounded">
+                            <div class="row g-0">
+                                <div class="col-12">
+                                    <p class="small mb-1">
+                                        <i class="fas fa-phone-alt me-1 text-success"></i>
+                                        <small>${decision.contact_phone || 'Non disponible'}</small>
+                                    </p>
+                                </div>
+                                <div class="col-12">
+                                    <p class="small mb-0">
+                                        <i class="fas fa-envelope me-1 text-primary"></i>
+                                        <small>${decision.contact_email || 'Non disponible'}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-2">
+
+                        <div class="d-flex justify-content-end align-items-center">
+                            <a href="${decisionUrl}" target="_blank" class="btn btn-sm btn-warning text-white">
+                                <i class="fas fa-external-link-alt me-1"></i> Voir détails
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function createEventTooltip(event) {
+                console.log("Creating event tooltip for:", event);
+                var eventDate = '';
+                var formattedDate = '';
+                if (event.event_date) {
+                    eventDate = new Date(event.event_date);
+                    formattedDate = eventDate.toLocaleDateString('fr-FR');
+                } else if (event.date_start) {
+                    eventDate = new Date(event.date_start);
+                    formattedDate = eventDate.toLocaleDateString('fr-FR');
+                }
+
+                // Check if event is upcoming, ongoing, or past
+                var eventStatus = '';
+                var eventStatusClass = '';
+                var today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                if (eventDate) {
+                    if (eventDate > today) {
+                        eventStatus = 'À venir';
+                        eventStatusClass = 'success';
+                    } else if (eventDate.getTime() === today.getTime()) {
+                        eventStatus = "Aujourd'hui";
+                        eventStatusClass = 'danger';
+                    } else {
+                        eventStatus = 'Passé';
+                        eventStatusClass = 'secondary';
+                    }
+                }
+
+                // Get the base URL for the event detail page
+                var baseUrl = window.location.origin;
+                var eventUrl = `${baseUrl}/senegal2050/event/${event.id}`;
+
+                // Handle organizer/responsible person information
+                var responsiblePerson = '';
+                if (event.organizer_id && event.organizer_id[0]) {
+                    var organizerId = event.organizer_id[0];
+                    var organizerName = event.organizer_id[1];
+                    var organizerImage = event.organizer_image || '/web/static/img/user_placeholder.png';
+                    responsiblePerson = `
+                        <div class="d-flex align-items-center mt-2 mb-2 p-2 border rounded bg-light">
+                            <div class="me-2">
+                                <img src="${organizerImage}" alt="Photo" class="rounded-circle border" width="32" height="32" style="object-fit: cover;">
+                            </div>
+                            <div class="small">
+                                <div class="fw-medium">${organizerName}</div>
+                                <small class="text-muted">Organisateur</small>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div style="width: 300px; max-width: 100%;">
+                        <h6 class="text-info mb-2"><i class="fas fa-calendar-alt me-1"></i>${event.name}</h6>
+                        <p class="small mb-2">${event.description || 'Description non disponible'}</p>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-info">${event.event_type || 'Événement'}</span>
+                            ${eventStatus ? `<span class="badge bg-${eventStatusClass}">${eventStatus}</span>` : ''}
+                        </div>
+
+                        <div class="d-flex mb-2 bg-light p-2 rounded">
+                            <div class="me-2 text-center" style="width: 50px; min-width: 50px;">
+                                ${formattedDate ? `
+                                    <div class="border rounded bg-white">
+                                        <div class="bg-primary text-white rounded-top py-0" style="font-size: 9px; line-height: 1.2">
+                                            ${new Date(eventDate).toLocaleDateString('fr-FR', {month: 'short'}).toUpperCase()}
+                                        </div>
+                                        <div class="fw-bold py-1">
+                                            ${new Date(eventDate).getDate()}
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <div>
+                                ${event.location ? `<p class="small mb-1"><i class="fas fa-map-marker-alt me-1 text-danger"></i>${event.location}</p>` : ''}
+                                ${formattedDate ? `<p class="small mb-0"><i class="fas fa-clock me-1 text-secondary"></i>${formattedDate}</p>` : ''}
+                            </div>
+                        </div>
+
+                        ${responsiblePerson}
+
+                        <div class="mt-2 bg-light p-2 rounded">
+                            <div class="row g-0">
+                                <div class="col-12">
+                                    <p class="small mb-1">
+                                        <i class="fas fa-phone-alt me-1 text-success"></i>
+                                        <small>${event.contact_phone || 'Non disponible'}</small>
+                                    </p>
+                                </div>
+                                <div class="col-12">
+                                    <p class="small mb-0">
+                                        <i class="fas fa-envelope me-1 text-primary"></i>
+                                        <small>${event.contact_email || 'Non disponible'}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-2">
+
+                        <div class="d-flex justify-content-end align-items-center">
+                            <a href="${eventUrl}" target="_blank" class="btn btn-sm btn-info text-white">
+                                <i class="fas fa-external-link-alt me-1"></i> Voir détails
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Global variable to track all markers for the fit-to-map function
+            var allMarkers = [];
+
+            function updateMap() {
+                // Clear existing layers
+                projectLayer.clearLayers();
+                decisionLayer.clearLayers();
+                eventLayer.clearLayers();
+                map.removeLayer(projectLayer);
+                map.removeLayer(decisionLayer);
+                map.removeLayer(eventLayer);
+
+                allMarkers = [];
+                var counts = {projects: 0, decisions: 0, events: 0};
+
+                // Add project markers
+                if (document.getElementById('show_projects').checked && mapData.projects) {
+                    mapData.projects.forEach(function(project) {
+                        if (project.latitude && project.longitude) {
+                            var marker = L.marker([project.latitude, project.longitude], {icon: projectIcon})
+                                .bindPopup(createProjectTooltip(project), {
+                                    maxWidth: 400,
+                                    minWidth: 300,
+                                    className: 'custom-popup',
+                                    autoPan: true,
+                                    closeButton: true,
+                                    closeOnClick: false,
+                                    autoClose: false
+                                });
+
+                            // Add click handler for project details
+                            marker.on('click', function() {
+                                this.openPopup();
+                                console.log('Project clicked:', project);
+                                document.querySelector('.popup-instruction small').style.display = 'inline-block';
+                            });
+
+                            // Force immediate binding to ensure popup works
+                            setTimeout(function() {
+                                marker.getPopup().update();
+                            }, 100);
+
+                            projectLayer.addLayer(marker);
+                            allMarkers.push(marker);
+                            counts.projects++;
+                        }
+                    });
+                    map.addLayer(projectLayer);
+                }
+
+                // Add decision markers
+                if (document.getElementById('show_decisions').checked && mapData.decisions) {
+                    mapData.decisions.forEach(function(decision) {
+                        if (decision.latitude && decision.longitude) {
+                            var marker = L.marker([decision.latitude, decision.longitude], {icon: decisionIcon})
+                                .bindPopup(createDecisionTooltip(decision), {
+                                    maxWidth: 400,
+                                    minWidth: 300,
+                                    className: 'custom-popup',
+                                    autoPan: true,
+                                    closeButton: true,
+                                    closeOnClick: false,
+                                    autoClose: false
+                                });
+
+                            // Add click handler for decision details
+                            marker.on('click', function() {
+                                this.openPopup();
+                                console.log('Decision clicked:', decision);
+                                document.querySelector('.popup-instruction small').style.display = 'inline-block';
+                            });
+
+                            // Force immediate binding to ensure popup works
+                            setTimeout(function() {
+                                marker.getPopup().update();
+                            }, 100);
+
+                            decisionLayer.addLayer(marker);
+                            allMarkers.push(marker);
+                            counts.decisions++;
+                        }
+                    });
+                    map.addLayer(decisionLayer);
+                }
+
+                // Add event markers
+                if (document.getElementById('show_events').checked && mapData.events) {
+                    mapData.events.forEach(function(event) {
+                        if (event.latitude && event.longitude) {
+                            var marker = L.marker([event.latitude, event.longitude], {icon: eventIcon})
+                                .bindPopup(createEventTooltip(event), {
+                                    maxWidth: 400,
+                                    minWidth: 300,
+                                    className: 'custom-popup',
+                                    autoPan: true,
+                                    closeButton: true,
+                                    closeOnClick: false,
+                                    autoClose: false
+                                });
+
+                            // Add click handler for event details
+                            marker.on('click', function() {
+                                this.openPopup();
+                                console.log('Event clicked:', event);
+                                document.querySelector('.popup-instruction small').style.display = 'inline-block';
+                            });
+
+                            // Force immediate binding to ensure popup works
+                            setTimeout(function() {
+                                marker.getPopup().update();
+                            }, 100);
+
+                            eventLayer.addLayer(marker);
+                            allMarkers.push(marker);
+                            counts.events++;
+                        }
+                    });
+                    map.addLayer(eventLayer);
+                }
+
+                // Update counters
+                document.getElementById('project-count').textContent = counts.projects;
+                document.getElementById('decision-count').textContent = counts.decisions;
+                document.getElementById('event-count').textContent = counts.events;
+
+                // Fit map to markers if any exist
+                if (allMarkers.length > 0) {
+                    var group = new L.featureGroup(allMarkers);
+                    map.fitBounds(group.getBounds(), {
+                        padding: [20, 20],
+                        maxZoom: 10
+                    });
+                    console.log('Map fitted to ' + allMarkers.length + ' markers');
+                } else {
+                    // Center on Senegal if no markers
+                    map.setView([14.5, -14.5], 7);
+                    console.log('No markers visible, using default Senegal view');
+                }
+            }
+
+            // Load data and initialize map
+            fetchMapData();
+
+            // Event listeners for checkboxes
+            document.getElementById('show_projects').addEventListener('change', updateMap);
+            document.getElementById('show_decisions').addEventListener('change', updateMap);
+            document.getElementById('show_events').addEventListener('change', updateMap);
+
+            // Add event listener for the fit to map button
+            document.getElementById('fit-to-map-btn').addEventListener('click', function() {
+                if (allMarkers && allMarkers.length > 0) {
+                    var group = new L.featureGroup(allMarkers);
+                    map.fitBounds(group.getBounds(), {
+                        padding: [20, 20],
+                        maxZoom: 10
+                    });
+                    console.log('Map fitted to ' + allMarkers.length + ' markers');
+                } else {
+                    // Center on Senegal if no markers
+                    map.setView([14.5, -14.5], 7);
+                    console.log('No markers visible, using default Senegal view');
+                }
+            });
+
+            console.log('Enhanced map initialization complete');
+
+        } catch (error) {
+            console.error('Enhanced map error:', error);
+            document.getElementById('enhanced-map').innerHTML = '<div class="alert alert-danger"><h6>Erreur de chargement de la carte</h6><p>' + error.message + '</p><small>Veuillez rafraîchir la page ou contacter le support technique.</small></div>';
+            document.getElementById('map-loading').style.display = 'none';
+        }
+    }, 1000);
+});
+
+// Custom CSS for better popups
+var style = document.createElement('style');
+style.textContent = `
+    .custom-popup .leaflet-popup-content-wrapper {
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        min-width: 300px !important;
+        overflow: visible;
+        padding: 10px;
+    }
+    .custom-popup .leaflet-popup-content {
+        margin: 12px 16px;
+        line-height: 1.4;
+        width: auto !important;
+        min-width: 300px !important;
+    }
+    .custom-popup .leaflet-popup-tip {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .custom-icon {
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+    .custom-icon:hover {
+        transform: scale(1.1);
+    }
+    #fit-to-map-btn {
+        transition: all 0.2s ease;
+        font-weight: 500;
+    }
+    #fit-to-map-btn:hover {
+        transform: scale(1.05);
+    }
+    #enhanced-map > div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    /* Fix for tooltips */
+    .leaflet-popup {
+        z-index: 1000 !important;
+    }
+    .leaflet-popup-content p {
+        margin: 0 0 8px 0;
+    }
+    .leaflet-popup-close-button {
+        padding: 8px !important;
+        font-size: 20px !important;
+        color: #dc3545 !important;
+        font-weight: bold !important;
+        text-shadow: 0 1px 0 white !important;
+        opacity: 0.8 !important;
+    }
+    .leaflet-popup-close-button:hover {
+        color: #dc3545 !important;
+        opacity: 1 !important;
+    }
+    .progress {
+        background-color: rgba(0,0,0,0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .leaflet-container {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    /* Marker cluster custom styles */
+    .marker-cluster-project div {
+        background-color: rgba(0, 123, 255, 0.7);
+        color: white;
+    }
+    .marker-cluster-project {
+        background-color: rgba(0, 123, 255, 0.2);
+    }
+
+    .marker-cluster-decision div {
+        background-color: rgba(255, 193, 7, 0.7);
+        color: white;
+    }
+    .marker-cluster-decision {
+        background-color: rgba(255, 193, 7, 0.2);
+    }
+
+    .marker-cluster-event div {
+        background-color: rgba(23, 162, 184, 0.7);
+        color: white;
+    }
+    .marker-cluster-event {
+        background-color: rgba(23, 162, 184, 0.2);
+    }
+
+    .marker-cluster {
+        background-clip: padding-box;
+        border-radius: 20px;
+    }
+    .marker-cluster div {
+        width: 30px;
+        height: 30px;
+        margin-left: 5px;
+        margin-top: 5px;
+        text-align: center;
+        border-radius: 15px;
+        font-weight: bold;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+`;
+document.head.appendChild(style);
+//]]>
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="portal_my_home_map" name="Map" customize_show="True" inherit_id="sama_etat.modern_public_dashboard_page" priority="30">
+        <xpath expr="//div[hasclass('modern-qr-container')]" position="after">
+            <t t-call="sama_etat.standalone_map_section"/>
+        </xpath>
+    </template>
+</odoo>

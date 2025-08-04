@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="public_event_page" name="Événement - Page Publique">
+            <t t-call="sama_etat.modern_public_layout">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="senegal-card">
+                            <div class="card-header bg-primary text-white">
+                                <h2 class="card-title mb-0">
+                                    <i class="fa fa-calendar-alt me-2"/>
+                                    <t t-esc="event['name']"/>
+                                </h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <strong>Type :</strong> <t t-esc="dict(env['government.event']._fields['event_type'].selection).get(event['event_type'])"/><br/>
+                                        <strong>Date :</strong> <span t-esc="event['event_date']" t-options='{"widget": "date"}'/><br/>
+                                        <strong>Lieu :</strong> <t t-esc="event['location']"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <strong>Organisateur :</strong><br/>
+                                        <t t-if="event['organizer_id']">
+                                            <a t-attf-href="/senegal2050/ministry/#{event['organizer_id'][0]}" class="text-decoration-none">
+                                                <t t-esc="event['organizer_id'][1]"/>
+                                            </a>
+                                        </t>
+                                        <t t-else="">Non défini</t>
+                                    </div>
+                                </div>
+
+                                <t t-if="event['description']">
+                                    <h4>Description</h4>
+                                    <p t-esc="event['description']" class="lead"/>
+                                </t>
+
+                                <t t-if="event['project_id']">
+                                    <h4>Projet Associé</h4>
+                                    <div class="alert alert-info">
+                                        <a t-attf-href="/senegal2050/project/#{event['project_id'][0]}" class="alert-link">
+                                            <strong t-esc="event['project_id'][1]"/>
+                                        </a>
+                                    </div>
+                                </t>
+
+                                <t t-if="event['strategic_objective_id']">
+                                    <h4>Objectif Stratégique</h4>
+                                    <div class="alert alert-success">
+                                        <a t-attf-href="/senegal2050/objective/#{event['strategic_objective_id'][0]}" class="alert-link">
+                                            <strong t-esc="event['strategic_objective_id'][1]"/>
+                                        </a>
+                                    </div>
+                                </t>
+
+                                <t t-if="event['latitude'] and event['longitude']">
+                                    <h4>Localisation</h4>
+                                    <p>Latitude: <span t-esc="event['latitude']"/>, Longitude: <span t-esc="event['longitude']"/></p>
+                                    <div id="event_map" style="height: 300px; width: 100%;"></div>
+                                    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+                                    <script>
+//<![CDATA[
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            var eventMap = L.map('event_map').setView([<t t-esc="event['latitude']"/>, <t t-esc="event['longitude']"/>], 13);
+
+                                            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                                attribution: '&#169; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                            }).addTo(eventMap);
+
+                                            L.marker([<t t-esc="event['latitude']"/>, <t t-esc="event['longitude']"/>])
+                                                .addTo(eventMap)
+                                                .bindPopup('<b>' + "<t t-esc="event['name']"/>" + '</b>').openPopup();
+
+                                            setTimeout(function() { eventMap.invalidateSize(); }, 200);
+                                        });
+//]]>
+                                    </script>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="qr-code-container">
+                            <h5>Partager cet événement</h5>
+                            <img t-attf-src="data:image/png;base64,#{qr_code}" 
+                                 alt="QR Code de l'événement" class="img-fluid mb-3" style="max-width: 200px;"/>
+                            <p class="small text-muted mb-3">Scannez ce code QR pour partager</p>
+                            <input type="text" class="form-control" 
+                                   t-att-value="event_url" readonly="readonly"
+                                   onclick="this.select();"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Government Budget Tree View -->
+        <record id="government_budget_view_tree" model="ir.ui.view">
+            <field name="name">government.budget.tree</field>
+            <field name="model">government.budget</field>
+            <field name="arch" type="xml">
+                <list string="Budgets">
+                    <field name="name"/>
+                    <field name="fiscal_year"/>
+                    <field name="allocated_amount"/>
+                    <field name="used_amount"/>
+                    <field name="strategic_objective_id"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Government Budget Form View -->
+        <record id="government_budget_view_form" model="ir.ui.view">
+            <field name="name">government.budget.form</field>
+            <field name="model">government.budget</field>
+            <field name="arch" type="xml">
+                <form string="Budget">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="fiscal_year"/>
+                                <field name="allocated_amount"/>
+                                <field name="used_amount"/>
+                            </group>
+                            <group>
+                                <field name="ministry_id"/>
+                                <field name="strategic_objective_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Government Budget Action Window -->
+        <record id="government_budget_action" model="ir.actions.act_window">
+            <field name="name">Budgets</field>
+            <field name="res_model">government.budget</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+
+        <!-- Government Budget Kanban View -->
+        <record id="government_budget_view_kanban" model="ir.ui.view">
+            <field name="name">government.budget.kanban</field>
+            <field name="model">government.budget</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="fiscal_year">
+                    <field name="fiscal_year"/>
+                    <field name="name"/>
+                    <field name="allocated_amount"/>
+                    <field name="used_amount"/>
+                    <field name="ministry_id"/>
+                    <field name="strategic_objective_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                    <ul>
+                                        <li>Année Fiscale: <field name="fiscal_year"/></li>
+                                        <li>Montant Alloué: <field name="allocated_amount"/></li>
+                                        <li>Montant Utilisé: <field name="used_amount"/></li>
+                                        <li>Ministère: <field name="ministry_id"/></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</odoo>

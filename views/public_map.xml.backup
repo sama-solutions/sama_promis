@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_map" name="Map" customize_show="True" inherit_id="sama_etat.modern_public_dashboard_page" priority="30">
+        <xpath expr="//div[hasclass('modern-qr-container')]" position="after">
+            <div class="modern-card mb-4 animate-fade-in-up" style="animation-delay: 0.65s;">
+                <div class="modern-card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-map-marker-alt me-2 text-danger"></i>
+                        Carte des Projets, Décisions et Événements
+                    </h5>
+                </div>
+                <div class="modern-card-body">
+                    <div id="map-wrapper" style="width: 100%; height: 0; padding-bottom: 100%; position: relative; margin: 0 auto;">
+                        <div id="mapid" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="project_checkbox" checked="checked"/>
+                                <label class="form-check-label" for="project_checkbox">Projets</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="decision_checkbox" checked="checked"/>
+                                <label class="form-check-label" for="decision_checkbox">Décisions</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="event_checkbox" checked="checked"/>
+                                <label class="form-check-label" for="event_checkbox">Événements</label>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+                    <script>
+//<![CDATA[
+                        document.addEventListener('DOMContentLoaded', function () {
+                            var mapDiv = document.getElementById('mapid');
+                            if (!mapDiv) {
+                                console.error('Map div with ID "mapid" not found.');
+                                return;
+                            }
+
+                            var map = L.map(mapDiv).setView([14.4974, -14.4524], 7); // Centered on Senegal
+
+                            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                attribution: '&#169; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            }).addTo(map);
+
+                            // Invalidate size after a short delay to ensure container is rendered
+                            setTimeout(function() { 
+                                map.invalidateSize(); 
+                                console.log('Map invalidateSize called after 200ms.');
+                                console.log('Map div dimensions (after 200ms): ', mapDiv.offsetWidth, 'x', mapDiv.offsetHeight);
+                            }, 200); 
+
+                            // Explicitly set Leaflet's default icon paths
+                            L.Icon.Default.imagePath = '/sama_etat/static/lib/leaflet/images/';
+
+                            var project_layer = L.layerGroup().addTo(map);
+                            var decision_layer = L.layerGroup().addTo(map);
+                            var event_layer = L.layerGroup().addTo(map);
+
+                            function fetchData() {
+                                console.log('Fetching map data...');
+                                fetch('/sama_etat/get_map_data', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({}),
+                                })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error('Network response was not ok ' + response.statusText);
+                                        }
+                                        return response.json();
+                                    })
+                                    .then(data => {
+                                        console.log('Map data received:', data);
+                                        project_layer.clearLayers();
+                                        decision_layer.clearLayers();
+                                        event_layer.clearLayers();
+                                        var all_markers = [];
+
+                                        if (document.getElementById('project_checkbox').checked) {
+                                            data.result.projects.forEach(function(project) {
+                                                if (project.latitude && project.longitude) {
+                                                    var marker = L.marker([project.latitude, project.longitude]).addTo(project_layer)
+                                                        .bindPopup('<b>' + project.name + '</b><br>' + project.description);
+                                                    all_markers.push(marker);
+                                                    console.log('Added project marker:', project.name);
+                                                }
+                                            });
+                                        }
+
+                                        if (document.getElementById('decision_checkbox').checked) {
+                                            data.result.decisions.forEach(function(decision) {
+                                                if (decision.latitude && decision.longitude) {
+                                                    var marker = L.marker([decision.latitude, decision.longitude]).addTo(decision_layer)
+                                                        .bindPopup('<b>' + decision.name + '</b><br>' + decision.description);
+                                                    all_markers.push(marker);
+                                                    console.log('Added decision marker:', decision.name);
+                                                }
+                                            });
+                                        }
+
+                                        if (document.getElementById('event_checkbox').checked) {
+                                            data.result.events.forEach(function(event) {
+                                                if (event.latitude && event.longitude) {
+                                                    var marker = L.marker([event.latitude, event.longitude]).addTo(event_layer)
+                                                        .bindPopup('<b>' + event.name + '</b><br>' + event.description);
+                                                    all_markers.push(marker);
+                                                    console.log('Added event marker:', event.name);
+                                                }
+                                            });
+                                        }
+
+                                        if (all_markers.length > 0) {
+                                            var group = new L.featureGroup(all_markers);
+                                            map.fitBounds(group.getBounds());
+                                            console.log('Map fitted to bounds of', all_markers.length, 'markers.');
+                                        } else {
+                                            // Default view if no markers
+                                            map.setView([14.4974, -14.4524], 7); // Centered on Senegal
+                                            console.log('No markers found, setting default map view.');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('There has been a problem with your fetch operation:', error);
+                                    });
+                            }
+
+                            document.getElementById('project_checkbox').addEventListener('change', fetchData);
+                            document.getElementById('decision_checkbox').addEventListener('change', fetchData);
+                            document.getElementById('event_checkbox').addEventListener('change', fetchData);
+
+                            fetchData();
+                        });
+//]]>
+                    </script>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

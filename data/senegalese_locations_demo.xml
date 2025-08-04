@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- ================================================ -->
+        <!-- DÉPARTEMENTS DU SÉNÉGAL - DONNÉES DÉMO          -->
+        <!-- ================================================ -->
+
+        <!-- Région de Dakar -->
+        <record id="departement_dakar" model="project.public.location.departement">
+            <field name="name">Dakar</field>
+            <field name="code">DK</field>
+            <field name="description">Département de Dakar, capitale du Sénégal</field>
+        </record>
+
+        <record id="departement_pikine" model="project.public.location.departement">
+            <field name="name">Pikine</field>
+            <field name="code">PK</field>
+            <field name="description">Département de Pikine, banlieue de Dakar</field>
+        </record>
+
+        <record id="departement_guediawaye" model="project.public.location.departement">
+            <field name="name">Guédiawaye</field>
+            <field name="code">GD</field>
+            <field name="description">Département de Guédiawaye</field>
+        </record>
+
+        <!-- Région de Thiès -->
+        <record id="departement_thies" model="project.public.location.departement">
+            <field name="name">Thiès</field>
+            <field name="code">TH</field>
+            <field name="description">Département de Thiès</field>
+        </record>
+
+        <record id="departement_tivaouane" model="project.public.location.departement">
+            <field name="name">Tivaouane</field>
+            <field name="code">TV</field>
+            <field name="description">Département de Tivaouane</field>
+        </record>
+
+        <!-- Région de Saint-Louis -->
+        <record id="departement_saint_louis" model="project.public.location.departement">
+            <field name="name">Saint-Louis</field>
+            <field name="code">SL</field>
+            <field name="description">Département de Saint-Louis</field>
+        </record>
+
+        <!-- Région de Diourbel -->
+        <record id="departement_diourbel" model="project.public.location.departement">
+            <field name="name">Diourbel</field>
+            <field name="code">DB</field>
+            <field name="description">Département de Diourbel, cœur du bassin arachidier</field>
+        </record>
+
+        <!-- Région de Kaolack -->
+        <record id="departement_kaolack" model="project.public.location.departement">
+            <field name="name">Kaolack</field>
+            <field name="code">KL</field>
+            <field name="description">Département de Kaolack</field>
+        </record>
+
+        <!-- Région de Tambacounda -->
+        <record id="departement_tambacounda" model="project.public.location.departement">
+            <field name="name">Tambacounda</field>
+            <field name="code">TC</field>
+            <field name="description">Département de Tambacounda</field>
+        </record>
+
+        <!-- Région de Ziguinchor -->
+        <record id="departement_ziguinchor" model="project.public.location.departement">
+            <field name="name">Ziguinchor</field>
+            <field name="code">ZG</field>
+            <field name="description">Département de Ziguinchor, capitale de la Casamance</field>
+        </record>
+
+        <!-- ================================================ -->
+        <!-- COMMUNES DU SÉNÉGAL AVEC COORDONNÉES RÉELLES    -->
+        <!-- ================================================ -->
+
+        <!-- Communes de la Région de Dakar -->
+        <record id="commune_dakar_plateau" model="project.public.location.commune">
+            <field name="name">Dakar-Plateau</field>
+            <field name="code">DKR-PLT</field>
+            <field name="departement_id" ref="departement_dakar"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">234000</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+            <field name="description">Centre administratif et économique de Dakar</field>
+        </record>
+
+        <record id="commune_parcelles_assainies" model="project.public.location.commune">
+            <field name="name">Parcelles Assainies</field>
+            <field name="code">PA</field>
+            <field name="departement_id" ref="departement_pikine"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">456000</field>
+            <field name="latitude">14.758945</field>
+            <field name="longitude">-17.393754</field>
+            <field name="description">Grande commune de banlieue dakaroise</field>
+        </record>
+
+        <record id="commune_guediawaye" model="project.public.location.commune">
+            <field name="name">Guédiawaye</field>
+            <field name="code">GDW</field>
+            <field name="departement_id" ref="departement_guediawaye"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">345000</field>
+            <field name="latitude">14.775556</field>
+            <field name="longitude">-17.413889</field>
+            <field name="description">Commune urbaine de la banlieue dakaroise</field>
+        </record>
+
+        <!-- Communes de la Région de Thiès -->
+        <record id="commune_thies" model="project.public.location.commune">
+            <field name="name">Thiès</field>
+            <field name="code">THI</field>
+            <field name="departement_id" ref="departement_thies"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">289000</field>
+            <field name="latitude">14.788889</field>
+            <field name="longitude">-16.936111</field>
+            <field name="description">Chef-lieu de région, important carrefour ferroviaire</field>
+        </record>
+
+        <record id="commune_tivaouane" model="project.public.location.commune">
+            <field name="name">Tivaouane</field>
+            <field name="code">TIV</field>
+            <field name="departement_id" ref="departement_tivaouane"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">89000</field>
+            <field name="latitude">14.950000</field>
+            <field name="longitude">-16.816667</field>
+            <field name="description">Ville sainte de la confrérie tidjane</field>
+        </record>
+
+        <!-- Communes de la Région de Saint-Louis -->
+        <record id="commune_saint_louis" model="project.public.location.commune">
+            <field name="name">Saint-Louis</field>
+            <field name="code">STL</field>
+            <field name="departement_id" ref="departement_saint_louis"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">176000</field>
+            <field name="latitude">16.026340</field>
+            <field name="longitude">-16.489649</field>
+            <field name="description">Ancienne capitale du Sénégal, site du patrimoine mondial UNESCO</field>
+        </record>
+
+        <!-- Communes de la Région de Diourbel -->
+        <record id="commune_diourbel" model="project.public.location.commune">
+            <field name="name">Diourbel</field>
+            <field name="code">DRB</field>
+            <field name="departement_id" ref="departement_diourbel"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">123000</field>
+            <field name="latitude">14.654722</field>
+            <field name="longitude">-16.231944</field>
+            <field name="description">Centre du bassin arachidier sénégalais</field>
+        </record>
+
+        <record id="commune_touba" model="project.public.location.commune">
+            <field name="name">Touba</field>
+            <field name="code">TBA</field>
+            <field name="departement_id" ref="departement_diourbel"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">529000</field>
+            <field name="latitude">14.850000</field>
+            <field name="longitude">-15.883333</field>
+            <field name="description">Ville sainte de la confrérie mouride</field>
+        </record>
+
+        <!-- Communes de la Région de Kaolack -->
+        <record id="commune_kaolack" model="project.public.location.commune">
+            <field name="name">Kaolack</field>
+            <field name="code">KLC</field>
+            <field name="departement_id" ref="departement_kaolack"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">195000</field>
+            <field name="latitude">14.151515</field>
+            <field name="longitude">-16.077778</field>
+            <field name="description">Important port fluvial et centre commercial</field>
+        </record>
+
+        <!-- Communes de la Région de Tambacounda -->
+        <record id="commune_tambacounda" model="project.public.location.commune">
+            <field name="name">Tambacounda</field>
+            <field name="code">TBA</field>
+            <field name="departement_id" ref="departement_tambacounda"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">116000</field>
+            <field name="latitude">13.771944</field>
+            <field name="longitude">-13.671006</field>
+            <field name="description">Chef-lieu de région de l'est du Sénégal</field>
+        </record>
+
+        <record id="commune_kedougou" model="project.public.location.commune">
+            <field name="name">Kédougou</field>
+            <field name="code">KDG</field>
+            <field name="departement_id" ref="departement_tambacounda"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">26000</field>
+            <field name="latitude">12.557892</field>
+            <field name="longitude">-12.179688</field>
+            <field name="description">Centre minier du sud-est sénégalais</field>
+        </record>
+
+        <!-- Communes de la Région de Ziguinchor -->
+        <record id="commune_ziguinchor" model="project.public.location.commune">
+            <field name="name">Ziguinchor</field>
+            <field name="code">ZGR</field>
+            <field name="departement_id" ref="departement_ziguinchor"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">205000</field>
+            <field name="latitude">12.548267</field>
+            <field name="longitude">-16.263982</field>
+            <field name="description">Capitale de la Casamance</field>
+        </record>
+
+        <!-- Communes supplémentaires importantes -->
+        <record id="commune_fatick" model="project.public.location.commune">
+            <field name="name">Fatick</field>
+            <field name="code">FTK</field>
+            <field name="departement_id" ref="departement_kaolack"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">76000</field>
+            <field name="latitude">14.334167</field>
+            <field name="longitude">-16.405556</field>
+            <field name="description">Centre administratif du Sine-Saloum</field>
+        </record>
+
+        <record id="commune_louga" model="project.public.location.commune">
+            <field name="name">Louga</field>
+            <field name="code">LGA</field>
+            <field name="departement_id" ref="departement_saint_louis"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">104000</field>
+            <field name="latitude">15.619166</field>
+            <field name="longitude">-16.226111</field>
+            <field name="description">Chef-lieu de la région de Louga</field>
+        </record>
+
+        <record id="commune_matam" model="project.public.location.commune">
+            <field name="name">Matam</field>
+            <field name="code">MTM</field>
+            <field name="departement_id" ref="departement_saint_louis"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">45000</field>
+            <field name="latitude">15.655647</field>
+            <field name="longitude">-13.255615</field>
+            <field name="description">Chef-lieu de la région de Matam, vallée du fleuve Sénégal</field>
+        </record>
+
+        <!-- Communes rurales importantes -->
+        <record id="commune_rufisque" model="project.public.location.commune">
+            <field name="name">Rufisque</field>
+            <field name="code">RFS</field>
+            <field name="departement_id" ref="departement_pikine"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">221000</field>
+            <field name="latitude">14.716944</field>
+            <field name="longitude">-17.269722</field>
+            <field name="description">Ancienne capitale du commerce colonial</field>
+        </record>
+
+        <record id="commune_mbour" model="project.public.location.commune">
+            <field name="name">Mbour</field>
+            <field name="code">MBR</field>
+            <field name="departement_id" ref="departement_thies"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">232000</field>
+            <field name="latitude">14.416667</field>
+            <field name="longitude">-16.966667</field>
+            <field name="description">Important centre de pêche et destination touristique</field>
+        </record>
+
+        <record id="commune_kolda" model="project.public.location.commune">
+            <field name="name">Kolda</field>
+            <field name="code">KLD</field>
+            <field name="departement_id" ref="departement_ziguinchor"/>
+            <field name="type_commune">urbaine</field>
+            <field name="population">66000</field>
+            <field name="latitude">12.894444</field>
+            <field name="longitude">-14.950000</field>
+            <field name="description">Chef-lieu de la haute Casamance</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Government Decision Tree View -->
+        <record id="government_decision_view_tree" model="ir.ui.view">
+            <field name="name">government.decision.tree</field>
+            <field name="model">government.decision</field>
+            <field name="arch" type="xml">
+                <list string="Décisions Officielles" decoration-info="implementation_status == 'not_started'" decoration-success="implementation_status == 'completed'" decoration-warning="implementation_status in ['in_progress', 'partially_completed']" decoration-danger="implementation_status in ['delayed', 'blocked']">
+                    <field name="reference"/>
+                    <field name="title"/>
+                    <field name="decision_date"/>
+                    <field name="decision_type"/>
+                    <field name="implementation_status" decoration-info="implementation_status == 'not_started'" decoration-success="implementation_status == 'completed'" decoration-warning="implementation_status in ['in_progress', 'partially_completed']" decoration-danger="implementation_status in ['delayed', 'blocked']"/>
+                    <field name="progress_percentage" widget="percentage"/>
+                    <field name="implementation_deadline"/>
+                    <field name="days_until_deadline" string="Jours Restants"/>
+                    <field name="responsible_user_id"/>
+                    <field name="strategic_objective_id"/>
+                    <field name="ministry_id"/>
+                    <field name="status"/>
+                    <field name="is_public"/>
+                    <field name="is_on_track" invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Government Decision Form View -->
+        <record id="government_decision_view_form" model="ir.ui.view">
+            <field name="name">government.decision.form</field>
+            <field name="model">government.decision</field>
+            <field name="arch" type="xml">
+                <form string="Décision Officielle">
+                    <header>
+                        <button name="action_set_to_draft" type="object" string="Modifier" class="oe_highlight" invisible="state == 'draft'"/>
+                        <button name="action_set_to_locked" type="object" string="Sauvegarder" class="oe_highlight" invisible="state == 'locked'"/>
+                        <!-- Boutons d'action pour le suivi -->
+                        <button name="action_start_implementation" type="object" string="Démarrer Mise en Œuvre" class="btn-primary" invisible="implementation_status != 'not_started'"/>
+                        <button name="action_complete_implementation" type="object" string="Marquer Terminée" class="btn-success" invisible="implementation_status == 'completed'"/>
+                        <button name="action_mark_delayed" type="object" string="Marquer Retardée" class="btn-warning" invisible="implementation_status in ['completed', 'delayed']"/>
+                        <button name="action_mark_blocked" type="object" string="Marquer Bloquée" class="btn-danger" invisible="implementation_status in ['completed', 'blocked']"/>
+                        <button name="action_create_follow_up_task" type="object" string="Créer Tâche de Suivi" class="btn-info"/>
+                        
+                        <field name="status" widget="statusbar" statusbar_visible="draft,published,archived"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,locked"/>
+                    </header>
+                    <sheet>
+                        <!-- Alerte pour les décisions en retard -->
+                        <div class="alert alert-danger" role="alert" invisible="not (implementation_status == 'delayed' or (days_until_deadline &lt; 0 and implementation_status != 'completed'))">
+                            <p><i class="fa fa-exclamation-triangle" title="Attention"/>  <strong>Décision en Retard:</strong> Cette décision nécessite une attention immédiate !</p>
+                        </div>
+                        
+                        <!-- Alerte pour les décisions bloquées -->
+                        <div class="alert alert-warning" role="alert" invisible="implementation_status != 'blocked'">
+                            <p><i class="fa fa-lock" title="Bloqué"/>  <strong>Décision Bloquée:</strong> Des obstacles empêchent sa mise en œuvre.</p>
+                        </div>
+                        
+                        <!-- Widgets statistiques -->
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" icon="fa-tasks" invisible="not responsible_user_id">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="progress_percentage" widget="integer"/>%
+                                    </span>
+                                    <span class="o_stat_text">Avancement</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" icon="fa-calendar" invisible="not implementation_deadline">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" style="font-size: 14px;">
+                                        <field name="days_until_deadline"/>
+                                    </span>
+                                    <span class="o_stat_text">Jours Restants</span>
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <!-- Titre -->
+                        <div class="oe_title">
+                            <h1>
+                                <field name="reference" readonly="1" class="text-primary"/> - <field name="title" placeholder="Titre de la décision..."/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group string="Informations Générales">
+                                <field name="decision_type"/>
+                                <field name="decision_date"/>
+                                <field name="strategic_objective_id" options="{'no_create': True}"/>
+                                <field name="ministry_id" options="{'no_create': True}"/>
+                                <field name="is_public"/>
+                            </group>
+                            <group string="Liens et Associations">
+                                <field name="project_id" options="{'no_create': True}"/>
+                                <field name="event_id" options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Section Suivi de Mise en Œuvre -->
+                        <group string="Suivi de Mise en Œuvre">
+                            <group>
+                                <field name="implementation_status"/>
+                                <field name="progress_percentage" widget="percentage"/>
+                                <field name="implementation_deadline"/>
+                                <field name="is_on_track" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="responsible_user_id"/>
+                                <field name="last_follow_up_date" readonly="1"/>
+                                <field name="next_follow_up_date"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Description">
+                                <field name="description" placeholder="Décrivez en détail la décision, ses objectifs et les actions à entreprendre..."/>
+                            </page>
+                            <page string="Document Officiel">
+                                <group>
+                                    <field name="document" filename="document_name"/>
+                                    <field name="document_name" invisible="1"/>
+                                </group>
+                            </page>
+                            <page string="Notes de Suivi">
+                                <field name="follow_up_notes" placeholder="Notes sur l'avancement, les difficultés rencontrées, les actions entreprises..."/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vue de recherche pour les décisions -->
+        <record id="government_decision_view_search" model="ir.ui.view">
+            <field name="name">government.decision.search</field>
+            <field name="model">government.decision</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="title" string="Titre" filter_domain="[('title','ilike',self)]"/>
+                    <field name="reference" string="Référence"/>
+                    <field name="strategic_objective_id" string="Objectif Stratégique"/>
+                    <field name="ministry_id" string="Ministère"/>
+                    <field name="responsible_user_id" string="Responsable"/>
+                    
+                    <separator/>
+                    
+                    <!-- Filtres par statut de mise en œuvre -->
+                    <filter string="Non Commencées" name="filter_not_started" domain="[('implementation_status','=','not_started')]"/>
+                    <filter string="En Cours" name="filter_in_progress" domain="[('implementation_status','in',['in_progress','partially_completed'])]"/>
+                    <filter string="Terminées" name="filter_completed" domain="[('implementation_status','=','completed')]"/>
+                    <filter string="En Retard" name="filter_delayed" domain="[('implementation_status','=','delayed')]"/>
+                    <filter string="Bloquées" name="filter_blocked" domain="[('implementation_status','=','blocked')]"/>
+                    
+                    <separator/>
+                    
+                    <!-- Filtres par type de décision -->
+                    <filter string="Décrets" name="filter_decree" domain="[('decision_type','=','decree')]"/>
+                    <filter string="Arrêtés" name="filter_order" domain="[('decision_type','=','order')]"/>
+                    <filter string="Publiques" name="filter_public" domain="[('is_public','=',True)]"/>
+                    
+                    <separator/>
+                    
+                    <!-- Filtres temporels -->
+                    <filter string="Échéances Proches" name="filter_deadline_soon" domain="[('days_until_deadline','&lt;=',30),('implementation_status','!=','completed')]"/>
+                    <filter string="En Retard Réel" name="filter_overdue" domain="[('days_until_deadline','&lt;',0),('implementation_status','!=','completed')]"/>
+                    <filter string="Dans les Temps" name="filter_on_track" domain="[('is_on_track','=',True)]"/>
+                    
+                    <separator/>
+                    
+                    <!-- Groupements -->
+                    <group expand="0" string="Grouper par">
+                        <filter string="État de Mise en Œuvre" name="group_implementation_status" context="{'group_by': 'implementation_status'}"/>
+                        <filter string="Ministère" name="group_ministry" context="{'group_by': 'ministry_id'}"/>
+                        <filter string="Type de Décision" name="group_decision_type" context="{'group_by': 'decision_type'}"/>
+                        <filter string="Objectif Stratégique" name="group_strategic_objective" context="{'group_by': 'strategic_objective_id'}"/>
+                        <filter string="Responsable" name="group_responsible" context="{'group_by': 'responsible_user_id'}"/>
+                        <filter string="Mois de Décision" name="group_decision_month" context="{'group_by': 'decision_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Government Decision Action Window -->
+        <record id="government_decision_action" model="ir.actions.act_window">
+            <field name="name">Décisions Officielles</field>
+            <field name="res_model">government.decision</field>
+            <field name="view_mode">list,kanban,form</field>
+            <field name="search_view_id" ref="government_decision_view_search"/>
+            <field name="context">{
+                'search_default_filter_in_progress': 1,
+                'search_default_group_implementation_status': 1
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créer votre première décision officielle !
+                </p>
+                <p>
+                    Les décisions officielles permettent de suivre la mise en œuvre des orientations du Conseil des Ministres.
+                    Chaque décision peut être liée à des projets et événements spécifiques avec un système de suivi intégré.
+                </p>
+            </field>
+        </record>
+
+        <!-- Government Decision Kanban View -->
+        <record id="government_decision_view_kanban" model="ir.ui.view">
+            <field name="name">government.decision.kanban</field>
+            <field name="model">government.decision</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="is_public">
+                    <field name="is_public"/>
+                    <field name="title"/>
+                    <field name="strategic_objective_id"/>
+                    <field name="ministry_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="title"/>
+                                    </strong>
+                                    <ul>
+                                        <li>Référence: <field name="reference"/></li>
+                                        <li>Date: <field name="decision_date"/></li>
+                                        <li>Objectif: <field name="strategic_objective_id"/></li>
+                                        <li>Ministère: <field name="ministry_id"/></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- =============================================== -->
+        <!-- MINISTÈRES DU GOUVERNEMENT DU SÉNÉGAL - 2024  -->
+        <!-- =============================================== -->
+
+        <!-- Ministères Régaliens et de Souveraineté -->
+        <record id="ministry_presidency" model="government.ministry">
+            <field name="name">Présidence de la République</field>
+            <field name="code">PR</field>
+            <field name="type">presidency</field>
+            <field name="description">Institution présidentielle du Sénégal, pilotage des politiques publiques et coordination gouvernementale.</field>
+            <field name="website">http://www.presidence.sn</field>
+            <field name="address">Avenue Léopold Sédar Senghor, Dakar</field>
+            <field name="phone">+221 33 869 10 00</field>
+            <field name="email">contact@presidence.sn</field>
+        </record>
+
+        <record id="ministry_interior" model="government.ministry">
+            <field name="name">Ministère de l'Intérieur</field>
+            <field name="code">MINT</field>
+            <field name="type">ministry</field>
+            <field name="description">Gestion de la sécurité intérieure, administration territoriale et collectivités locales.</field>
+            <field name="address">Rond-point de la Médina, Dakar</field>
+            <field name="phone">+221 33 849 20 00</field>
+            <field name="email">contact@interieur.gouv.sn</field>
+        </record>
+
+        <record id="ministry_defense" model="government.ministry">
+            <field name="name">Ministère des Forces Armées</field>
+            <field name="code">MFA</field>
+            <field name="type">ministry</field>
+            <field name="description">Défense nationale, forces armées et sécurité du territoire.</field>
+            <field name="address">Avenue Léopold Sédar Senghor, Dakar</field>
+            <field name="phone">+221 33 823 15 00</field>
+            <field name="email">contact@defense.gouv.sn</field>
+        </record>
+
+        <record id="ministry_foreign_affairs" model="government.ministry">
+            <field name="name">Ministère des Affaires Étrangères et des Sénégalais de l'Extérieur</field>
+            <field name="code">MAE</field>
+            <field name="type">ministry</field>
+            <field name="description">Relations diplomatiques, coopération internationale et diaspora sénégalaise.</field>
+            <field name="address">Place de l'Indépendance, Dakar</field>
+            <field name="phone">+221 33 823 71 00</field>
+            <field name="email">contact@diplomatie.gouv.sn</field>
+        </record>
+
+        <record id="ministry_justice" model="government.ministry">
+            <field name="name">Ministère de la Justice</field>
+            <field name="code">MJ</field>
+            <field name="type">ministry</field>
+            <field name="description">Administration de la justice, réforme judiciaire et droits humains.</field>
+            <field name="address">Building administratif, Dakar</field>
+            <field name="phone">+221 33 823 00 81</field>
+            <field name="email">contact@justice.gouv.sn</field>
+        </record>
+
+        <!-- Ministères Économiques et Financiers -->
+        <record id="ministry_economy_finance" model="government.ministry">
+            <field name="name">Ministère des Finances et du Budget</field>
+            <field name="code">MFB</field>
+            <field name="type">ministry</field>
+            <field name="description">Gestion des finances publiques, budget de l'État et politique fiscale.</field>
+            <field name="address">Rue René Ndiaye, Dakar</field>
+            <field name="phone">+221 33 823 24 30</field>
+            <field name="email">contact@finances.gouv.sn</field>
+        </record>
+
+        <record id="ministry_economy_planning" model="government.ministry">
+            <field name="name">Ministère de l'Économie, du Plan et de la Coopération</field>
+            <field name="code">MEPC</field>
+            <field name="type">ministry</field>
+            <field name="description">Planification économique, coopération au développement et suivi des politiques publiques.</field>
+            <field name="address">Building administratif, Dakar</field>
+            <field name="phone">+221 33 823 92 31</field>
+            <field name="email">contact@economie.gouv.sn</field>
+        </record>
+
+        <record id="ministry_commerce" model="government.ministry">
+            <field name="name">Ministère du Commerce et des PME</field>
+            <field name="code">MCP</field>
+            <field name="type">ministry</field>
+            <field name="description">Promotion du commerce, développement des PME et politique commerciale.</field>
+            <field name="address">Rue Docteur Thèze, Dakar</field>
+            <field name="phone">+221 33 823 50 85</field>
+            <field name="email">contact@commerce.gouv.sn</field>
+        </record>
+
+        <record id="ministry_industry" model="government.ministry">
+            <field name="name">Ministère de l'Industrie et de l'Entrepreneuriat</field>
+            <field name="code">MIE</field>
+            <field name="type">ministry</field>
+            <field name="description">Développement industriel, promotion de l'entrepreneuriat et zones franches.</field>
+            <field name="address">Avenue Bourguiba, Dakar</field>
+            <field name="phone">+221 33 823 40 20</field>
+            <field name="email">contact@industrie.gouv.sn</field>
+        </record>
+
+        <!-- Ministères Sociaux -->
+        <record id="ministry_health" model="government.ministry">
+            <field name="name">Ministère de la Santé et de l'Action Sociale</field>
+            <field name="code">MSAS</field>
+            <field name="type">ministry</field>
+            <field name="description">Système de santé publique, action sociale et couverture sanitaire universelle.</field>
+            <field name="address">Fann Résidence, Dakar</field>
+            <field name="phone">+221 33 823 00 50</field>
+            <field name="email">contact@sante.gouv.sn</field>
+        </record>
+
+        <record id="ministry_education" model="government.ministry">
+            <field name="name">Ministère de l'Éducation Nationale</field>
+            <field name="code">MEN</field>
+            <field name="type">ministry</field>
+            <field name="description">Système éducatif, enseignement primaire et secondaire, formation des enseignants.</field>
+            <field name="address">Rue Dr. Calmette, Dakar</field>
+            <field name="phone">+221 33 849 54 84</field>
+            <field name="email">contact@education.gouv.sn</field>
+        </record>
+
+        <record id="ministry_higher_education" model="government.ministry">
+            <field name="name">Ministère de l'Enseignement Supérieur, de la Recherche et de l'Innovation</field>
+            <field name="code">MESRI</field>
+            <field name="type">ministry</field>
+            <field name="description">Universités, recherche scientifique, innovation et enseignement supérieur.</field>
+            <field name="address">Building administratif, Dakar</field>
+            <field name="phone">+221 33 823 71 37</field>
+            <field name="email">contact@enseignementsuperieur.gouv.sn</field>
+        </record>
+
+        <record id="ministry_employment" model="government.ministry">
+            <field name="name">Ministère de l'Emploi, de la Formation Professionnelle et de l'Artisanat</field>
+            <field name="code">MEFPA</field>
+            <field name="type">ministry</field>
+            <field name="description">Politique de l'emploi, formation professionnelle et promotion de l'artisanat.</field>
+            <field name="address">Avenue Bourguiba, Dakar</field>
+            <field name="phone">+221 33 823 60 79</field>
+            <field name="email">contact@emploi.gouv.sn</field>
+        </record>
+
+        <record id="ministry_youth" model="government.ministry">
+            <field name="name">Ministère de la Jeunesse, des Sports et de la Culture</field>
+            <field name="code">MJSC</field>
+            <field name="type">ministry</field>
+            <field name="description">Politique jeunesse, développement sportif et promotion culturelle.</field>
+            <field name="address">Avenue Léopold Sédar Senghor, Dakar</field>
+            <field name="phone">+221 33 849 52 20</field>
+            <field name="email">contact@jeunesse.gouv.sn</field>
+        </record>
+
+        <!-- Ministères Techniques et Sectoriels -->
+        <record id="ministry_agriculture" model="government.ministry">
+            <field name="name">Ministère de l'Agriculture, de la Souveraineté Alimentaire et de l'Élevage</field>
+            <field name="code">MASAE</field>
+            <field name="type">ministry</field>
+            <field name="description">Développement agricole, sécurité alimentaire, élevage et pêche continentale.</field>
+            <field name="address">Rue Calmette, Dakar</field>
+            <field name="phone">+221 33 823 57 00</field>
+            <field name="email">contact@agriculture.gouv.sn</field>
+        </record>
+
+        <record id="ministry_fisheries" model="government.ministry">
+            <field name="name">Ministère des Pêches, des Infrastructures Maritimes et Portuaires</field>
+            <field name="code">MPIMP</field>
+            <field name="type">ministry</field>
+            <field name="description">Pêche maritime, infrastructures portuaires et économie bleue.</field>
+            <field name="address">Building Khadimou Rassoul, Dakar</field>
+            <field name="phone">+221 33 823 01 37</field>
+            <field name="email">contact@peches.gouv.sn</field>
+        </record>
+
+        <record id="ministry_mines_energy" model="government.ministry">
+            <field name="name">Ministère du Pétrole et des Énergies</field>
+            <field name="code">MPE</field>
+            <field name="type">ministry</field>
+            <field name="description">Politique énergétique, hydrocarbures et énergies renouvelables.</field>
+            <field name="address">Building administratif, Dakar</field>
+            <field name="phone">+221 33 823 38 34</field>
+            <field name="email">contact@energie.gouv.sn</field>
+        </record>
+
+        <record id="ministry_water" model="government.ministry">
+            <field name="name">Ministère de l'Hydraulique et de l'Assainissement</field>
+            <field name="code">MHA</field>
+            <field name="type">ministry</field>
+            <field name="description">Gestion des ressources en eau, assainissement et hydraulique rurale.</field>
+            <field name="address">Building administratif, Dakar</field>
+            <field name="phone">+221 33 849 71 71</field>
+            <field name="email">contact@hydraulique.gouv.sn</field>
+        </record>
+
+        <record id="ministry_environment" model="government.ministry">
+            <field name="name">Ministère de l'Environnement et de la Transition Écologique</field>
+            <field name="code">METE</field>
+            <field name="type">ministry</field>
+            <field name="description">Protection de l'environnement, changement climatique et transition écologique.</field>
+            <field name="address">Rue Léon Gontran Damas, Dakar</field>
+            <field name="phone">+221 33 823 87 57</field>
+            <field name="email">contact@environnement.gouv.sn</field>
+        </record>
+
+        <record id="ministry_infrastructure" model="government.ministry">
+            <field name="name">Ministère des Infrastructures, des Transports Terrestres et du Désenclavement</field>
+            <field name="code">MITTD</field>
+            <field name="type">ministry</field>
+            <field name="description">Infrastructures routières, transports terrestres et désenclavement des zones rurales.</field>
+            <field name="address">Building administratif, Dakar</field>
+            <field name="phone">+221 33 823 71 28</field>
+            <field name="email">contact@infrastructures.gouv.sn</field>
+        </record>
+
+        <record id="ministry_urban_planning" model="government.ministry">
+            <field name="name">Ministère de l'Urbanisme, des Collectivités Territoriales et de l'Aménagement des Territoires</field>
+            <field name="code">MUCTAT</field>
+            <field name="type">ministry</field>
+            <field name="description">Urbanisme, aménagement du territoire et développement local.</field>
+            <field name="address">Avenue Bourguiba, Dakar</field>
+            <field name="phone">+221 33 823 92 44</field>
+            <field name="email">contact@urbanisme.gouv.sn</field>
+        </record>
+
+        <!-- Ministères Spécialisés -->
+        <record id="ministry_digital" model="government.ministry">
+            <field name="name">Ministère de la Communication, des Télécommunications et du Numérique</field>
+            <field name="code">MCTN</field>
+            <field name="type">ministry</field>
+            <field name="description">Transformation numérique, télécommunications et politique de communication.</field>
+            <field name="address">Building administratif, Dakar</field>
+            <field name="phone">+221 33 823 10 25</field>
+            <field name="email">contact@numerique.gouv.sn</field>
+        </record>
+
+        <record id="ministry_tourism" model="government.ministry">
+            <field name="name">Ministère du Tourisme et de l'Artisanat</field>
+            <field name="code">MTA</field>
+            <field name="type">ministry</field>
+            <field name="description">Développement touristique, promotion de l'artisanat et industries créatives.</field>
+            <field name="address">Avenue Léopold Sédar Senghor, Dakar</field>
+            <field name="phone">+221 33 823 01 80</field>
+            <field name="email">contact@tourisme.gouv.sn</field>
+        </record>
+
+        <record id="ministry_gender" model="government.ministry">
+            <field name="name">Ministère de la Famille et des Solidarités</field>
+            <field name="code">MFS</field>
+            <field name="type">ministry</field>
+            <field name="description">Politique familiale, égalité de genre et solidarités nationales.</field>
+            <field name="address">Avenue Bourguiba, Dakar</field>
+            <field name="phone">+221 33 823 86 39</field>
+            <field name="email">contact@famille.gouv.sn</field>
+        </record>
+
+        <record id="ministry_microfinance" model="government.ministry">
+            <field name="name">Ministère de la Microfinance et de l'Économie Sociale et Solidaire</field>
+            <field name="code">MMESS</field>
+            <field name="type">ministry</field>
+            <field name="description">Microfinance, économie sociale et solidaire, inclusion financière.</field>
+            <field name="address">Building administratif, Dakar</field>
+            <field name="phone">+221 33 823 74 21</field>
+            <field name="email">contact@microfinance.gouv.sn</field>
+        </record>
+
+        <!-- Secrétariats d'État -->
+        <record id="secretary_diaspora" model="government.ministry">
+            <field name="name">Secrétariat d'État chargé des Sénégalais de l'Extérieur</field>
+            <field name="code">SESE</field>
+            <field name="type">secretariat</field>
+            <field name="description">Affaires de la diaspora sénégalaise et transferts de migrants.</field>
+            <field name="address">Place de l'Indépendance, Dakar</field>
+            <field name="phone">+221 33 823 71 15</field>
+            <field name="email">contact@diaspora.gouv.sn</field>
+        </record>
+
+        <record id="secretary_human_rights" model="government.ministry">
+            <field name="name">Secrétariat d'État aux Droits Humains et à la Bonne Gouvernance</field>
+            <field name="code">SEDHBG</field>
+            <field name="type">secretariat</field>
+            <field name="description">Protection des droits humains, gouvernance et transparence.</field>
+            <field name="address">Building administratif, Dakar</field>
+            <field name="phone">+221 33 823 65 47</field>
+            <field name="email">contact@droitshumains.gouv.sn</field>
+        </record>
+
+        <record id="secretary_integration" model="government.ministry">
+            <field name="name">Secrétariat d'État à l'Intégration Africaine et aux NEPAD</field>
+            <field name="code">SEIAN</field>
+            <field name="type">secretariat</field>
+            <field name="description">Intégration africaine, NEPAD et coopération Sud-Sud.</field>
+            <field name="address">Place de l'Indépendance, Dakar</field>
+            <field name="phone">+221 33 823 71 29</field>
+            <field name="email">contact@integration.gouv.sn</field>
+        </record>
+    </data>
+</odoo>

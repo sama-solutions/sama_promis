@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ================================================ -->
+        <!-- TÂCHES DE PROJETS - DÉMONSTRATION               -->
+        <!-- ================================================ -->
+
+        <!-- D'abord, créer les projets Odoo pour les projets gouvernementaux validés -->
+        <record id="odoo_project_education_reform" model="project.project">
+            <field name="name">[SN-2050-00001] Réforme du Système Éducatif Sénégalais</field>
+            <field name="description">Projet Odoo pour la gestion opérationnelle de la réforme éducative</field>
+            <field name="date_start">2025-01-15</field>
+            <field name="date">2027-12-31</field>
+        </record>
+
+        <record id="odoo_project_digital_schools" model="project.project">
+            <field name="name">[SN-2050-00002] Écoles Numériques du Sénégal</field>
+            <field name="description">Projet Odoo pour l'équipement numérique des écoles</field>
+            <field name="date_start">2025-03-01</field>
+            <field name="date">2026-12-31</field>
+        </record>
+
+        <record id="odoo_project_health_coverage" model="project.project">
+            <field name="name">[SN-2050-00003] Couverture Sanitaire Universelle 2025</field>
+            <field name="description">Projet Odoo pour la couverture sanitaire universelle</field>
+            <field name="date_start">2025-01-01</field>
+            <field name="date">2025-12-31</field>
+        </record>
+
+        <record id="odoo_project_rice_self_sufficiency" model="project.project">
+            <field name="name">[SN-2050-00005] Programme d'Autosuffisance en Riz</field>
+            <field name="description">Projet Odoo pour l'autosuffisance en riz</field>
+            <field name="date_start">2025-04-01</field>
+            <field name="date">2030-03-31</field>
+        </record>
+
+        <record id="odoo_project_agricultural_mechanization" model="project.project">
+            <field name="name">[SN-2050-00006] Mécanisation de l'Agriculture Sénégalaise</field>
+            <field name="description">Projet Odoo pour la mécanisation agricole</field>
+            <field name="date_start">2025-02-01</field>
+            <field name="date">2027-01-31</field>
+        </record>
+
+        <!-- Lier les projets gouvernementaux aux projets Odoo -->
+        <record id="project_education_reform" model="government.project">
+            <field name="odoo_project_id" ref="odoo_project_education_reform"/>
+            <field name="manager_id" ref="user_aminata_fall"/>
+        </record>
+
+        <record id="project_digital_schools" model="government.project">
+            <field name="odoo_project_id" ref="odoo_project_digital_schools"/>
+            <field name="manager_id" ref="user_ousmane_diop"/>
+        </record>
+
+        <record id="project_universal_health_coverage" model="government.project">
+            <field name="odoo_project_id" ref="odoo_project_health_coverage"/>
+            <field name="manager_id" ref="user_fatou_ndiaye"/>
+        </record>
+
+        <record id="project_food_self_sufficiency" model="government.project">
+            <field name="odoo_project_id" ref="odoo_project_rice_self_sufficiency"/>
+            <field name="manager_id" ref="user_awa_sow"/>
+        </record>
+
+        <record id="project_agricultural_mechanization" model="government.project">
+            <field name="odoo_project_id" ref="odoo_project_agricultural_mechanization"/>
+            <field name="manager_id" ref="user_ibrahima_sarr"/>
+        </record>
+
+        <!-- Autres assignations de chefs de projets -->
+        <record id="project_youth_entrepreneurship" model="government.project">
+            <field name="manager_id" ref="user_khadija_toure"/>
+        </record>
+
+        <record id="project_youth_training" model="government.project">
+            <field name="manager_id" ref="user_mamadou_kane"/>
+        </record>
+
+        <record id="project_industrial_parks" model="government.project">
+            <field name="manager_id" ref="user_aissata_diallo"/>
+        </record>
+
+        <record id="project_local_content" model="government.project">
+            <field name="manager_id" ref="user_cheikh_ndoye"/>
+        </record>
+
+        <record id="project_fiber_optic_network" model="government.project">
+            <field name="manager_id" ref="user_ndeye_gueye"/>
+        </record>
+
+        <record id="project_e_government" model="government.project">
+            <field name="manager_id" ref="user_abdou_diouf"/>
+        </record>
+
+        <record id="project_road_infrastructure" model="government.project">
+            <field name="manager_id" ref="user_coumba_ly"/>
+        </record>
+
+        <record id="project_renewable_energy" model="government.project">
+            <field name="manager_id" ref="user_omar_faye"/>
+        </record>
+
+        <record id="project_water_access" model="government.project">
+            <field name="manager_id" ref="user_mariama_dieng"/>
+        </record>
+
+        <record id="project_smart_cities" model="government.project">
+            <field name="manager_id" ref="user_seydou_wade"/>
+        </record>
+
+        <!-- ======================================== -->
+        <!-- TÂCHES POUR LE PROJET RÉFORME ÉDUCATIVE -->
+        <!-- ======================================== -->
+
+        <record id="task_education_analysis" model="project.task">
+            <field name="name">Étude diagnostique du système éducatif actuel</field>
+            <field name="description">Réaliser une analyse complète du système éducatif sénégalais pour identifier les lacunes et opportunités d'amélioration</field>
+            <field name="project_id" ref="odoo_project_education_reform"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_aminata_fall')])]"/>
+            <field name="date_deadline">2025-06-30</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_1"/>
+        </record>
+
+        <record id="task_education_curriculum" model="project.task">
+            <field name="name">Révision des programmes scolaires</field>
+            <field name="description">Adapter les programmes du primaire et secondaire aux besoins du marché du travail et aux objectifs du Plan Sénégal 2050</field>
+            <field name="project_id" ref="odoo_project_education_reform"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_aminata_fall')])]"/>
+            <field name="date_deadline">2026-03-31</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_0"/>
+        </record>
+
+        <record id="task_teacher_training" model="project.task">
+            <field name="name">Formation des enseignants aux nouvelles méthodes</field>
+            <field name="description">Programme de formation continue pour 50,000 enseignants sur les nouvelles approches pédagogiques</field>
+            <field name="project_id" ref="odoo_project_education_reform"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_aminata_fall')])]"/>
+            <field name="date_deadline">2027-06-30</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_0"/>
+        </record>
+
+        <!-- ======================================== -->
+        <!-- TÂCHES POUR LE PROJET ÉCOLES NUMÉRIQUES -->
+        <!-- ======================================== -->
+
+        <record id="task_schools_infrastructure" model="project.task">
+            <field name="name">Audit des infrastructures scolaires</field>
+            <field name="description">Évaluation de l'état des 5000 écoles ciblées pour l'équipement numérique</field>
+            <field name="project_id" ref="odoo_project_digital_schools"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_ousmane_diop')])]"/>
+            <field name="date_deadline">2025-05-31</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_1"/>
+        </record>
+
+        <record id="task_equipment_procurement" model="project.task">
+            <field name="name">Acquisition du matériel informatique</field>
+            <field name="description">Lancement d'appels d'offres et acquisition de 25,000 ordinateurs et tablettes pour les écoles</field>
+            <field name="project_id" ref="odoo_project_digital_schools"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_ousmane_diop')])]"/>
+            <field name="date_deadline">2025-09-30</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_0"/>
+        </record>
+
+        <record id="task_internet_connectivity" model="project.task">
+            <field name="name">Déploiement de la connectivité Internet</field>
+            <field name="description">Installation de connexions haut débit dans toutes les écoles du programme</field>
+            <field name="project_id" ref="odoo_project_digital_schools"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_ousmane_diop')])]"/>
+            <field name="date_deadline">2026-06-30</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_0"/>
+        </record>
+
+        <!-- =============================================== -->
+        <!-- TÂCHES POUR LE PROJET COUVERTURE SANITAIRE     -->
+        <!-- =============================================== -->
+
+        <record id="task_health_coverage_mapping" model="project.task">
+            <field name="name">Cartographie des populations non couvertes</field>
+            <field name="description">Identification précise des populations sans couverture maladie, particulièrement en zones rurales</field>
+            <field name="project_id" ref="odoo_project_health_coverage"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_fatou_ndiaye')])]"/>
+            <field name="date_deadline">2025-04-30</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_1"/>
+        </record>
+
+        <record id="task_health_registration_campaign" model="project.task">
+            <field name="name">Campagne d'enrôlement massif</field>
+            <field name="description">Organisation de campagnes dans les 14 régions pour inscrire 2 millions de nouveaux bénéficiaires</field>
+            <field name="project_id" ref="odoo_project_health_coverage"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_fatou_ndiaye')])]"/>
+            <field name="date_deadline">2025-10-31</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_1"/>
+        </record>
+
+        <record id="task_health_digital_platform" model="project.task">
+            <field name="name">Déploiement de la plateforme numérique de santé</field>
+            <field name="description">Mise en place du système d'information sanitaire pour la gestion des dossiers patients</field>
+            <field name="project_id" ref="odoo_project_health_coverage"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_fatou_ndiaye')])]"/>
+            <field name="date_deadline">2025-08-31</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_0"/>
+        </record>
+
+        <!-- ======================================= -->
+        <!-- TÂCHES POUR LE PROJET AUTOSUFFISANCE RIZ -->
+        <!-- ======================================= -->
+
+        <record id="task_rice_land_preparation" model="project.task">
+            <field name="name">Aménagement de 100,000 hectares rizicoles</field>
+            <field name="description">Préparation et aménagement de nouvelles terres pour la riziculture dans la vallée du fleuve Sénégal</field>
+            <field name="project_id" ref="odoo_project_rice_self_sufficiency"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_awa_sow')])]"/>
+            <field name="date_deadline">2026-05-31</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_0"/>
+        </record>
+
+        <record id="task_rice_seeds_distribution" model="project.task">
+            <field name="name">Distribution de semences améliorées</field>
+            <field name="description">Fourniture de variétés de riz à haut rendement à 50,000 producteurs</field>
+            <field name="project_id" ref="odoo_project_rice_self_sufficiency"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_awa_sow')])]"/>
+            <field name="date_deadline">2025-11-30</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_1"/>
+        </record>
+
+        <record id="task_rice_irrigation_systems" model="project.task">
+            <field name="name">Installation de systèmes d'irrigation modernes</field>
+            <field name="description">Mise en place de l'irrigation goutte-à-goutte et de systèmes d'arrosage automatisés</field>
+            <field name="project_id" ref="odoo_project_rice_self_sufficiency"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_awa_sow')])]"/>
+            <field name="date_deadline">2027-03-31</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_0"/>
+        </record>
+
+        <record id="task_rice_cooperatives_training" model="project.task">
+            <field name="name">Formation des coopératives agricoles</field>
+            <field name="description">Renforcement des capacités de 200 coopératives sur les techniques modernes de riziculture</field>
+            <field name="project_id" ref="odoo_project_rice_self_sufficiency"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_awa_sow')])]"/>
+            <field name="date_deadline">2026-12-31</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_0"/>
+        </record>
+
+        <!-- ============================================= -->
+        <!-- TÂCHES POUR LE PROJET MÉCANISATION AGRICOLE  -->
+        <!-- ============================================= -->
+
+        <record id="task_tractors_procurement" model="project.task">
+            <field name="name">Acquisition de 2000 tracteurs</field>
+            <field name="description">Lancement d'appels d'offres internationaux pour l'acquisition de tracteurs et équipements agricoles</field>
+            <field name="project_id" ref="odoo_project_agricultural_mechanization"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_ibrahima_sarr')])]"/>
+            <field name="date_deadline">2025-08-31</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_1"/>
+        </record>
+
+        <record id="task_maintenance_centers" model="project.task">
+            <field name="name">Création de centres de maintenance</field>
+            <field name="description">Établissement de 14 centres régionaux de maintenance et réparation des équipements agricoles</field>
+            <field name="project_id" ref="odoo_project_agricultural_mechanization"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_ibrahima_sarr')])]"/>
+            <field name="date_deadline">2026-06-30</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_0"/>
+        </record>
+
+        <record id="task_operators_training" model="project.task">
+            <field name="name">Formation de 3000 conducteurs d'engins</field>
+            <field name="description">Programme de formation pour les opérateurs de machines agricoles</field>
+            <field name="project_id" ref="odoo_project_agricultural_mechanization"/>
+            <field name="user_ids" eval="[(6, 0, [ref('user_ibrahima_sarr')])]"/>
+            <field name="date_deadline">2026-12-31</field>
+            <field name="priority">1</field>
+            <field name="stage_id" ref="project.project_stage_0"/>
+        </record>
+
+    </data>
+</odoo>

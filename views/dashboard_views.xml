@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Dashboard Form View -->
+        <record id="senegal_plan_dashboard_view_form" model="ir.ui.view">
+            <field name="name">senegal.plan.dashboard.form</field>
+            <field name="model">senegal.plan.dashboard</field>
+            <field name="arch" type="xml">
+                <form string="Tableau de Bord - Plan Sénégal 2050" create="false" edit="false" delete="false">
+                    <header>
+                        <button name="action_view_projects" type="object" string="Voir tous les Projets" class="btn-primary"/>
+                        <button name="action_view_ministries" type="object" string="Voir les Ministères" class="btn-secondary"/>
+                        <button name="action_view_budgets" type="object" string="Voir les Budgets" class="btn-secondary"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="id" invisible="1"/>
+                                Tableau de Bord - Plan Sénégal 2050
+                            </h1>
+                        </div>
+                        
+                        <!-- Statistiques générales -->
+                        <div class="row o_dashboards_summary">
+                            <div class="col-md-3">
+                                <div class="card bg-primary text-white">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-tasks fa-2x"/>
+                                        <h2><field name="total_projects"/></h2>
+                                        <p>Total Projets</p>
+                                        <button name="action_view_projects" type="object" class="btn btn-link text-white">
+                                            Voir tous →
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-play fa-2x"/>
+                                        <h2><field name="active_projects"/></h2>
+                                        <p>Projets Actifs</p>
+                                        <button name="action_view_active_projects" type="object" class="btn btn-link text-white">
+                                            Voir actifs →
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-info text-white">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-check fa-2x"/>
+                                        <h2><field name="completed_projects"/></h2>
+                                        <p>Projets Achevés</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-warning text-white">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-pause fa-2x"/>
+                                        <h2><field name="suspended_projects"/></h2>
+                                        <p>Projets Suspendus</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <!-- Avancement Global -->
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Avancement Global</h5>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <field name="global_progress" widget="progressbar"/>
+                                        <h3><field name="global_progress" widget="float" digits="[3,1]"/>%</h3>
+                                        <p class="text-muted">Progression moyenne de tous les projets</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Statistiques Ministères -->
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Ministères</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6 text-center">
+                                                <h3><field name="total_ministries"/></h3>
+                                                <p>Total</p>
+                                            </div>
+                                            <div class="col-6 text-center">
+                                                <h3><field name="active_ministries"/></h3>
+                                                <p>Actifs</p>
+                                            </div>
+                                        </div>
+                                        <button name="action_view_ministries" type="object" class="btn btn-outline-primary btn-block">
+                                            Voir les Ministères
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statistiques Budgétaires -->
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Statistiques Budgétaires</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4 text-center">
+                                                <h3><field name="total_budget" widget="monetary"/></h3>
+                                                <p class="text-primary">Budget Total Alloué</p>
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <h3><field name="used_budget" widget="monetary"/></h3>
+                                                <p class="text-success">Budget Utilisé</p>
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <h3><field name="remaining_budget" widget="monetary"/></h3>
+                                                <p class="text-warning">Budget Restant</p>
+                                            </div>
+                                        </div>
+                                        <button name="action_view_budgets" type="object" class="btn btn-outline-primary btn-block">
+                                            Gérer les Budgets
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Autres Statistiques -->
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Objectifs Stratégiques</h5>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <h3><field name="total_objectives"/></h3>
+                                        <p>Total des Objectifs</p>
+                                        <p class="text-muted">
+                                            <field name="objectives_with_projects"/> avec projets
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Décisions</h5>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <h3><field name="total_decisions"/></h3>
+                                        <p>Total des Décisions</p>
+                                        <p class="text-muted">
+                                            <field name="published_decisions"/> publiées
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Événements</h5>
+                                    </div>
+                                    <div class="card-body text-center">
+                                        <h3><field name="total_events"/></h3>
+                                        <p>Total des Événements</p>
+                                        <button name="action_view_upcoming_events" type="object" class="btn btn-sm btn-outline-primary">
+                                            <field name="upcoming_events"/> à venir
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <field name="currency_id" invisible="1"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Server Action to Refresh and Open Dashboard -->
+        <record id="action_refresh_and_open_dashboard" model="ir.actions.server">
+            <field name="name">Refresh and Open Dashboard</field>
+            <field name="model_id" ref="model_senegal_plan_dashboard"/>
+            <field name="state">code</field>
+            <field name="code">action = model.action_open_dashboard_with_refresh()</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ================================================ -->
+        <!-- PLAN SÉNÉGAL 2050 - STRUCTURE STRATÉGIQUE      -->
+        <!-- ================================================ -->
+
+        <!-- Plan Stratégique National -->
+        <record id="plan_senegal_2050" model="strategic.plan">
+            <field name="name">Plan Sénégal 2050</field>
+            <field name="vision">Stratégie nationale de développement à long terme pour faire du Sénégal un pays émergent à l'horizon 2050</field>
+            <field name="start_date">2025-01-01</field>
+            <field name="end_date">2050-12-31</field>
+            <field name="state">validated</field>
+        </record>
+
+        <!-- Piliers Stratégiques -->
+        <record id="pillar_human_capital" model="strategic.pillar">
+            <field name="name">Capital Humain et Social</field>
+            <field name="code">CHS</field>
+            <field name="description">Développement du capital humain, éducation, santé et cohésion sociale</field>
+            <field name="plan_id" ref="plan_senegal_2050"/>
+        </record>
+
+        <record id="pillar_economic_transformation" model="strategic.pillar">
+            <field name="name">Transformation Économique</field>
+            <field name="code">TE</field>
+            <field name="description">Modernisation de l'économie, industrialisation et développement du secteur privé</field>
+            <field name="plan_id" ref="plan_senegal_2050"/>
+        </record>
+
+        <record id="pillar_governance" model="strategic.pillar">
+            <field name="name">Gouvernance et Paix</field>
+            <field name="code">GP</field>
+            <field name="description">Renforcement de la gouvernance, état de droit et cohésion sociale</field>
+            <field name="plan_id" ref="plan_senegal_2050"/>
+        </record>
+
+        <record id="pillar_territorial" model="strategic.pillar">
+            <field name="name">Développement Territorial</field>
+            <field name="code">DT</field>
+            <field name="description">Aménagement du territoire et développement régional équilibré</field>
+            <field name="plan_id" ref="plan_senegal_2050"/>
+        </record>
+
+        <!-- Axes Stratégiques - Pilier Capital Humain -->
+        <record id="axis_education" model="strategic.axis">
+            <field name="name">Éducation et Formation</field>
+            <field name="code">EF</field>
+            <field name="description">Amélioration de la qualité de l'éducation et formation professionnelle</field>
+            <field name="pillar_id" ref="pillar_human_capital"/>
+        </record>
+
+        <record id="axis_health" model="strategic.axis">
+            <field name="name">Santé et Protection Sociale</field>
+            <field name="code">SPS</field>
+            <field name="description">Système de santé performant et protection sociale universelle</field>
+            <field name="pillar_id" ref="pillar_human_capital"/>
+        </record>
+
+        <record id="axis_youth_employment" model="strategic.axis">
+            <field name="name">Emploi des Jeunes</field>
+            <field name="code">EJ</field>
+            <field name="description">Insertion professionnelle et entrepreneuriat des jeunes</field>
+            <field name="pillar_id" ref="pillar_human_capital"/>
+        </record>
+
+        <!-- Axes Stratégiques - Pilier Transformation Économique -->
+        <record id="axis_agriculture" model="strategic.axis">
+            <field name="name">Agriculture et Sécurité Alimentaire</field>
+            <field name="code">ASA</field>
+            <field name="description">Modernisation agricole et souveraineté alimentaire</field>
+            <field name="pillar_id" ref="pillar_economic_transformation"/>
+        </record>
+
+        <record id="axis_industry" model="strategic.axis">
+            <field name="name">Industrialisation</field>
+            <field name="code">IND</field>
+            <field name="description">Développement industriel et zones économiques spéciales</field>
+            <field name="pillar_id" ref="pillar_economic_transformation"/>
+        </record>
+
+        <record id="axis_digital" model="strategic.axis">
+            <field name="name">Économie Numérique</field>
+            <field name="code">EN</field>
+            <field name="description">Transformation digitale et économie de la connaissance</field>
+            <field name="pillar_id" ref="pillar_economic_transformation"/>
+        </record>
+
+        <!-- Objectifs Stratégiques - Éducation -->
+        <record id="objective_quality_education" model="strategic.objective">
+            <field name="name">Améliorer la qualité de l'enseignement de base</field>
+            <field name="code">OBJ-EF-001</field>
+            <field name="description">Rehausser le niveau de qualité de l'enseignement primaire et secondaire avec des infrastructures adéquates</field>
+            <field name="axis_id" ref="axis_education"/>
+        </record>
+
+        <record id="objective_technical_education" model="strategic.objective">
+            <field name="name">Développer la formation technique et professionnelle</field>
+            <field name="code">OBJ-EF-002</field>
+            <field name="description">Renforcer l'adéquation formation-emploi par le développement de centres de formation professionnelle</field>
+            <field name="axis_id" ref="axis_education"/>
+        </record>
+
+        <record id="objective_higher_education" model="strategic.objective">
+            <field name="name">Moderniser l'enseignement supérieur et la recherche</field>
+            <field name="code">OBJ-EF-003</field>
+            <field name="description">Créer des pôles d'excellence universitaire et renforcer la recherche scientifique</field>
+            <field name="axis_id" ref="axis_education"/>
+        </record>
+
+        <!-- Objectifs Stratégiques - Santé -->
+        <record id="objective_universal_health" model="strategic.objective">
+            <field name="name">Atteindre la couverture sanitaire universelle</field>
+            <field name="code">OBJ-SPS-001</field>
+            <field name="description">Garantir l'accès aux soins de santé de qualité pour tous les citoyens</field>
+            <field name="axis_id" ref="axis_health"/>
+        </record>
+
+        <record id="objective_health_infrastructure" model="strategic.objective">
+            <field name="name">Renforcer les infrastructures sanitaires</field>
+            <field name="code">OBJ-SPS-002</field>
+            <field name="description">Construire et équiper les hôpitaux et centres de santé sur tout le territoire</field>
+            <field name="axis_id" ref="axis_health"/>
+        </record>
+
+        <!-- Objectifs Stratégiques - Emploi des Jeunes -->
+        <record id="objective_youth_entrepreneurship" model="strategic.objective">
+            <field name="name">Promouvoir l'entrepreneuriat des jeunes</field>
+            <field name="code">OBJ-EJ-001</field>
+            <field name="description">Créer un écosystème favorable à l'entrepreneuriat jeune avec des mécanismes de financement adaptés</field>
+            <field name="axis_id" ref="axis_youth_employment"/>
+        </record>
+
+        <record id="objective_youth_employment" model="strategic.objective">
+            <field name="name">Améliorer l'employabilité des jeunes</field>
+            <field name="code">OBJ-EJ-002</field>
+            <field name="description">Développer les compétences des jeunes et faciliter leur insertion professionnelle</field>
+            <field name="axis_id" ref="axis_youth_employment"/>
+        </record>
+
+        <!-- Objectifs Stratégiques - Agriculture -->
+        <record id="objective_food_security" model="strategic.objective">
+            <field name="name">Assurer la sécurité alimentaire</field>
+            <field name="code">OBJ-ASA-001</field>
+            <field name="description">Atteindre l'autosuffisance alimentaire en riz, mil, maïs et autres céréales</field>
+            <field name="axis_id" ref="axis_agriculture"/>
+        </record>
+
+        <record id="objective_agricultural_modernization" model="strategic.objective">
+            <field name="name">Moderniser l'agriculture sénégalaise</field>
+            <field name="code">OBJ-ASA-002</field>
+            <field name="description">Mécaniser l'agriculture et développer l'agro-industrie</field>
+            <field name="axis_id" ref="axis_agriculture"/>
+        </record>
+
+        <!-- Objectifs Stratégiques - Industrialisation -->
+        <record id="objective_industrial_parks" model="strategic.objective">
+            <field name="name">Créer des zones industrielles modernes</field>
+            <field name="code">OBJ-IND-001</field>
+            <field name="description">Développer des parcs industriels avec des infrastructures de qualité</field>
+            <field name="axis_id" ref="axis_industry"/>
+        </record>
+
+        <record id="objective_local_content" model="strategic.objective">
+            <field name="name">Développer le contenu local</field>
+            <field name="code">OBJ-IND-002</field>
+            <field name="description">Promouvoir l'utilisation de matières premières locales dans l'industrie</field>
+            <field name="axis_id" ref="axis_industry"/>
+        </record>
+
+        <!-- Objectifs Stratégiques - Économie Numérique -->
+        <record id="objective_digital_infrastructure" model="strategic.objective">
+            <field name="name">Développer les infrastructures numériques</field>
+            <field name="code">OBJ-EN-001</field>
+            <field name="description">Déployer la fibre optique et assurer une connectivité haut débit sur tout le territoire</field>
+            <field name="axis_id" ref="axis_digital"/>
+        </record>
+
+        <record id="objective_digital_services" model="strategic.objective">
+            <field name="name">Développer les services numériques</field>
+            <field name="code">OBJ-EN-002</field>
+            <field name="description">Promouvoir l'e-gouvernement et les services publics digitalisés</field>
+            <field name="axis_id" ref="axis_digital"/>
+        </record>
+
+        <record id="objective_digital_skills" model="strategic.objective">
+            <field name="name">Renforcer les compétences numériques</field>
+            <field name="code">OBJ-EN-003</field>
+            <field name="description">Former les citoyens aux outils numériques et développer les métiers du digital</field>
+            <field name="axis_id" ref="axis_digital"/>
+        </record>
+
+        <!-- KPIs pour quelques objectifs -->
+        <record id="kpi_literacy_rate" model="strategic.kpi">
+            <field name="name">Taux d'alphabétisation</field>
+            <field name="code">KPI-EF-001</field>
+            <field name="description">Pourcentage de la population sachant lire et écrire</field>
+            <field name="objective_id" ref="objective_quality_education"/>
+            <field name="unit_of_measure">%</field>
+            <field name="target_value">85</field>
+            <field name="current_value">60</field>
+        </record>
+
+        <record id="kpi_health_coverage" model="strategic.kpi">
+            <field name="name">Taux de couverture sanitaire</field>
+            <field name="code">KPI-SPS-001</field>
+            <field name="description">Pourcentage de la population ayant accès aux soins de santé</field>
+            <field name="objective_id" ref="objective_universal_health"/>
+            <field name="unit_of_measure">%</field>
+            <field name="target_value">100</field>
+            <field name="current_value">75</field>
+        </record>
+
+        <record id="kpi_youth_unemployment" model="strategic.kpi">
+            <field name="name">Taux de chômage des jeunes</field>
+            <field name="code">KPI-EJ-001</field>
+            <field name="description">Pourcentage de jeunes (15-35 ans) sans emploi</field>
+            <field name="objective_id" ref="objective_youth_employment"/>
+            <field name="unit_of_measure">%</field>
+            <field name="target_value">10</field>
+            <field name="current_value">22</field>
+        </record>
+
+        <record id="kpi_food_self_sufficiency" model="strategic.kpi">
+            <field name="name">Taux d'autosuffisance alimentaire en riz</field>
+            <field name="code">KPI-ASA-001</field>
+            <field name="description">Pourcentage des besoins en riz couverts par la production locale</field>
+            <field name="objective_id" ref="objective_food_security"/>
+            <field name="unit_of_measure">%</field>
+            <field name="target_value">80</field>
+            <field name="current_value">30</field>
+        </record>
+
+        <record id="kpi_internet_penetration" model="strategic.kpi">
+            <field name="name">Taux de pénétration d'Internet</field>
+            <field name="code">KPI-EN-001</field>
+            <field name="description">Pourcentage de la population ayant accès à Internet</field>
+            <field name="objective_id" ref="objective_digital_infrastructure"/>
+            <field name="unit_of_measure">%</field>
+            <field name="target_value">90</field>
+            <field name="current_value">65</field>
+        </record>
+    </data>
+</odoo>

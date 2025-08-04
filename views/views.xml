@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Add references to all your view files here -->
+        <record id="action_window_strategic_plan" model="ir.actions.act_window">
+            <field name="name">Strategic Plans</field>
+            <field name="res_model">strategic.plan</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_window_strategic_pillar" model="ir.actions.act_window">
+            <field name="name">Strategic Pillars</field>
+            <field name="res_model">strategic.pillar</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_window_strategic_axis" model="ir.actions.act_window">
+            <field name="name">Strategic Axes</field>
+            <field name="res_model">strategic.axis</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_window_strategic_objective" model="ir.actions.act_window">
+            <field name="name">Strategic Objectives</field>
+            <field name="res_model">strategic.objective</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_window_strategic_kpi" model="ir.actions.act_window">
+            <field name="name">Strategic KPIs</field>
+            <field name="res_model">strategic.kpi</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_window_government_project" model="ir.actions.act_window">
+            <field name="name">Government Projects</field>
+            <field name="res_model">project.project</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+        <record id="action_window_government_decision" model="ir.actions.act_window">
+            <field name="name">Government Decisions</field>
+            <field name="res_model">government.decision</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_window_government_event" model="ir.actions.act_window">
+            <field name="name">Government Events</field>
+            <field name="res_model">government.event</field>
+            <field name="view_mode">tree,form,calendar</field>
+        </record>
+        <record id="action_window_government_budget" model="ir.actions.act_window">
+            <field name="name">Government Budgets</field>
+            <field name="res_model">government.budget</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_window_government_ministry" model="ir.actions.act_window">
+            <field name="name">Government Ministries</field>
+            <field name="res_model">government.ministry</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

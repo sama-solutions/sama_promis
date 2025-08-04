@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_project_public_project" model="ir.sequence">
+            <field name="name">Séquence Projet Public</field>
+            <field name="code">project.public.project.sequence</field>
+            <field name="prefix">PROJ-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>
+

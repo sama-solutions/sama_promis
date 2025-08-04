@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_construction_ecoles_rurales'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_developpement_agricole'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_sante_communautaire'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_infrastructures_routiere'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_energie_renouvelable'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_numerisation_services'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_gestion_ressources_eau'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_education_numerique'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_tourisme_durable'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_developpement_peche'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_assainissement_urbain'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_promotion_artisanat'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_recherche_scientifique'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_protection_environnement'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_modernisation_justice'"/>
+        </function>
+        <function model="government.project" name="action_validate_by_xmlid">
+            <value eval="'sama_etat.project_soutien_pme'"/>
+        </function>
+    </data>
+</odoo>

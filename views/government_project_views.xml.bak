@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Government Project Tree View -->
+        <record id="government_project_view_tree" model="ir.ui.view">
+            <field name="name">government.project.tree</field>
+            <field name="model">government.project</field>
+            <field name="arch" type="xml">
+                <list string="Projets Gouvernementaux - Plan Sénégal 2050" decoration-info="status == 'draft'" decoration-success="status == 'validated'" decoration-warning="status == 'in_progress'" decoration-muted="status == 'suspended'">
+                    <field name="project_code" string="Code SN-2050"/>
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="status" decoration-info="status == 'draft'" decoration-success="status == 'validated'" decoration-warning="status == 'in_progress'" decoration-danger="status == 'suspended'"/>
+                    <field name="priority" widget="priority"/>
+                    <field name="progress" widget="percentage"/>
+                    <field name="task_count" string="Tâches"/>
+                    <field name="strategic_objective_id"/>
+                    <field name="ministry_id"/>
+                    <field name="manager_id"/>
+                    <field name="odoo_project_id" invisible="1"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Government Project Form View -->
+        <record id="government_project_view_form" model="ir.ui.view">
+            <field name="name">government.project.form</field>
+            <field name="model">government.project</field>
+            <field name="arch" type="xml">
+                <form string="Projet Gouvernemental - Plan Sénégal 2050">
+                    <header>
+                        <!-- Boutons d'action selon le statut -->
+                        <button name="action_validate" type="object" string="Valider" class="btn-primary" invisible="status != 'draft'"/>
+                        <button name="action_start" type="object" string="Démarrer" class="btn-success" invisible="status != 'validated'"/>
+                        <button name="action_suspend" type="object" string="Suspendre" class="btn-warning" invisible="status != 'in_progress'"/>
+                        <button name="action_complete" type="object" string="Achever" class="btn-success" invisible="status != 'in_progress'"/>
+                        <button name="action_cancel" type="object" string="Annuler" class="btn-danger" invisible="status in ['completed', 'cancelled']"/>
+                        <button name="action_reset_to_draft" type="object" string="Remettre en brouillon" invisible="status == 'draft'"/>
+                        
+                        <!-- Boutons pour accéder au projet Odoo -->
+                        <button name="action_open_odoo_project" type="object" string="Ouvrir Projet Odoo" class="btn-info" invisible="not odoo_project_id"/>
+                        <button name="action_open_odoo_tasks" type="object" string="Gérer Tâches" class="btn-secondary" invisible="not odoo_project_id"/>
+                        
+                        <!-- Boutons pour partage public -->
+                        <button name="action_share_public" type="object" string="Page Publique" class="btn-outline-primary" icon="fa-external-link"/>
+                        <button name="get_qr_code_url" type="object" string="QR Code" class="btn-outline-secondary" icon="fa-qrcode"/>
+                        
+                        <field name="status" widget="statusbar" statusbar_visible="draft,validated,in_progress,completed"/>
+                    </header>
+                    <sheet>
+                        <!-- Alerte si projet Odoo n'est pas créé -->
+                        <div class="alert alert-info" role="alert" invisible="status == 'draft' or odoo_project_id">
+                            <p><i class="fa fa-info-circle" title="Information"/>  <strong>Projet Odoo non créé:</strong> Validez ce projet pour créer automatiquement le projet Odoo associé et pouvoir gérer les tâches opérationnelles.</p>
+                        </div>
+                        
+                        <!-- Widgets statistiques -->
+                        <div class="oe_button_box" name="button_box" invisible="not odoo_project_id">
+                            <button name="action_open_odoo_tasks" type="object" class="oe_stat_button" icon="fa-tasks" invisible="not odoo_project_id">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="task_count" widget="integer"/>
+                                    </span>
+                                    <span class="o_stat_text">Tâches</span>
+                                </div>
+                            </button>
+                            <button name="action_open_odoo_project" type="object" class="oe_stat_button" icon="fa-project-diagram" invisible="not odoo_project_id">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="progress" widget="integer"/>%
+                                    </span>
+                                    <span class="o_stat_text">Avancement</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" icon="fa-calendar" invisible="not start_date or not end_date">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" style="font-size: 14px;">
+                                        <field name="start_date" widget="date"/>
+                                    </span>
+                                    <span class="o_stat_text">Date de début</span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" icon="fa-calendar-check" invisible="not end_date">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_value" style="font-size: 14px;">
+                                        <field name="end_date" widget="date"/>
+                                    </span>
+                                    <span class="o_stat_text">Date de fin</span>
+                                </div>
+                            </button>
+                        </div>
+                        
+                        <!-- Titre avec code projet -->
+                        <div class="oe_title">
+                            <h1>
+                                <field name="project_code" readonly="1" class="text-primary"/> - <field name="name" placeholder="Nom du projet..."/>
+                            </h1>
+                            <div class="o_row">
+                                <div class="oe_edit_only">
+                                    <label for="priority"/>
+                                    <field name="priority" widget="priority"/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <group>
+                            <group string="Informations Générales">
+                                <field name="strategic_objective_id" options="{'no_create': True}"/>
+                                <field name="priority" widget="priority"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </group>
+                            <group string="Responsabilités">
+                                <field name="ministry_id" options="{'no_create': True}"/>
+                                <field name="manager_id"/>
+                                <field name="budget_id" options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                        
+                        <!-- Indicateurs de performance -->
+                        <group string="Indicateurs d'Avancement" invisible="not odoo_project_id">
+                            <group>
+                                <field name="progress" widget="percentage"/>
+                                <field name="task_count"/>
+                            </group>
+                            <group>
+                                <field name="odoo_project_id" readonly="1" invisible="not odoo_project_id"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Description du Projet">
+                                <field name="description" placeholder="Décrivez en détail les objectifs, les livrables et les activités du projet..."/>
+                            </page>
+                            <page string="Informations Techniques" invisible="not odoo_project_id">
+                                <group string="Liaison avec Odoo">
+                                    <p class="text-muted">Ce projet est connecté au système de gestion de projets d'Odoo pour le suivi opérationnel des tâches et activités.</p>
+                                    <button name="sync_with_odoo_project" type="object" string="Synchroniser avec Odoo" class="btn-warning" invisible="not odoo_project_id"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vue Kanban par Ministère -->
+        <record id="government_project_view_kanban_by_ministry" model="ir.ui.view">
+            <field name="name">government.project.kanban.ministry</field>
+            <field name="model">government.project</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="ministry_id">
+                    <field name="status"/>
+                    <field name="project_code"/>
+                    <field name="name"/>
+                    <field name="strategic_objective_id"/>
+                    <field name="ministry_id"/>
+                    <field name="manager_id"/>
+                    <field name="priority"/>
+                    <field name="progress"/>
+                    <field name="task_count"/>
+                    <field name="odoo_project_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click o_kanban_record_has_image_fill #{record.status.raw_value == 'draft' ? 'border-info' : record.status.raw_value == 'validated' ? 'border-success' : record.status.raw_value == 'in_progress' ? 'border-warning' : 'border-muted'}">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <span class="badge badge-primary" style="margin-right: 5px;"><t t-esc="record.project_code.value"/></span>
+                                            <t t-esc="record.name.value"/>
+                                        </strong>
+                                        <div class="o_kanban_record_subtitle text-muted">
+                                            <i class="fa fa-user" style="margin-right: 3px;"/><t t-esc="record.manager_id.value"/>
+                                        </div>
+                                    </div>
+                                    <div class="o_dropdown_kanban dropdown">
+                                        <a role="button" class="dropdown-toggle o-no-caret btn" data-toggle="dropdown" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                            <span class="fa fa-ellipsis-v"/>
+                                        </a>
+                                        <div class="dropdown-menu" role="menu">
+                                            <t t-if="record.odoo_project_id.raw_value">
+                                                <a role="menuitem" type="object" name="action_open_odoo_project" class="dropdown-item">Ouvrir Projet Odoo</a>
+                                                <a role="menuitem" type="object" name="action_open_odoo_tasks" class="dropdown-item">Gérer Tâches</a>
+                                                <div class="dropdown-divider"/>
+                                            </t>
+                                            <a role="menuitem" type="edit" class="dropdown-item">Modifier</a>
+                                            <a role="menuitem" type="delete" class="dropdown-item">Supprimer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div class="mb-2">
+                                        <span t-attf-class="badge #{record.status.raw_value == 'draft' ? 'badge-info' : record.status.raw_value == 'validated' ? 'badge-success' : record.status.raw_value == 'in_progress' ? 'badge-warning' : record.status.raw_value == 'suspended' ? 'badge-danger' : 'badge-secondary'}"><t t-esc="record.status.value"/></span>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <strong>Objectif Stratégique:</strong><br/>
+                                            <span class="text-muted small"><t t-esc="record.strategic_objective_id.value"/></span>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-6">
+                                            <strong>Début:</strong><br/>
+                                            <span class="text-muted small"><t t-esc="record.start_date.value"/></span>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Fin:</strong><br/>
+                                            <span class="text-muted small"><t t-esc="record.end_date.value"/></span>
+                                        </div>
+                                    </div>
+                                    <t t-if="record.odoo_project_id.raw_value">
+                                        <div class="mt-2">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <strong>Progrès:</strong>
+                                                    <div class="progress" style="height: 12px;">
+                                                        <div class="progress-bar" t-attf-style="width: #{record.progress.raw_value}%" t-att-aria-valuenow="record.progress.raw_value" aria-valuemin="0" aria-valuemax="100">
+                                                            <t t-esc="Math.round(record.progress.raw_value)"/>%
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <strong>Tâches:</strong> <t t-esc="record.task_count.value"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <div class="o_priority_star">
+                                            <field name="priority" widget="priority" readonly="1"/>
+                                        </div>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <t t-if="record.odoo_project_id.raw_value">
+                                            <span class="badge badge-success">Projet Odoo Actif</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="badge badge-secondary">Pas de projet Odoo</span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Filtres et recherches personnalisés -->
+        <record id="government_project_view_search" model="ir.ui.view">
+            <field name="name">government.project.search</field>
+            <field name="model">government.project</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Nom du Projet" filter_domain="[('name','ilike',self)]"/>
+                    <field name="project_code" string="Code Projet"/>
+                    <field name="strategic_objective_id" string="Objectif Stratégique"/>
+                    <field name="ministry_id" string="Ministère"/>
+                    <field name="manager_id" string="Responsable"/>
+                    
+                    <separator/>
+                    
+                    <!-- Filtres par statut -->
+                    <filter string="Brouillons" name="filter_draft" domain="[('status','=','draft')]"/>
+                    <filter string="Validés" name="filter_validated" domain="[('status','=','validated')]"/>
+                    <filter string="En cours" name="filter_in_progress" domain="[('status','=','in_progress')]"/>
+                    <filter string="Suspendus" name="filter_suspended" domain="[('status','=','suspended')]"/>
+                    <filter string="Achevés" name="filter_completed" domain="[('status','=','completed')]"/>
+                    
+                    <separator/>
+                    
+                    <!-- Filtres par priorité -->
+                    <filter string="Priorité élevée" name="filter_high_priority" domain="[('priority','in',['2','3'])]"/>
+                    <filter string="Projets avec Odoo" name="filter_with_odoo" domain="[('odoo_project_id','!=',False)]"/>
+                    <filter string="Projets sans Odoo" name="filter_without_odoo" domain="[('odoo_project_id','=',False)]"/>
+                    
+                    <separator/>
+                    
+                    <!-- Filtres temporels -->
+                    <filter string="Commencés cette année" name="filter_this_year" domain="[('start_date','&gt;=',datetime.datetime.now().strftime('%Y-01-01'))]"/>
+                    <filter string="À terminer cette année" name="filter_ends_this_year" domain="[('end_date','&lt;=',datetime.datetime.now().strftime('%Y-12-31'))]"/>
+                    
+                    <separator/>
+                    
+                    <!-- Groupements -->
+                    <group expand="0" string="Grouper par">
+                        <filter string="Statut" name="group_status" context="{'group_by': 'status'}"/>
+                        <filter string="Ministère" name="group_ministry" context="{'group_by': 'ministry_id'}"/>
+                        <filter string="Objectif Stratégique" name="group_strategic_objective" context="{'group_by': 'strategic_objective_id'}"/>
+                        <filter string="Responsable" name="group_manager" context="{'group_by': 'manager_id'}"/>
+                        <filter string="Priorité" name="group_priority" context="{'group_by': 'priority'}"/>
+                        <filter string="Mois de début" name="group_start_month" context="{'group_by': 'start_date:month'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Government Project Action Window -->
+        <record id="government_project_action" model="ir.actions.act_window">
+            <field name="name">Projets Gouvernementaux</field>
+            <field name="res_model">government.project</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="search_view_id" ref="government_project_view_search"/>
+            <field name="context">{
+                'search_default_filter_in_progress': 1,
+                'search_default_group_status': 1
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créer votre premier projet gouvernemental !
+                </p>
+                <p>
+                    Les projets gouvernementaux permettent de suivre la mise en œuvre du Plan Sénégal 2050.
+                    Chaque projet peut être lié à un objectif stratégique et géré avec le système de tâches d'Odoo.
+                </p>
+            </field>
+        </record>
+
+        <!-- Action pour vue Kanban par ministère -->
+        <record id="government_project_action_by_ministry" model="ir.actions.act_window">
+            <field name="name">Projets par Ministère</field>
+            <field name="res_model">government.project</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="government_project_view_kanban_by_ministry"/>
+            <field name="search_view_id" ref="government_project_view_search"/>
+            <field name="context">{
+                'search_default_group_ministry': 1
+            }</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Vue des projets par ministère !
+                </p>
+                <p>
+                    Cette vue permet de visualiser les projets gouvernementaux regroupés par ministère responsable.
+                </p>
+            </field>
+        </record>
+
+        <!-- Government Project Kanban View -->
+        <record id="government_project_view_kanban" model="ir.ui.view">
+            <field name="name">government.project.kanban</field>
+            <field name="model">government.project</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="status">
+                    <field name="status"/>
+                    <field name="project_code"/>
+                    <field name="name"/>
+                    <field name="strategic_objective_id"/>
+                    <field name="ministry_id"/>
+                    <field name="manager_id"/>
+                    <field name="priority"/>
+                    <field name="progress"/>
+                    <field name="task_count"/>
+                    <field name="odoo_project_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <span class="badge badge-primary" style="margin-right: 5px;"><t t-esc="record.project_code.value"/></span>
+                                            <t t-esc="record.name.value"/>
+                                        </strong>
+                                        <div class="o_kanban_record_subtitle text-muted">
+                                            <i class="fa fa-user" style="margin-right: 3px;"/><t t-esc="record.manager_id.value"/>
+                                        </div>
+                                    </div>
+                                    <div class="o_dropdown_kanban dropdown">
+                                        <a role="button" class="dropdown-toggle o-no-caret btn" data-toggle="dropdown" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                            <span class="fa fa-ellipsis-v"/>
+                                        </a>
+                                        <div class="dropdown-menu" role="menu">
+                                            <t t-if="record.odoo_project_id.raw_value">
+                                                <a role="menuitem" type="object" name="action_open_odoo_project" class="dropdown-item">Ouvrir Projet Odoo</a>
+                                                <a role="menuitem" type="object" name="action_open_odoo_tasks" class="dropdown-item">Gérer Tâches</a>
+                                                <div class="dropdown-divider"/>
+                                            </t>
+                                            <a role="menuitem" type="edit" class="dropdown-item">Modifier</a>
+                                            <a role="menuitem" type="delete" class="dropdown-item">Supprimer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <strong>Objectif:</strong><br/>
+                                            <span class="text-muted"><t t-esc="record.strategic_objective_id.value"/></span>
+                                        </div>
+                                        <div class="col-6">
+                                            <strong>Ministère:</strong><br/>
+                                            <span class="text-muted"><t t-esc="record.ministry_id.value"/></span>
+                                        </div>
+                                    </div>
+                                    <t t-if="record.odoo_project_id.raw_value">
+                                        <div class="mt-2">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <strong>Progrès:</strong>
+                                                    <div class="progress" style="height: 12px;">
+                                                        <div class="progress-bar" t-attf-style="width: #{record.progress.raw_value}%" t-att-aria-valuenow="record.progress.raw_value" aria-valuemin="0" aria-valuemax="100">
+                                                            <t t-esc="Math.round(record.progress.raw_value)"/>%
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <strong>Tâches:</strong> <t t-esc="record.task_count.value"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <div class="o_priority_star">
+                                            <field name="priority" widget="priority" readonly="1"/>
+                                        </div>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <t t-if="record.odoo_project_id.raw_value">
+                                            <span class="badge badge-success">Projet Odoo Actif</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="badge badge-secondary">Pas de projet Odoo</span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- ================================================ -->
+        <!-- PROJETS GOUVERNEMENTAUX - DÉMONSTRATION         -->
+        <!-- ================================================ -->
+
+        <!-- Projets Éducation -->
+        <record id="project_education_reform" model="government.project">
+            <field name="name">Réforme du Système Éducatif Sénégalais</field>
+            <field name="description">Mise en œuvre d'une réforme globale du système éducatif pour améliorer la qualité de l'enseignement de base et l'adéquation formation-emploi</field>
+            <field name="start_date">2025-01-15</field>
+            <field name="end_date">2027-12-31</field>
+            <field name="status">validated</field>
+            <field name="priority">3</field>
+            <field name="strategic_objective_id" ref="objective_quality_education"/>
+            <field name="ministry_id" ref="ministry_education"/>
+            <field name="budget_id" ref="budget_education_2025"/>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="project_digital_schools" model="government.project">
+            <field name="name">Écoles Numériques du Sénégal</field>
+            <field name="description">Équipement de 5000 écoles primaires et secondaires en matériel informatique et connexion Internet haut débit</field>
+            <field name="start_date">2025-03-01</field>
+            <field name="end_date">2026-12-31</field>
+            <field name="status">validated</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_digital_skills"/>
+            <field name="ministry_id" ref="ministry_digital"/>
+            <field name="latitude">14.758945</field>
+            <field name="longitude">-17.393754</field>
+        </record>
+
+        <record id="project_construction_ecoles_rurales" model="government.project">
+            <field name="name">Construction d'Écoles Rurales</field>
+            <field name="description">Construction de 100 nouvelles écoles dans les zones rurales pour améliorer l'accès à l'éducation de base.</field>
+            <field name="start_date">2025-05-01</field>
+            <field name="end_date">2027-04-30</field>
+            <field name="status">draft</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_quality_education"/>
+            <field name="ministry_id" ref="ministry_education"/>
+            <field name="latitude">14.165208</field>
+            <field name="longitude">-16.075775</field>
+        </record>
+
+        <!-- Projets Santé -->
+        <record id="project_universal_health_coverage" model="government.project">
+            <field name="name">Couverture Sanitaire Universelle 2025</field>
+            <field name="description">Extension de la couverture maladie universelle à l'ensemble de la population sénégalaise avec un accent sur les zones rurales</field>
+            <field name="start_date">2025-01-01</field>
+            <field name="end_date">2025-12-31</field>
+            <field name="status">in_progress</field>
+            <field name="priority">3</field>
+            <field name="strategic_objective_id" ref="objective_universal_health"/>
+            <field name="ministry_id" ref="ministry_health"/>
+            <field name="budget_id" ref="budget_health_2025"/>
+            <field name="latitude">13.772589</field>
+            <field name="longitude">-13.671006</field>
+        </record>
+
+        <record id="project_health_infrastructure" model="government.project">
+            <field name="name">Modernisation des Infrastructures Sanitaires</field>
+            <field name="description">Construction et équipement de 20 nouveaux hôpitaux régionaux et 150 centres de santé communautaires</field>
+            <field name="start_date">2025-06-01</field>
+            <field name="end_date">2028-05-31</field>
+            <field name="status">draft</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_health_infrastructure"/>
+            <field name="ministry_id" ref="ministry_health"/>
+            <field name="latitude">12.564148</field>
+            <field name="longitude">-16.263982</field>
+        </record>
+
+        <!-- Projets Agriculture -->
+        <record id="project_food_self_sufficiency" model="government.project">
+            <field name="name">Programme d'Autosuffisance en Riz</field>
+            <field name="description">Développement de la riziculture nationale pour atteindre 80% d'autosuffisance en riz d'ici 2030</field>
+            <field name="start_date">2025-04-01</field>
+            <field name="end_date">2030-03-31</field>
+            <field name="status">validated</field>
+            <field name="priority">3</field>
+            <field name="strategic_objective_id" ref="objective_food_security"/>
+            <field name="ministry_id" ref="ministry_agriculture"/>
+            <field name="budget_id" ref="budget_agriculture_2025"/>
+            <field name="latitude">16.032631</field>
+            <field name="longitude">-16.481817</field>
+        </record>
+
+        <record id="project_agricultural_mechanization" model="government.project">
+            <field name="name">Mécanisation de l'Agriculture Sénégalaise</field>
+            <field name="description">Acquisition et distribution de 2000 tracteurs et équipements agricoles modernes aux coopératives agricoles</field>
+            <field name="start_date">2025-02-01</field>
+            <field name="end_date">2027-01-31</field>
+            <field name="status">in_progress</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_agricultural_modernization"/>
+            <field name="ministry_id" ref="ministry_agriculture"/>
+            <field name="latitude">14.6550</field>
+            <field name="longitude">-16.2314</field>
+        </record>
+
+        <!-- Projets Emploi des Jeunes -->
+        <record id="project_youth_entrepreneurship" model="government.project">
+            <field name="name">Fonds d'Appui à l'Entrepreneuriat des Jeunes</field>
+            <field name="description">Création d'un fonds de 100 milliards FCFA pour financer les projets d'entreprise portés par les jeunes de 18 à 35 ans</field>
+            <field name="start_date">2025-01-01</field>
+            <field name="end_date">2027-12-31</field>
+            <field name="status">validated</field>
+            <field name="priority">3</field>
+            <field name="strategic_objective_id" ref="objective_youth_entrepreneurship"/>
+            <field name="ministry_id" ref="ministry_employment"/>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="project_youth_training" model="government.project">
+            <field name="name">Programme National de Formation des Jeunes</field>
+            <field name="description">Formation de 50,000 jeunes dans les métiers porteurs (numérique, BTP, agriculture moderne, énergies renouvelables)</field>
+            <field name="start_date">2025-09-01</field>
+            <field name="end_date">2027-08-31</field>
+            <field name="status">draft</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_youth_employment"/>
+            <field name="ministry_id" ref="ministry_employment"/>
+            <field name="latitude">14.779031</field>
+            <field name="longitude">-16.963900</field>
+        </record>
+
+        <!-- Projets Industrie -->
+        <record id="project_industrial_parks" model="government.project">
+            <field name="name">Zones Économiques Spéciales du Sénégal</field>
+            <field name="description">Création de 5 zones économiques spéciales modernes dans les régions de Dakar, Thiès, Saint-Louis, Kaolack et Ziguinchor</field>
+            <field name="start_date">2025-07-01</field>
+            <field name="end_date">2028-06-30</field>
+            <field name="status">validated</field>
+            <field name="priority">3</field>
+            <field name="strategic_objective_id" ref="objective_industrial_parks"/>
+            <field name="ministry_id" ref="ministry_industry"/>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="project_local_content" model="government.project">
+            <field name="name">Promotion du Contenu Local dans l'Industrie</field>
+            <field name="description">Programme de substitution aux importations et d'utilisation des matières premières locales dans les industries manufacturières</field>
+            <field name="start_date">2025-05-01</field>
+            <field name="end_date">2027-04-30</field>
+            <field name="status">draft</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_local_content"/>
+            <field name="ministry_id" ref="ministry_industry"/>
+            <field name="latitude">14.866557</field>
+            <field name="longitude">-15.899496</field>
+        </record>
+
+        <!-- Projets Numérique -->
+        <record id="project_fiber_optic_network" model="government.project">
+            <field name="name">Déploiement de la Fibre Optique Nationale</field>
+            <field name="description">Extension du réseau national de fibre optique pour couvrir 100% du territoire sénégalais avec du haut débit</field>
+            <field name="start_date">2025-01-15</field>
+            <field name="end_date">2026-12-31</field>
+            <field name="status">in_progress</field>
+            <field name="priority">3</field>
+            <field name="strategic_objective_id" ref="objective_digital_infrastructure"/>
+            <field name="ministry_id" ref="ministry_digital"/>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="project_e_government" model="government.project">
+            <field name="name">Plateforme Nationale d'e-Gouvernement</field>
+            <field name="description">Digitalisation de tous les services publics avec une plateforme unique d'accès aux démarches administratives</field>
+            <field name="start_date">2025-03-01</field>
+            <field name="end_date">2026-08-31</field>
+            <field name="status">validated</field>
+            <field name="priority">3</field>
+            <field name="strategic_objective_id" ref="objective_digital_services"/>
+            <field name="ministry_id" ref="ministry_digital"/>
+            <field name="latitude">14.7833</field>
+            <field name="longitude">-17.4000</field>
+        </record>
+
+        <!-- Projets Infrastructure -->
+        <record id="project_road_infrastructure" model="government.project">
+            <field name="name">Programme National de Désenclavement</field>
+            <field name="description">Construction et réhabilitation de 2000 km de routes rurales pour désenclaver les zones reculées</field>
+            <field name="start_date">2025-04-01</field>
+            <field name="end_date">2027-03-31</field>
+            <field name="status">validated</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_quality_education"/>
+            <field name="ministry_id" ref="ministry_infrastructure"/>
+            <field name="latitude">13.772589</field>
+            <field name="longitude">-13.671006</field>
+        </record>
+
+        <!-- Projets Énergie -->
+        <record id="project_renewable_energy" model="government.project">
+            <field name="name">Mix Énergétique 2030 - Énergies Renouvelables</field>
+            <field name="description">Installation de 1000 MW de capacité solaire et éolienne pour porter la part des énergies renouvelables à 30% du mix énergétique</field>
+            <field name="start_date">2025-02-01</field>
+            <field name="end_date">2029-12-31</field>
+            <field name="status">draft</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_digital_infrastructure"/>
+            <field name="ministry_id" ref="ministry_mines_energy"/>
+            <field name="latitude">12.564148</field>
+            <field name="longitude">-16.263982</field>
+        </record>
+
+        <!-- Projets Eau et Assainissement -->
+        <record id="project_water_access" model="government.project">
+            <field name="name">Accès Universel à l'Eau Potable</field>
+            <field name="description">Extension des réseaux d'adduction d'eau pour porter le taux d'accès à l'eau potable à 100% en milieu urbain et 90% en milieu rural</field>
+            <field name="start_date">2025-06-01</field>
+            <field name="end_date">2028-05-31</field>
+            <field name="status">validated</field>
+            <field name="priority">3</field>
+            <field name="strategic_objective_id" ref="objective_universal_health"/>
+            <field name="ministry_id" ref="ministry_water"/>
+            <field name="latitude">14.866557</field>
+            <field name="longitude">-15.899496</field>
+        </record>
+
+        <!-- Projets Transversaux -->
+        <record id="project_smart_cities" model="government.project">
+            <field name="name">Villes Intelligentes du Sénégal</field>
+            <field name="description">Transformation numérique des grandes villes sénégalaises (Dakar, Thiès, Saint-Louis) avec des solutions IoT et de gestion urbaine intelligente</field>
+            <field name="start_date">2025-08-01</field>
+            <field name="end_date">2027-07-31</field>
+            <field name="status">draft</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_digital_services"/>
+            <field name="ministry_id" ref="ministry_urban_planning"/>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.2667</field>
+        </record>
+
+        <!-- Nouveaux projets avec coordonnées réalistes -->
+        <record id="project_casamance_development" model="government.project">
+            <field name="name">Programme de Développement de la Casamance</field>
+            <field name="description">Développement intégré de la région de la Casamance incluant infrastructures, agriculture et tourisme</field>
+            <field name="start_date">2025-01-01</field>
+            <field name="end_date">2027-12-31</field>
+            <field name="status">validated</field>
+            <field name="priority">3</field>
+            <field name="strategic_objective_id" ref="objective_agricultural_modernization"/>
+            <field name="ministry_id" ref="ministry_agriculture"/>
+            <field name="latitude">12.548267</field>
+            <field name="longitude">-16.263982</field>
+        </record>
+
+        <record id="project_saint_louis_heritage" model="government.project">
+            <field name="name">Préservation du Patrimoine de Saint-Louis</field>
+            <field name="description">Restauration et valorisation du patrimoine architectural de l'île de Saint-Louis, site UNESCO</field>
+            <field name="start_date">2025-03-01</field>
+            <field name="end_date">2026-12-31</field>
+            <field name="status">in_progress</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_digital_services"/>
+            <field name="ministry_id" ref="ministry_tourism"/>
+            <field name="latitude">16.026340</field>
+            <field name="longitude">-16.489649</field>
+        </record>
+
+        <record id="project_matam_agriculture" model="government.project">
+            <field name="name">Modernisation Agricole de Matam</field>
+            <field name="description">Programme de modernisation de l'agriculture dans la région de Matam avec focus sur l'irrigation</field>
+            <field name="start_date">2025-05-01</field>
+            <field name="end_date">2027-04-30</field>
+            <field name="status">draft</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_food_security"/>
+            <field name="ministry_id" ref="ministry_agriculture"/>
+            <field name="latitude">15.655647</field>
+            <field name="longitude">-13.255615</field>
+        </record>
+
+        <record id="project_kedougou_mining" model="government.project">
+            <field name="name">Développement Minier Responsable de Kédougou</field>
+            <field name="description">Développement des ressources minières de Kédougou avec respect de l'environnement et des communautés locales</field>
+            <field name="start_date">2025-02-01</field>
+            <field name="end_date">2028-01-31</field>
+            <field name="status">validated</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_local_content"/>
+            <field name="ministry_id" ref="ministry_mines_energy"/>
+            <field name="latitude">12.557892</field>
+            <field name="longitude">-12.179688</field>
+        </record>
+
+        <record id="project_tambacounda_livestock" model="government.project">
+            <field name="name">Centre d'Excellence Pastoral de Tambacounda</field>
+            <field name="description">Création d'un centre d'excellence pour l'élevage moderne et la transformation des produits animaux</field>
+            <field name="start_date">2025-06-01</field>
+            <field name="end_date">2027-05-31</field>
+            <field name="status">draft</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_agricultural_modernization"/>
+            <field name="ministry_id" ref="ministry_agriculture"/>
+            <field name="latitude">13.771944</field>
+            <field name="longitude">-13.671006</field>
+        </record>
+
+        <record id="project_fatick_tourism" model="government.project">
+            <field name="name">Circuit Touristique du Sine-Saloum</field>
+            <field name="description">Développement d'un circuit touristique intégré dans le delta du Sine-Saloum avec éco-lodges</field>
+            <field name="start_date">2025-04-01</field>
+            <field name="end_date">2026-12-31</field>
+            <field name="status">validated</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_digital_services"/>
+            <field name="ministry_id" ref="ministry_tourism"/>
+            <field name="latitude">14.334167</field>
+            <field name="longitude">-16.405556</field>
+        </record>
+
+        <record id="project_louga_renewable" model="government.project">
+            <field name="name">Parc Éolien de Louga</field>
+            <field name="description">Installation d'un parc éolien de 150 MW dans la région de Louga pour diversifier le mix énergétique</field>
+            <field name="start_date">2025-01-15</field>
+            <field name="end_date">2026-12-31</field>
+            <field name="status">in_progress</field>
+            <field name="priority">3</field>
+            <field name="strategic_objective_id" ref="objective_digital_infrastructure"/>
+            <field name="ministry_id" ref="ministry_mines_energy"/>
+            <field name="latitude">15.619166</field>
+            <field name="longitude">-16.226111</field>
+        </record>
+
+        <record id="project_diourbel_groundnut" model="government.project">
+            <field name="name">Relance de la Filière Arachidière de Diourbel</field>
+            <field name="description">Programme de relance et modernisation de la production et transformation d'arachides dans le bassin arachidier</field>
+            <field name="start_date">2025-03-01</field>
+            <field name="end_date">2027-02-28</field>
+            <field name="status">validated</field>
+            <field name="priority">2</field>
+            <field name="strategic_objective_id" ref="objective_food_security"/>
+            <field name="ministry_id" ref="ministry_agriculture"/>
+            <field name="latitude">14.654722</field>
+            <field name="longitude">-16.231944</field>
+        </record>
+
+    </data>
+</odoo>

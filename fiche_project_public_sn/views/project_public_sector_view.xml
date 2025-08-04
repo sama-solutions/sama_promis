@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vue formulaire pour project.public.sector -->
+        <record id="view_project_public_sector_form" model="ir.ui.view">
+            <field name="name">project.public.sector.form</field>
+            <field name="model">project.public.sector</field>
+            <field name="arch" type="xml">
+                <form string="Secteur d'Intervention">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vue liste pour project.public.sector -->
+        <record id="view_project_public_sector_tree" model="ir.ui.view">
+            <field name="name">project.public.sector.tree</field>
+            <field name="model">project.public.sector</field>
+            <field name="arch" type="xml">
+                <tree string="Secteurs d'Intervention">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action pour project.public.sector -->
+        <record id="project_public_sector_action" model="ir.actions.act_window">
+            <field name="name">Secteurs d'Intervention</field>
+            <field name="res_model">project.public.sector</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
+

@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        
+        <record id="view_project_public_project_form" model="ir.ui.view">
+            <field name="name">project.public.project.form</field>
+            <field name="model">project.public.project</field>
+            <field name="arch" type="xml">
+                <form string="Fiche Projet Public">
+                    <header>
+                        <field name="code" readonly="1" />
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" />
+                            <h1>
+                                <field name="name" placeholder="Titre du projet..." />
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Informations Générales">
+                                <field name="secteur_intervention" />
+                                <field name="maitre_ouvrage_id" />
+                                <field name="maitre_ouvrage_delegue_id" />
+                                <field name="entite_responsable_principale_id" />
+                                <field name="responsable_projet_id" />
+                                <field name="contact_email" />
+                                <field name="contact_phone" />
+                            </group>
+                            <group string="Calendrier">
+                                <field name="date_debut_previsionnelle" />
+                                <field name="date_fin_previsionnelle" />
+                                <field name="duree_en_mois" />
+                            </group>
+                        </group>
+                        <group string="Description">
+                            <field name="description_sommaire" nolabel="1" />
+                        </group>
+                        <notebook>
+                            <page string="Localisation" name="localisation_tab" groups="base.group_user">
+                                <group>
+                                    <field name="region_ids" widget="many2many_tags" />
+                                    <field name="departement_ids" widget="many2many_tags" options="{'no_create': True}" />
+                                    <field name="commune_ids" widget="many2many_tags" options="{'no_create': True}" />
+                                    <field name="coordonnees_gps_principales" />
+                                </group>
+                            </page>
+                            <page string="Cadre Légal et Politique" name="legal_policy_tab" groups="base.group_user">
+                                <group>
+                                    <field name="base_legale_creation" />
+                                    <field name="references_politiques_publiques" widget="many2many_tags" />
+                                    <field name="autres_textes_reglementaires" />
+                                </group>
+                            </page>
+                            <page string="Budget et Financement" name="budget_finance_tab" groups="project_public_sn.group_finance_manager">
+                                <group>
+                                    <group>
+                                        <field name="cout_total_estime" />
+                                        <field name="currency_id" groups="base.group_multi_currency" />
+                                        <field name="mode_gestion_budgetaire" />
+                                    </group>
+                                </group>
+                                <group string="Répartition Annuelle">
+                                    <field name="repartition_annuelle_ids" nolabel="1">
+                                        <list editable="bottom">
+                                            <field name="annee" />
+                                            <field name="montant_fcfa" />
+                                            <field name="currency_id" groups="base.group_multi_currency" />
+                                        </list>
+                                    </field>
+                                </group>
+                                <group string="Sources de Financement">
+                                    <field name="sources_financement_ids" nolabel="1">
+                                        <list editable="bottom">
+                                            <field name="type_source" />
+                                            <field name="nom_source" />
+                                            <field name="montant_prevu" />
+                                            <field name="currency_id" groups="base.group_multi_currency" />
+                                            <field name="ligne_budgetaire_associee" />
+                                            <field name="accord_reference" />
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Partenaires" name="partners_tab" groups="base.group_user">
+                                <field name="partenaires_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="partner_id" />
+                                        <field name="type_partenariat" />
+                                        <field name="montant_contribution_estime" />
+                                        <field name="currency_id" groups="base.group_multi_currency" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Marchés Publics" name="procurement_tab" groups="project_public_sn.group_procurement_manager">
+                                <group>
+                                    <field name="exigences_particulieres_cmp" />
+                                </group>
+                                <field name="marches_publics_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="nom_marche" />
+                                        <field name="type_marche" />
+                                        <field name="mode_passation" />
+                                        <field name="montant_estime" />
+                                        <field name="currency_id" groups="base.group_multi_currency" />
+                                        <field name="date_lancement_prevue" />
+                                        <field name="duree_execution_prevue" />
+                                    </list>
+                                </field>
+                            </page>
+                            <page string="Suivi et Évaluation" name="monitoring_evaluation_tab" groups="project_public_sn.group_monitoring_evaluation_manager">
+                                <group>
+                                    <field name="methodologie_suivi_evaluation" />
+                                    <field name="frequence_rapports_suivi" />
+                                    <field name="rapports_evaluation_prevus" />
+                                </group>
+                                <group string="Indicateurs de Performance">
+                                    <field name="indicateurs_performance_ids" nolabel="1">
+                                        <list editable="bottom">
+                                            <field name="nom_indicateur" />
+                                            <field name="type_indicateur" />
+                                            <field name="unite_mesure" />
+                                            <field name="valeur_baseline" />
+                                            <field name="valeur_cible" />
+                                            <field name="frequence_mesure" />
+                                            <field name="source_donnees" />
+                                            <field name="responsable_collecte" />
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Risques et Environnement" name="risks_environment_tab" groups="project_public_sn.group_risk_environment_manager">
+                                <group>
+                                    <group string="Environnement et Social">
+                                        <field name="eies_requise" />
+                                        <field name="date_validation_eies" />
+                                        <field name="reference_eies" />
+                                        <field name="pges_existe" />
+                                    </group>
+                                </group>
+                                <group string="Impact Social">
+                                    <field name="impact_social_analyse" nolabel="1" />
+                                </group>
+                                <group string="Analyse des Risques">
+                                    <field name="analyse_risques_ids" nolabel="1">
+                                        <list editable="bottom">
+                                            <field name="nom_risque" />
+                                            <field name="categorie_risque" />
+                                            <field name="probabilite" />
+                                            <field name="impact" />
+                                            <field name="mesures_attenuation" />
+                                            <field name="responsable_suivi" />
+                                        </list>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Transparence et Gouvernance" name="transparency_governance_tab" groups="base.group_user">
+                                <group>
+                                    <group>
+                                        <field name="publication_prevue" />
+                                        <field name="plateforme_publication" />
+                                        <field name="type_informations_publiees" widget="many2many_tags" />
+                                    </group>
+                                    <group>
+                                        <field name="mecanisme_plainte_existe" />
+                                        <field name="audits_controles_prevus" />
+                                    </group>
+                                </group>
+                                <group string="Mécanisme de Plaintes">
+                                    <field name="details_mecanisme_plainte" nolabel="1" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        
+        <record id="view_project_public_project_tree" model="ir.ui.view">
+            <field name="name">project.public.project.list</field>
+            <field name="model">project.public.project</field>
+            <field name="arch" type="xml">
+                <list string="Projets Publics">
+                    <field name="code" />
+                    <field name="name" />
+                    <field name="secteur_intervention" />
+                    <field name="maitre_ouvrage_id" />
+                    <field name="date_debut_previsionnelle" />
+                    <field name="date_fin_previsionnelle" />
+                    <field name="duree_en_mois" />
+                    <field name="cout_total_estime" />
+                    <field name="currency_id" groups="base.group_multi_currency" />
+                </list>
+            </field>
+        </record>
+
+        
+        <record id="action_project_public_project" model="ir.actions.act_window">
+            <field name="name">Projets Publics</field>
+            <field name="res_model">project.public.project</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Créer votre premier projet public
+                </p>
+                <p>
+                    Gérez vos projets publics avec toutes les informations requises par la réglementation sénégalaise.
+                </p>
+            </field>
+        </record>
+
+        
+        <menuitem id="menu_project_public_root" name="Projets Publics" sequence="10" />
+        
+        
+        <menuitem id="menu_project_public_projects" name="Projets" parent="menu_project_public_root" action="action_project_public_project" sequence="10" />
+        
+        
+        <menuitem id="menu_project_public_configuration" name="Configuration" parent="menu_project_public_root" sequence="100" />
+        
+        
+        <menuitem id="menu_project_public_sectors" name="Secteurs d'Intervention" parent="menu_project_public_configuration" action="project_public_sector_action" sequence="10" />
+        <menuitem id="menu_project_public_policies" name="Politiques Publiques" parent="menu_project_public_configuration" action="project_public_policy_action" sequence="20" />
+        <menuitem id="menu_project_public_info_types" name="Types d'Info Publication" parent="menu_project_public_configuration" action="project_public_info_type_action" sequence="30" />
+        <menuitem id="menu_project_public_departements" name="Départements" parent="menu_project_public_configuration" action="project_public_location_departement_action" sequence="40" />
+        <menuitem id="menu_project_public_communes" name="Communes" parent="menu_project_public_configuration" action="project_public_location_commune_action" sequence="50" />
+    </data>
+</odoo>

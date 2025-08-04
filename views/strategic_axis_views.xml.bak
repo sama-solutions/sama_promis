@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Strategic Axis Tree View -->
+        <record id="strategic_axis_view_tree" model="ir.ui.view">
+            <field name="name">strategic.axis.tree</field>
+            <field name="model">strategic.axis</field>
+                        <field name="type">list</field>
+            <field name="arch" type="xml">
+                <list string="Axes Stratégiques">
+                    <field name="name"/>
+                    <field name="pillar_id"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Strategic Axis Form View -->
+        <record id="strategic_axis_view_form" model="ir.ui.view">
+            <field name="name">strategic.axis.form</field>
+            <field name="model">strategic.axis</field>
+            <field name="arch" type="xml">
+                <form string="Axe Stratégique">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="pillar_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                            <page string="Objectifs">
+                                <field name="objective_ids">
+                                    <list editable="bottom">
+                                        <field name="name"/>
+                                    </list>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Strategic Axis Action Window -->
+        <record id="strategic_axis_action" model="ir.actions.act_window">
+            <field name="name">Axes Stratégiques</field>
+            <field name="res_model">strategic.axis</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

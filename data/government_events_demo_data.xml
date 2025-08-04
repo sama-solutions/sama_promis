@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Événements de démo pour le module SAMA ÉTAT -->
+
+        <record id="government_event_demo_1" model="government.event">
+            <field name="name">Lancement officiel du Plan Sénégal 2050</field>
+            <field name="event_type">ceremony</field>
+            <field name="date_start">2025-01-15 09:00:00</field>
+            <field name="date_end">2025-01-15 12:00:00</field>
+            <field name="location">Palais de la République, Dakar</field>
+            <field name="organizer_id" ref="ministry_presidency"/>
+            <field name="strategic_objective_id" ref="objective_quality_education"/>
+            <field name="status">completed</field>
+            <field name="description">Cérémonie officielle de lancement du Plan Sénégal 2050 en présence des hautes autorités de l'État et des partenaires internationaux.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="government_event_demo_2" model="government.event">
+            <field name="name">Atelier national sur la transformation digitale</field>
+            <field name="event_type">workshop</field>
+            <field name="date_start">2025-02-10 08:30:00</field>
+            <field name="date_end">2025-02-12 17:00:00</field>
+            <field name="location">Centre International de Conférences Abdou Diouf, Diamniadio</field>
+            <field name="organizer_id" ref="ministry_digital"/>
+            <field name="strategic_objective_id" ref="objective_technical_education"/>
+            <field name="status">completed</field>
+            <field name="description">Atelier de formation et de sensibilisation sur les enjeux de la transformation digitale pour les administrations publiques.</field>
+            <field name="latitude">14.783300</field>
+            <field name="longitude">-17.400000</field>
+        </record>
+
+        <record id="government_event_demo_3" model="government.event">
+            <field name="name">Conférence internationale sur l'économie verte</field>
+            <field name="event_type">conference</field>
+            <field name="date_start">2025-03-20 09:00:00</field>
+            <field name="date_end">2025-03-22 18:00:00</field>
+            <field name="location">King Fahd Palace Hotel, Dakar</field>
+            <field name="organizer_id" ref="ministry_environment"/>
+            <field name="strategic_objective_id" ref="objective_higher_education"/>
+            <field name="status">ongoing</field>
+            <field name="description">Conférence réunissant experts nationaux et internationaux pour discuter des stratégies d'économie verte et de développement durable.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="government_event_demo_4" model="government.event">
+            <field name="name">Réunion du Comité de pilotage PSE 2.0</field>
+            <field name="event_type">meeting</field>
+            <field name="date_start">2025-04-05 14:00:00</field>
+            <field name="date_end">2025-04-05 17:00:00</field>
+            <field name="location">Ministère de l'Économie, du Plan et de la Coopération</field>
+            <field name="organizer_id" ref="ministry_economy_planning"/>
+            <field name="strategic_objective_id" ref="objective_universal_health"/>
+            <field name="status">planned</field>
+            <field name="description">Réunion trimestrielle du comité de pilotage pour évaluer l'avancement des projets prioritaires du PSE 2.0.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="government_event_demo_5" model="government.event">
+            <field name="name">Forum national sur l'emploi des jeunes</field>
+            <field name="event_type">conference</field>
+            <field name="date_start">2025-04-25 08:00:00</field>
+            <field name="date_end">2025-04-26 18:00:00</field>
+            <field name="location">Université Cheikh Anta Diop, Dakar</field>
+            <field name="organizer_id" ref="ministry_youth"/>
+            <field name="strategic_objective_id" ref="objective_health_infrastructure"/>
+            <field name="status">planned</field>
+            <field name="description">Forum national réunissant jeunes, employeurs et institutions pour identifier des solutions innovantes à l'emploi des jeunes.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="government_event_demo_6" model="government.event">
+            <field name="name">Lancement du programme AgriTech Sénégal</field>
+            <field name="event_type">launch</field>
+            <field name="date_start">2025-05-15 10:00:00</field>
+            <field name="date_end">2025-05-15 13:00:00</field>
+            <field name="location">Technopole de Pikine</field>
+            <field name="organizer_id" ref="ministry_agriculture"/>
+            <field name="strategic_objective_id" ref="objective_youth_entrepreneurship"/>
+            <field name="status">planned</field>
+            <field name="description">Lancement officiel du programme d'innovation technologique agricole avec présentation des premiers projets pilotes.</field>
+            <field name="latitude">14.758945</field>
+            <field name="longitude">-17.393754</field>
+        </record>
+
+        <record id="government_event_demo_7" model="government.event">
+            <field name="name">Atelier régional sur la gouvernance territoriale</field>
+            <field name="event_type">workshop</field>
+            <field name="date_start">2025-06-10 09:00:00</field>
+            <field name="date_end">2025-06-11 17:00:00</field>
+            <field name="location">Centre Régional de Formation, Thiès</field>
+            <field name="organizer_id" ref="ministry_interior"/>
+            <field name="strategic_objective_id" ref="objective_youth_employment"/>
+            <field name="status">planned</field>
+            <field name="description">Atelier de renforcement des capacités des collectivités territoriales en matière de gouvernance et de gestion des projets locaux.</field>
+            <field name="latitude">14.788889</field>
+            <field name="longitude">-16.936111</field>
+        </record>
+
+        <record id="government_event_demo_8" model="government.event">
+            <field name="name">Conférence sur l'innovation dans la santé publique</field>
+            <field name="event_type">conference</field>
+            <field name="date_start">2025-07-08 08:30:00</field>
+            <field name="date_end">2025-07-09 17:30:00</field>
+            <field name="location">Hôpital Principal de Dakar</field>
+            <field name="organizer_id" ref="ministry_health"/>
+            <field name="strategic_objective_id" ref="objective_food_security"/>
+            <field name="status">planned</field>
+            <field name="description">Conférence sur les innovations technologiques et organisationnelles pour améliorer l'accès et la qualité des soins de santé.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="government_event_demo_9" model="government.event">
+            <field name="name">Cérémonie de remise des prix de l'innovation éducative</field>
+            <field name="event_type">ceremony</field>
+            <field name="date_start">2025-08-20 15:00:00</field>
+            <field name="date_end">2025-08-20 18:00:00</field>
+            <field name="location">Centre Culturel Blaise Senghor, Dakar</field>
+            <field name="organizer_id" ref="ministry_education"/>
+            <field name="strategic_objective_id" ref="objective_quality_education"/>
+            <field name="status">planned</field>
+            <field name="description">Cérémonie de reconnaissance des meilleures innovations pédagogiques et technologiques dans le secteur éducatif sénégalais.</field>
+            <field name="latitude">14.716677</field>
+            <field name="longitude">-17.467686</field>
+        </record>
+
+        <record id="government_event_demo_10" model="government.event">
+            <field name="name">Sommet national sur les infrastructures durables</field>
+            <field name="event_type">conference</field>
+            <field name="date_start">2025-09-15 08:00:00</field>
+            <field name="date_end">2025-09-17 17:00:00</field>
+            <field name="location">Nouvelles Infrastructures de Diamniadio</field>
+            <field name="organizer_id" ref="ministry_infrastructure"/>
+            <field name="strategic_objective_id" ref="objective_food_security"/>
+            <field name="status">planned</field>
+            <field name="description">Sommet rassemblant décideurs, experts et partenaires pour définir la stratégie nationale d'infrastructures durables et résilientes.</field>
+            <field name="latitude">14.783300</field>
+            <field name="longitude">-17.400000</field>
+        </record>
+
+        <!-- Additional events across different regions -->
+        <record id="government_event_demo_11" model="government.event">
+            <field name="name">Forum Régional du Développement de Saint-Louis</field>
+            <field name="event_type">conference</field>
+            <field name="date_start">2025-10-12 09:00:00</field>
+            <field name="date_end">2025-10-13 17:00:00</field>
+            <field name="location">Gouvernance de Saint-Louis</field>
+            <field name="organizer_id" ref="ministry_interior"/>
+            <field name="strategic_objective_id" ref="objective_youth_entrepreneurship"/>
+            <field name="status">planned</field>
+            <field name="description">Forum régional sur les stratégies de développement économique et touristique de la région de Saint-Louis.</field>
+            <field name="latitude">16.026340</field>
+            <field name="longitude">-16.489649</field>
+        </record>
+
+        <record id="government_event_demo_12" model="government.event">
+            <field name="name">Conférence Agricole de Kaolack</field>
+            <field name="event_type">conference</field>
+            <field name="date_start">2025-11-08 08:30:00</field>
+            <field name="date_end">2025-11-09 16:30:00</field>
+            <field name="location">Centre Agricole de Kaolack</field>
+            <field name="organizer_id" ref="ministry_agriculture"/>
+            <field name="strategic_objective_id" ref="objective_food_security"/>
+            <field name="status">planned</field>
+            <field name="description">Conférence sur l'amélioration de la productivité agricole dans le bassin arachidier et les nouvelles techniques d'irrigation.</field>
+            <field name="latitude">14.151515</field>
+            <field name="longitude">-16.077778</field>
+        </record>
+
+        <record id="government_event_demo_13" model="government.event">
+            <field name="name">Sommet Minier de Kédougou</field>
+            <field name="event_type">conference</field>
+            <field name="date_start">2025-12-05 09:00:00</field>
+            <field name="date_end">2025-12-06 17:00:00</field>
+            <field name="location">Centre Communautaire de Kédougou</field>
+            <field name="organizer_id" ref="ministry_mines_energy"/>
+            <field name="strategic_objective_id" ref="objective_youth_employment"/>
+            <field name="status">planned</field>
+            <field name="description">Sommet sur le développement minier responsable et l'impact sur les communautés locales de Kédougou.</field>
+            <field name="latitude">12.557892</field>
+            <field name="longitude">-12.179688</field>
+        </record>
+
+        <record id="government_event_demo_14" model="government.event">
+            <field name="name">Atelier Tourisme de Ziguinchor</field>
+            <field name="event_type">workshop</field>
+            <field name="date_start">2026-01-20 08:00:00</field>
+            <field name="date_end">2026-01-21 17:00:00</field>
+            <field name="location">Hôtel de Région, Ziguinchor</field>
+            <field name="organizer_id" ref="ministry_tourism"/>
+            <field name="strategic_objective_id" ref="objective_youth_entrepreneurship"/>
+            <field name="status">planned</field>
+            <field name="description">Atelier de développement du tourisme écologique et culturel en Casamance avec les acteurs locaux.</field>
+            <field name="latitude">12.548267</field>
+            <field name="longitude">-16.263982</field>
+        </record>
+
+        <record id="government_event_demo_15" model="government.event">
+            <field name="name">Forum Pastoral de Tambacounda</field>
+            <field name="event_type">conference</field>
+            <field name="date_start">2026-02-15 09:00:00</field>
+            <field name="date_end">2026-02-16 16:00:00</field>
+            <field name="location">Centre de Formation Agricole, Tambacounda</field>
+            <field name="organizer_id" ref="ministry_agriculture"/>
+            <field name="strategic_objective_id" ref="objective_food_security"/>
+            <field name="status">planned</field>
+            <field name="description">Forum sur l'amélioration de l'élevage et la gestion durable des ressources pastorales dans l'est du Sénégal.</field>
+            <field name="latitude">13.771944</field>
+            <field name="longitude">-13.671006</field>
+        </record>
+
+        <record id="government_event_demo_16" model="government.event">
+            <field name="name">Conférence Énergétique de Louga</field>
+            <field name="event_type">conference</field>
+            <field name="date_start">2026-03-10 08:30:00</field>
+            <field name="date_end">2026-03-11 17:30:00</field>
+            <field name="location">Centre Technique de Louga</field>
+            <field name="organizer_id" ref="ministry_mines_energy"/>
+            <field name="strategic_objective_id" ref="objective_digital_infrastructure"/>
+            <field name="status">planned</field>
+            <field name="description">Conférence sur le développement des énergies renouvelables et l'électrification rurale dans la région de Louga.</field>
+            <field name="latitude">15.619166</field>
+            <field name="longitude">-16.226111</field>
+        </record>
+
+    </data>
+</odoo>
