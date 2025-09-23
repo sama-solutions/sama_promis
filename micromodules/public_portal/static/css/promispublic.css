@@ -1,0 +1,395 @@
+/* SAMA PROMIS - Styles pour le portail public */
+
+/* Variables CSS */
+:root {
+    --sama-primary: #1e3a8a;
+    --sama-secondary: #059669;
+    --sama-success: #10b981;
+    --sama-warning: #f59e0b;
+    --sama-danger: #ef4444;
+    --sama-info: #3b82f6;
+    --sama-light: #f8fafc;
+    --sama-dark: #1f2937;
+}
+
+/* Styles généraux */
+.sama-gradient-primary {
+    background: linear-gradient(135deg, var(--sama-primary) 0%, var(--sama-secondary) 100%);
+}
+
+.sama-gradient-secondary {
+    background: linear-gradient(135deg, var(--sama-secondary) 0%, var(--sama-primary) 100%);
+}
+
+/* Cards avec hover effect */
+.sama-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 12px;
+}
+
+.sama-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Boutons personnalisés */
+.btn-sama-primary {
+    background-color: var(--sama-primary);
+    border-color: var(--sama-primary);
+    color: white;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-sama-primary:hover {
+    background-color: #1e40af;
+    border-color: #1e40af;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
+}
+
+.btn-sama-secondary {
+    background-color: var(--sama-secondary);
+    border-color: var(--sama-secondary);
+    color: white;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-sama-secondary:hover {
+    background-color: #047857;
+    border-color: #047857;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(5, 150, 105, 0.3);
+}
+
+/* Progress bars personnalisées */
+.progress-sama {
+    height: 10px;
+    border-radius: 10px;
+    background-color: #e5e7eb;
+}
+
+.progress-sama .progress-bar {
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--sama-secondary), var(--sama-success));
+}
+
+/* Badges personnalisés */
+.badge-sama-primary {
+    background-color: var(--sama-primary);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.badge-sama-secondary {
+    background-color: var(--sama-secondary);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.badge-sama-success {
+    background-color: var(--sama-success);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.badge-sama-warning {
+    background-color: var(--sama-warning);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+/* Statistiques cards */
+.stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card .stat-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.stat-card .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+.stat-card .stat-label {
+    font-size: 1rem;
+    color: #6b7280;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+/* Filtres section */
+.filters-section {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+.filters-section .form-control {
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+    padding: 12px 15px;
+    transition: border-color 0.3s ease;
+}
+
+.filters-section .form-control:focus {
+    border-color: var(--sama-primary);
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+/* Project cards */
+.project-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: none;
+    height: 100%;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.project-card .card-header {
+    background: linear-gradient(135deg, #f8fafc 0%, #e5e7eb 100%);
+    border-bottom: none;
+    padding: 20px;
+}
+
+.project-card .card-body {
+    padding: 25px;
+}
+
+.project-card .card-footer {
+    background: transparent;
+    border-top: 1px solid #e5e7eb;
+    padding: 20px 25px;
+}
+
+.project-card .project-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--sama-dark);
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.project-card .project-description {
+    color: #6b7280;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.project-card .project-meta {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin-bottom: 8px;
+}
+
+.project-card .project-meta i {
+    width: 16px;
+    text-align: center;
+    margin-right: 8px;
+}
+
+/* Timeline pour l'activité */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--sama-primary), var(--sama-secondary));
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -37px;
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--sama-primary);
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px var(--sama-primary);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .stat-card {
+        margin-bottom: 20px;
+    }
+    
+    .project-card {
+        margin-bottom: 20px;
+    }
+    
+    .filters-section {
+        padding: 20px;
+    }
+    
+    .timeline {
+        padding-left: 20px;
+    }
+    
+    .timeline::before {
+        left: 10px;
+    }
+    
+    .timeline-item::before {
+        left: -32px;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* QR Code modal */
+.qr-modal .modal-content {
+    border-radius: 15px;
+    border: none;
+}
+
+.qr-modal .modal-header {
+    background: var(--sama-gradient-primary);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.qr-modal .qr-image {
+    max-width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation tabs personnalisées */
+.nav-tabs-sama {
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.nav-tabs-sama .nav-link {
+    border: none;
+    border-radius: 0;
+    color: #6b7280;
+    font-weight: 500;
+    padding: 15px 20px;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs-sama .nav-link:hover {
+    border-color: transparent;
+    color: var(--sama-primary);
+}
+
+.nav-tabs-sama .nav-link.active {
+    background: transparent;
+    border-color: transparent;
+    border-bottom: 3px solid var(--sama-primary);
+    color: var(--sama-primary);
+    font-weight: 600;
+}
+
+/* Breadcrumb personnalisé */
+.breadcrumb-sama {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumb-sama .breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.2rem;
+}
+
+.breadcrumb-sama .breadcrumb-item a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.breadcrumb-sama .breadcrumb-item a:hover {
+    opacity: 0.8;
+}
+
+/* Loading spinner */
+.sama-spinner {
+    border: 3px solid #e5e7eb;
+    border-top: 3px solid var(--sama-primary);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

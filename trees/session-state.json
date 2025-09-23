@@ -1,0 +1,11 @@
+{
+  "/home/grand-as/psagsn/custom_addons/sama_promis": {
+    "path": "/home/grand-as/psagsn/custom_addons/sama_promis",
+    "branch": "refs/heads/master",
+    "agentType": "claude",
+    "created": "2025-08-11T11:07:07.710Z",
+    "lastAccessed": "2025-08-11T11:07:07.867Z",
+    "isDirty": true,
+    "lastCommitSHA": "37a65871166a701f5e92e8cf0b095f754cbd7ccd"
+  }
+}

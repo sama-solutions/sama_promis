@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="project_detail" name="SAMA PROMIS Project Detail" inherit_id="website.layout" page="True">
+        <xpath expr="//div[hasclass('o_wrap_simah')]" position="replace">
+            <div class="o_wrap_simah bg-light">
+                <!-- Header -->
+                <header class="bg-white shadow-sm py-3">
+                    <div class="container">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-project-diagram fa-2x text-primary me-3"></i>
+                                <h1 class="h4 mb-0">SAMA PROMIS</h1>
+                            </div>
+                            <div>
+                                <a href="/dashboard" class="btn btn-outline-secondary btn-sm me-2">
+                                    <i class="fas fa-arrow-left me-1"></i>Retour au Tableau de Bord
+                                </a>
+                                <a href="/web/login" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-sign-in-alt me-1"></i>Connexion
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Project Header -->
+                <section class="py-5 bg-gradient-primary text-white">
+                    <div class="container">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h1 class="display-5 fw-bold mb-2"><t t-esc="project.name"/></h1>
+                                <p class="lead mb-0">
+                                    <span class="badge bg-light text-dark me-2">
+                                        <t t-esc="dict(project._fields['project_type'].selection).get(project.project_type)"/>
+                                    </span>
+                                    <span t-attf-class="badge bg-{{ 'success' if project.state == 'in_progress' else 'warning' if project.state == 'draft' else 'secondary' }}">
+                                        <t t-esc="dict(project._fields['state'].selection).get(project.state)"/>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="text-end">
+                                <h3 class="h5 mb-1">Budget Total</h3>
+                                <p class="h3 mb-0"><t t-esc="'{:,.0f}'.format(project.total_budget or 0)"/> €</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Project Details -->
+                <section class="py-5">
+                    <div class="container">
+                        <div class="row g-4">
+                            <!-- Main Project Info -->
+                            <div class="col-lg-8">
+                                <div class="card border-0 shadow-sm mb-4">
+                                    <div class="card-header bg-white border-0">
+                                        <h2 class="h5 mb-0">Informations Générales</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <p class="text-muted mb-1">Date de Début</p>
+                                                <p class="mb-3 fw-bold">
+                                                    <t t-if="project.start_date" t-esc="project.start_date"/>
+                                                    <span t-else="">Non définie</span>
+                                                </p>
+                                                
+                                                <p class="text-muted mb-1">Date de Fin Prévue</p>
+                                                <p class="mb-3 fw-bold">
+                                                    <t t-if="project.end_date" t-esc="project.end_date"/>
+                                                    <span t-else="">Non définie</span>
+                                                </p>
+                                                
+                                                <p class="text-muted mb-1">Bailleur de Fonds</p>
+                                                <p class="mb-0 fw-bold">
+                                                    <t t-if="donor">
+                                                        <a t-att-href="'/dashboard/donor/%s' % donor.id" class="text-primary">
+                                                            <t t-esc="donor.name"/>
+                                                        </a>
+                                                    </t>
+                                                    <span t-else="">Non défini</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="text-muted mb-1">Gestionnaire</p>
+                                                <p class="mb-3 fw-bold">
+                                                    <t t-if="manager" t-esc="manager.name"/>
+                                                    <span t-else="">Non défini</span>
+                                                </p>
+                                                
+                                                <p class="text-muted mb-1">Niveau de Conformité Bailleur</p>
+                                                <p class="mb-3 fw-bold">
+                                                    <t t-if="project.donor_compliance_level">
+                                                        <span t-attf-class="badge bg-{{ 'success' if project.donor_compliance_level == 'high' else 'warning' if project.donor_compliance_level == 'medium' else 'danger' }}">
+                                                            <t t-esc="dict(project._fields['donor_compliance_level'].selection).get(project.donor_compliance_level)"/>
+                                                        </span>
+                                                    </t>
+                                                    <span t-else="">Non défini</span>
+                                                </p>
+                                                
+                                                <p class="text-muted mb-1">Fréquence de Rapportage</p>
+                                                <p class="mb-0 fw-bold">
+                                                    <t t-if="project.reporting_frequency" t-esc="dict(project._fields['reporting_frequency'].selection).get(project.reporting_frequency)"/>
+                                                    <span t-else="">Non définie</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mt-3">
+                                            <p class="text-muted mb-1">Prochaine Date de Rapport</p>
+                                            <p class="mb-0 fw-bold">
+                                                <t t-if="project.next_report_date" t-esc="project.next_report_date"/>
+                                                <span t-else="">Non définie</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Performance Indicators -->
+                                <div class="card border-0 shadow-sm mb-4">
+                                    <div class="card-header bg-white border-0">
+                                        <h2 class="h5 mb-0">Indicateurs de Performance</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <t t-if="performance_indicators">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Indicateur</th>
+                                                            <th>Cible</th>
+                                                            <th>Actuel</th>
+                                                            <th>Progression</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr t-foreach="performance_indicators" t-as="indicator">
+                                                            <td><t t-esc="indicator.name"/></td>
+                                                            <td><t t-esc="indicator.target_value"/></td>
+                                                            <td><t t-esc="indicator.current_value"/></td>
+                                                            <td>
+                                                                <t t-set="progress" t-value="(indicator.current_value / indicator.target_value * 100) if indicator.target_value else 0"/>
+                                                                <div class="progress" style="height: 6px;">
+                                                                    <div t-attf-class="progress-bar bg-{{ 'success' if progress >= 70 else 'warning' if progress >= 30 else 'danger' }}"
+                                                                         t-attf-style="width: {{progress}}%;"></div>
+                                                                </div>
+                                                                <small class="text-muted"><t t-esc="round(progress, 1)"/>%</small>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </t>
+                                        <div t-else="" class="text-center py-4">
+                                            <p class="text-muted mb-0">Aucun indicateur de performance défini pour ce projet.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Evaluations -->
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-header bg-white border-0">
+                                        <h2 class="h5 mb-0">Évaluations</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <t t-if="evaluations">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date</th>
+                                                            <th>Évaluateur</th>
+                                                            <th>Note</th>
+                                                            <th>Statut</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr t-foreach="evaluations" t-as="eval">
+                                                            <td><t t-esc="eval.evaluation_date"/></td>
+                                                            <td><t t-esc="eval.evaluator_id.name"/></td>
+                                                            <td>
+                                                                <span class="badge bg-primary"><t t-esc="eval.score"/>/5</span>
+                                                            </td>
+                                                            <td>
+                                                                <span t-attf-class="badge bg-{{ 'success' if eval.state == 'completed' else 'warning' if eval.state == 'in_progress' else 'secondary' }}">
+                                                                    <t t-esc="dict(eval._fields['state'].selection).get(eval.state)"/>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </t>
+                                        <div t-else="" class="text-center py-4">
+                                            <p class="text-muted mb-0">Aucune évaluation disponible pour ce projet.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Sidebar -->
+                            <div class="col-lg-4">
+                                <!-- Project Status -->
+                                <div class="card border-0 shadow-sm mb-4">
+                                    <div class="card-header bg-white border-0">
+                                        <h2 class="h5 mb-0">Statut du Projet</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="text-muted">Progression</span>
+                                            <t t-set="progress_value" t-value="100 if project.state == 'completed' else 75 if project.state == 'in_progress' else 25 if project.state == 'approved' else 10"/>
+                                            <span class="fw-bold"><t t-esc="progress_value"/>%</span>
+                                        </div>
+                                        <div class="progress mb-4" style="height: 8px;">
+                                            <div t-attf-class="progress-bar bg-{{ 'success' if progress_value >= 70 else 'warning' if progress_value >= 30 else 'danger' }}"
+                                                 t-attf-style="width: {{progress_value}}%;"></div>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="text-muted">Note Moyenne</span>
+                                            <span class="badge bg-primary"><t t-esc="project.average_score or 0"/>/5</span>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="text-muted">Statut d'Évaluation</span>
+                                            <span t-attf-class="badge bg-{{ 'success' if project.evaluation_status == 'completed' else 'warning' if project.evaluation_status == 'in_progress' else 'secondary' }}">
+                                                <t t-esc="dict(project._fields['evaluation_status'].selection).get(project.evaluation_status)"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Events -->
+                                <div class="card border-0 shadow-sm mb-4">
+                                    <div class="card-header bg-white border-0">
+                                        <h2 class="h5 mb-0">Événements (<t t-esc="project.event_count"/>)</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <t t-if="project.event_ids">
+                                            <div class="list-group list-group-flush">
+                                                <t t-foreach="project.event_ids" t-as="event">
+                                                    <div class="list-group-item px-0">
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1"><t t-esc="event.name"/></h5>
+                                                            <small t-attf-class="badge bg-{{ 'success' if event.state == 'completed' else 'warning' if event.state == 'in_progress' else 'info' if event.state == 'confirmed' else 'secondary' }}">
+                                                                <t t-esc="dict(event._fields['state'].selection).get(event.state)"/>
+                                                            </small>
+                                                        </div>
+                                                        <p class="mb-1">
+                                                            <i class="fas fa-calendar-alt me-1"></i>
+                                                            <t t-esc="event.start_date"/>
+                                                        </p>
+                                                        <small class="text-muted">
+                                                            <i class="fas fa-map-marker-alt me-1"></i>
+                                                            <t t-esc="event.location or 'Lieu non défini'"/>
+                                                        </small>
+                                                    </div>
+                                                </t>
+                                            </div>
+                                        </t>
+                                        <div t-else="" class="text-center py-4">
+                                            <p class="text-muted mb-0">Aucun événement prévu pour ce projet.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="bg-dark text-white py-4">
+                    <div class="container text-center">
+                        <p class="mb-0">© 2025 SAMA PROMIS. Tous droits réservés.</p>
+                    </div>
+                </footer>
+            </div>
+        </xpath>
+    </template>
+</odoo>

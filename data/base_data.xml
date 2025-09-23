@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Étiquettes par défaut -->
+    <record id="tag_urgent" model="sama.promis.tag">
+        <field name="name">Urgent</field>
+        <field name="category">priority</field>
+        <field name="color">1</field>
+        <field name="description">Projets urgents nécessitant une attention immédiate</field>
+    </record>
+
+    <record id="tag_development" model="sama.promis.tag">
+        <field name="name">Développement</field>
+        <field name="category">theme</field>
+        <field name="color">2</field>
+        <field name="description">Projets de développement général</field>
+    </record>
+
+    <record id="tag_education" model="sama.promis.tag">
+        <field name="name">Éducation</field>
+        <field name="category">theme</field>
+        <field name="color">3</field>
+        <field name="description">Projets liés à l'éducation</field>
+    </record>
+
+    <record id="tag_health" model="sama.promis.tag">
+        <field name="name">Santé</field>
+        <field name="category">theme</field>
+        <field name="color">4</field>
+        <field name="description">Projets de santé publique</field>
+    </record>
+
+    <record id="tag_infrastructure" model="sama.promis.tag">
+        <field name="name">Infrastructure</field>
+        <field name="category">theme</field>
+        <field name="color">5</field>
+        <field name="description">Projets d'infrastructure</field>
+    </record>
+
+    <record id="tag_agriculture" model="sama.promis.tag">
+        <field name="name">Agriculture</field>
+        <field name="category">theme</field>
+        <field name="color">6</field>
+        <field name="description">Projets agricoles</field>
+    </record>
+
+    <!-- Configuration système -->
+    <record id="config_qr_base_url" model="ir.config_parameter">
+        <field name="key">sama_promis.qr_base_url</field>
+        <field name="value">https://sama-promis.sn</field>
+    </record>
+
+    <record id="config_company_name" model="ir.config_parameter">
+        <field name="key">sama_promis.company_name</field>
+        <field name="value">SAMA ETAT</field>
+    </record>
+
+    <record id="config_dashboard_title" model="ir.config_parameter">
+        <field name="key">sama_promis.dashboard_title</field>
+        <field name="value">PROMIS PUBLIC</field>
+    </record>
+</odoo>

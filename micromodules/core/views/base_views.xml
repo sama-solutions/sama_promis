@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue pour les étiquettes SAMA PROMIS -->
+    <record id="view_sama_promis_tag_tree" model="ir.ui.view">
+        <field name="name">sama.promis.tag.tree</field>
+        <field name="model">sama.promis.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Étiquettes SAMA PROMIS">
+                <field name="name"/>
+                <field name="color" widget="color"/>
+                <field name="description"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_sama_promis_tag_form" model="ir.ui.view">
+        <field name="name">sama.promis.tag.form</field>
+        <field name="model">sama.promis.tag</field>
+        <field name="arch" type="xml">
+            <form string="Étiquette SAMA PROMIS">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="color" widget="color"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sama_promis_tag" model="ir.actions.act_window">
+        <field name="name">Étiquettes</field>
+        <field name="res_model">sama.promis.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer une nouvelle étiquette
+            </p>
+            <p>
+                Les étiquettes permettent de catégoriser et organiser les enregistrements SAMA PROMIS.
+            </p>
+        </field>
+    </record>
+
+    <!-- Vue popup pour QR Code -->
+    <record id="view_qr_code_popup" model="ir.ui.view">
+        <field name="name">qr.code.popup</field>
+        <field name="model">sama.promis.project</field>
+        <field name="arch" type="xml">
+            <form string="QR Code">
+                <sheet>
+                    <div class="text-center">
+                        <h3>QR Code</h3>
+                        <field name="qr_code_image" widget="image" options="{'size': [300, 300]}"/>
+                        <p>
+                            <strong>URL:</strong> <field name="qr_code_url" readonly="1"/>
+                        </p>
+                        <div class="mt-3">
+                            <button name="action_copy_qr_url" type="object" string="Copier URL" class="btn-primary"/>
+                            <button name="action_download_qr_code" type="object" string="Télécharger" class="btn-secondary"/>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

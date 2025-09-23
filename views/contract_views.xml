@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Contract Template Tree View -->
+    <record id="view_sama_promis_contract_template_tree" model="ir.ui.view">
+        <field name="name">sama.promis.contract.template.tree</field>
+        <field name="model">sama.promis.contract.template</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list string="Modèles de Contrats" create="true" edit="true" delete="true">
+                <field name="name"/>
+                <field name="contract_type"/>
+                <field name="is_active"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Contract Template Form View -->
+    <record id="view_sama_promis_contract_template_form" model="ir.ui.view">
+        <field name="name">sama.promis.contract.template.form</field>
+        <field name="model">sama.promis.contract.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="contract_type"/>
+                            <field name="is_active"/>
+                        </group>
+                        <group>
+                            <field name="sign_template_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Contenu du Modèle">
+                            <field name="template_content" widget="html"/>
+                        </page>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                        <page string="Variables Disponibles">
+                            <field name="available_variables"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Contract Template Search View -->
+    <record id="view_sama_promis_contract_template_search" model="ir.ui.view">
+        <field name="name">sama.promis.contract.template.search</field>
+        <field name="model">sama.promis.contract.template</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="contract_type"/>
+                <filter string="Actifs" name="active" domain="[('is_active','=',True)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Type" name="group_type" context="{'group_by':'contract_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Enhanced Contract Tree View -->
+    <record id="view_sama_promis_contract_tree" model="ir.ui.view">
+        <field name="name">sama.promis.contract.tree</field>
+        <field name="model">sama.promis.contract</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list string="Contrats" decoration-info="state == 'draft'" decoration-warning="state == 'sent_for_signature'" decoration-success="state == 'signed'">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="partner_id"/>
+                <field name="contract_type"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="amount"/>
+                <field name="signature_status" widget="badge" decoration-info="signature_status == 'draft'" decoration-warning="signature_status == 'sent_for_signature'" decoration-success="signature_status == 'signed'"/>
+                <field name="state" widget="statusbar"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Enhanced Contract Form View -->
+    <record id="view_sama_promis_contract_form" model="ir.ui.view">
+        <field name="name">sama.promis.contract.form</field>
+        <field name="model">sama.promis.contract</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_generate_contract" string="Générer Contrat" type="object" class="oe_highlight"/>
+                    <button name="action_send_for_signature" string="Envoyer pour Signature" type="object" class="oe_highlight"/>
+                    <button name="action_mark_signed" string="Marquer comme Signé" type="object" class="oe_highlight"/>
+                    <button name="action_download_contract" string="Télécharger" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,generated,sent_for_signature,signed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    
+                    <group>
+                        <group string="Informations Générales">
+                            <field name="project_id"/>
+                            <field name="partner_id"/>
+                            <field name="contract_type"/>
+                            <field name="contract_template_id"/>
+                        </group>
+                        <group string="Dates et Montants">
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="amount"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Signature Électronique">
+                            <field name="signature_status" widget="badge"/>
+                            <field name="sign_request_id" readonly="1"/>
+                            <field name="signed_document_id" readonly="1"/>
+                        </group>
+                        <group string="Rapportage">
+                            <field name="reporting_frequency"/>
+                            <field name="next_report_date"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Contenu du Contrat">
+                            <field name="contract_content_html" readonly="1" widget="html"/>
+                        </page>
+                        <page string="Échéancier de Paiement">
+                            <field name="payment_schedule_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="due_date"/>
+                                    <field name="amount"/>
+                                    <field name="payment_percentage"/>
+                                    <field name="description"/>
+                                    <field name="payment_state"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Conditions">
+                            <group>
+                                <field name="terms_conditions" widget="html"/>
+                                <field name="special_conditions"/>
+                            </group>
+                        </page>
+                        <page string="Documents">
+                            <field name="contract_document" filename="contract_filename"/>
+                            <field name="contract_filename" invisible="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Enhanced Contract Search View -->
+    <record id="view_sama_promis_contract_search" model="ir.ui.view">
+        <field name="name">sama.promis.contract.search</field>
+        <field name="model">sama.promis.contract</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="project_id"/>
+                <field name="contract_type"/>
+                <filter string="Brouillons" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Générés" name="generated" domain="[('state','=','generated')]"/>
+                <filter string="En attente de signature" name="sent_for_signature" domain="[('state','=','sent_for_signature')]"/>
+                <filter string="Signés" name="signed" domain="[('state','=','signed')]"/>
+                <filter string="Actifs" name="active" domain="[('state','=','active')]"/>
+                <separator/>
+                <filter string="Signature en attente" name="signature_pending" domain="[('signature_status','in',['draft','sent_for_signature'])]"/>
+                <filter string="Signés" name="signature_signed" domain="[('signature_status','=','signed')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Type de Contrat" name="group_type" context="{'group_by':'contract_type'}"/>
+                    <filter string="État" name="group_state" context="{'group_by':'state'}"/>
+                    <filter string="État de Signature" name="group_signature" context="{'group_by':'signature_status'}"/>
+                    <filter string="Projet" name="group_project" context="{'group_by':'project_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_sama_promis_contract_template" model="ir.actions.act_window">
+        <field name="name">Modèles de Contrats</field>
+        <field name="res_model">sama.promis.contract.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créez et gérez des modèles de contrats
+            </p>
+        </field>
+    </record>
+
+    <record id="action_sama_promis_contract" model="ir.actions.act_window">
+        <field name="name">Contrats</field>
+        <field name="res_model">sama.promis.contract</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créez et suivez les contrats
+            </p>
+        </field>
+    </record>
+
+</odoo>

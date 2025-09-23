@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="donor_detail" name="SAMA PROMIS Donor Detail" inherit_id="website.layout" page="True">
+        <xpath expr="//div[hasclass('o_wrap_simah')]" position="replace">
+            <div class="o_wrap_simah bg-light">
+                <!-- Header -->
+                <header class="bg-white shadow-sm py-3">
+                    <div class="container">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-project-diagram fa-2x text-primary me-3"></i>
+                                <h1 class="h4 mb-0">SAMA PROMIS</h1>
+                            </div>
+                            <div>
+                                <a href="/dashboard" class="btn btn-outline-secondary btn-sm me-2">
+                                    <i class="fas fa-arrow-left me-1"></i>Retour au Tableau de Bord
+                                </a>
+                                <a href="/web/login" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-sign-in-alt me-1"></i>Connexion
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Donor Header -->
+                <section class="py-5 bg-gradient-primary text-white">
+                    <div class="container">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h1 class="display-5 fw-bold mb-2"><t t-esc="donor.name"/></h1>
+                                <p class="lead mb-0">
+                                    <span class="badge bg-light text-dark">Bailleur de Fonds</span>
+                                </p>
+                            </div>
+                            <div class="text-end">
+                                <h3 class="h5 mb-1">Financement Total</h3>
+                                <p class="h3 mb-0"><t t-esc="'{:,.0f}'.format(total_budget or 0)"/> €</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Donor Details -->
+                <section class="py-5">
+                    <div class="container">
+                        <div class="row g-4">
+                            <!-- Main Donor Info -->
+                            <div class="col-lg-8">
+                                <div class="card border-0 shadow-sm mb-4">
+                                    <div class="card-header bg-white border-0">
+                                        <h2 class="h5 mb-0">Informations Générales</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <p class="text-muted mb-1">Nom</p>
+                                                <p class="mb-3 fw-bold"><t t-esc="donor.name"/></p>
+                                                
+                                                <p class="text-muted mb-1">Email</p>
+                                                <p class="mb-3 fw-bold">
+                                                    <t t-if="donor.email" t-esc="donor.email"/>
+                                                    <span t-else="">Non défini</span>
+                                                </p>
+                                                
+                                                <p class="text-muted mb-1">Téléphone</p>
+                                                <p class="mb-0 fw-bold">
+                                                    <t t-if="donor.phone" t-esc="donor.phone"/>
+                                                    <span t-else="">Non défini</span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="text-muted mb-1">Site Web</p>
+                                                <p class="mb-3 fw-bold">
+                                                    <t t-if="donor.website">
+                                                        <a t-att-href="donor.website" target="_blank" class="text-primary">
+                                                            <t t-esc="donor.website"/>
+                                                        </a>
+                                                    </t>
+                                                    <span t-else="">Non défini</span>
+                                                </p>
+                                                
+                                                <p class="text-muted mb-1">Pays</p>
+                                                <p class="mb-3 fw-bold">
+                                                    <t t-if="donor.country_id" t-esc="donor.country_id.name"/>
+                                                    <span t-else="">Non défini</span>
+                                                </p>
+                                                
+                                                <p class="text-muted mb-1">Nombre de Projets</p>
+                                                <p class="mb-0 fw-bold">
+                                                    <t t-esc="total_projects or 0"/> projets
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Projects List -->
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                                        <h2 class="h5 mb-0">Projets Financés</h2>
+                                        <span class="badge bg-primary"><t t-esc="total_projects"/> projets</span>
+                                    </div>
+                                    <div class="card-body">
+                                        <t t-if="projects">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nom du Projet</th>
+                                                            <th>Type</th>
+                                                            <th>Statut</th>
+                                                            <th>Budget</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr t-foreach="projects" t-as="project">
+                                                            <td><t t-esc="project.name"/></td>
+                                                            <td>
+                                                                <span class="badge bg-light text-dark">
+                                                                    <t t-esc="dict(project._fields['project_type'].selection).get(project.project_type)"/>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span t-attf-class="badge bg-{{ 'success' if project.state == 'in_progress' else 'warning' if project.state == 'draft' else 'secondary' }}">
+                                                                    <t t-esc="dict(project._fields['state'].selection).get(project.state)"/>
+                                                                </span>
+                                                            </td>
+                                                            <td><t t-esc="'{:,.0f}'.format(project.total_budget or 0)"/> €</td>
+                                                            <td class="text-end">
+                                                                <a t-att-href="'/dashboard/project/%s' % project.id" class="btn btn-sm btn-outline-primary">
+                                                                    Voir
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </t>
+                                        <div t-else="" class="text-center py-4">
+                                            <p class="text-muted mb-0">Aucun projet financé par ce bailleur.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Sidebar -->
+                            <div class="col-lg-4">
+                                <!-- Donor Stats -->
+                                <div class="card border-0 shadow-sm mb-4">
+                                    <div class="card-header bg-white border-0">
+                                        <h2 class="h5 mb-0">Statistiques</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="text-muted">Projets Actifs</span>
+                                            <t t-set="active_projects" t-value="len([p for p in projects if p.state == 'in_progress'])"/>
+                                            <span class="fw-bold"><t t-esc="active_projects"/> / <t t-esc="total_projects"/></span>
+                                        </div>
+                                        <div class="progress mb-4" style="height: 8px;">
+                                            <div class="progress-bar bg-success" 
+                                                 t-attf-style="width: {{(active_projects / total_projects * 100) if total_projects else 0}}%;"></div>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="text-muted">Projets par Type</span>
+                                        </div>
+                                        
+                                        <t t-set="operational_call" t-value="len([p for p in projects if p.project_type == 'operational_call'])"/>
+                                        <t t-set="operational_initiative" t-value="len([p for p in projects if p.project_type == 'operational_initiative'])"/>
+                                        <t t-set="administrative" t-value="len([p for p in projects if p.project_type == 'administrative'])"/>
+                                        
+                                        <div class="mb-2">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <small>Appels à Propositions</small>
+                                                <small><t t-esc="operational_call"/></small>
+                                            </div>
+                                            <div class="progress" style="height: 6px;">
+                                                <div class="progress-bar bg-primary" 
+                                                     t-attf-style="width: {{(operational_call / total_projects * 100) if total_projects else 0}}%;"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-2">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <small>Initiatives du Programme</small>
+                                                <small><t t-esc="operational_initiative"/></small>
+                                            </div>
+                                            <div class="progress" style="height: 6px;">
+                                                <div class="progress-bar bg-info" 
+                                                     t-attf-style="width: {{(operational_initiative / total_projects * 100) if total_projects else 0}}%;"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <small>Administratifs</small>
+                                                <small><t t-esc="administrative"/></small>
+                                            </div>
+                                            <div class="progress" style="height: 6px;">
+                                                <div class="progress-bar bg-secondary" 
+                                                     t-attf-style="width: {{(administrative / total_projects * 100) if total_projects else 0}}%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Contact Info -->
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-header bg-white border-0">
+                                        <h2 class="h5 mb-0">Contact</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <t t-if="donor.street or donor.city or donor.country_id">
+                                            <p class="mb-3">
+                                                <i class="fas fa-map-marker-alt me-2 text-primary"></i>
+                                                <span t-if="donor.street" t-esc="donor.street"/><br t-if="donor.street"/>
+                                                <span t-if="donor.street2" t-esc="donor.street2"/><br t-if="donor.street2"/>
+                                                <span t-if="donor.zip" t-esc="donor.zip"/> <span t-if="donor.city" t-esc="donor.city"/><br t-if="donor.city"/>
+                                                <span t-if="donor.country_id" t-esc="donor.country_id.name"/>
+                                            </p>
+                                        </t>
+                                        
+                                        <p t-if="donor.phone" class="mb-3">
+                                            <i class="fas fa-phone me-2 text-primary"></i>
+                                            <t t-esc="donor.phone"/>
+                                        </p>
+                                        
+                                        <p t-if="donor.email" class="mb-3">
+                                            <i class="fas fa-envelope me-2 text-primary"></i>
+                                            <a t-att-href="'mailto:' + donor.email" class="text-primary">
+                                                <t t-esc="donor.email"/>
+                                            </a>
+                                        </p>
+                                        
+                                        <p t-if="donor.website" class="mb-0">
+                                            <i class="fas fa-globe me-2 text-primary"></i>
+                                            <a t-att-href="donor.website" target="_blank" class="text-primary">
+                                                <t t-esc="donor.website"/>
+                                            </a>
+                                        </p>
+                                        
+                                        <div t-if="not (donor.street or donor.city or donor.country_id or donor.phone or donor.email or donor.website)" class="text-center py-4">
+                                            <p class="text-muted mb-0">Aucune information de contact disponible.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="bg-dark text-white py-4">
+                    <div class="container text-center">
+                        <p class="mb-0">© 2025 SAMA PROMIS. Tous droits réservés.</p>
+                    </div>
+                </footer>
+            </div>
+        </xpath>
+    </template>
+</odoo>

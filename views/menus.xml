@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menu principal SAMA PROMIS -->
+    <menuitem id="menu_sama_promis_main" 
+              name="SAMA PROMIS" 
+              sequence="10"
+              web_icon="sama_promis,static/description/icon.png"/>
+
+    <!-- Menu Projets -->
+    <menuitem id="menu_sama_promis_projects" 
+              name="Projets" 
+              parent="menu_sama_promis_main" 
+              sequence="10"/>
+
+    <menuitem id="menu_sama_promis_project_all" 
+              name="Tous les Projets" 
+              parent="menu_sama_promis_projects" 
+              action="action_sama_promis_project" 
+              sequence="10"/>
+
+    <!-- Menu Configuration -->
+    <menuitem id="menu_sama_promis_config" 
+              name="Configuration" 
+              parent="menu_sama_promis_main" 
+              sequence="90"/>
+
+    <menuitem id="menu_sama_promis_tags" 
+              name="Étiquettes" 
+              parent="menu_sama_promis_config" 
+              action="action_sama_promis_tag" 
+              sequence="10"/>
+
+    <!-- Menu Dashboard Public -->
+    <menuitem id="menu_sama_promis_public" 
+              name="Dashboard Public" 
+              parent="menu_sama_promis_main" 
+              sequence="80"/>
+
+    <record id="action_promispublic_dashboard" model="ir.actions.act_url">
+        <field name="name">PROMIS PUBLIC</field>
+        <field name="url">/promispublic</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_sama_promis_public_dashboard" 
+              name="PROMIS PUBLIC" 
+              parent="menu_sama_promis_public" 
+              action="action_promispublic_dashboard" 
+              sequence="10"/>
+
+    <record id="action_citizen_portal" model="ir.actions.act_url">
+        <field name="name">SAMA PROMIS ET MOI</field>
+        <field name="url">/promispublic/citizen</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_sama_promis_citizen_portal" 
+              name="SAMA PROMIS ET MOI" 
+              parent="menu_sama_promis_public" 
+              action="action_citizen_portal" 
+              sequence="20"/>
+</odoo>

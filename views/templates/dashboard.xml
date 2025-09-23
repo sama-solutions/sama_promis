@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sama_promis_dashboard" name="SAMA PROMIS Dashboard" inherit_id="website.layout" page="True">
+        <xpath expr="//div[hasclass('o_wrap_simah')]" position="replace">
+            <div class="o_wrap_simah bg-light">
+                <!-- Header -->
+                <header class="bg-white shadow-sm py-3">
+                    <div class="container">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-project-diagram fa-2x text-primary me-3"></i>
+                                <h1 class="h4 mb-0">SAMA PROMIS</h1>
+                            </div>
+                            <a href="/web/login" class="btn btn-primary btn-sm">
+                                <i class="fas fa-sign-in-alt me-1"></i>Connexion
+                            </a>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Hero -->
+                <section class="py-5 bg-gradient-primary text-white">
+                    <div class="container">
+                        <h1 class="display-5 fw-bold mb-3">Tableau de Bord</h1>
+                        <p class="lead">Suivi des projets en temps réel</p>
+                    </div>
+                </section>
+
+                <!-- Metrics -->
+                <section class="py-5">
+                    <div class="container">
+                        <div class="row g-4">
+                            <div class="col-6 col-md-3">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <div class="h1 mb-1"><t t-esc="total_projects or 0"/></div>
+                                        <p class="text-muted mb-0">Projets</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <div class="h1 mb-1"><t t-esc="active_projects or 0"/></div>
+                                        <p class="text-muted mb-0">Actifs</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <div class="h1 mb-1"><t t-esc="budget_utilized or 0"/>%</div>
+                                        <p class="text-muted mb-0">Budget</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <div class="h1 mb-1"><t t-esc="upcoming_events or 0"/></div>
+                                        <p class="text-muted mb-0">Événements</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Donor Statistics -->
+                <section class="pb-4">
+                    <div class="container">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0">
+                                <h2 class="h5 mb-0">Statistiques par Bailleur</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <t t-foreach="donor_stats" t-as="donor">
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card h-100">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <a t-att-href="'/dashboard/donor/%s' % donor.get('id', 0)" class="text-decoration-none">
+                                                            <t t-esc="donor.get('name', 'Bailleur')"/>
+                                                        </a>
+                                                    </h5>
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        <span class="text-muted">Projets:</span>
+                                                        <span class="fw-bold"><t t-esc="donor.get('project_count', 0)"/></span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <span class="text-muted">Budget:</span>
+                                                        <span class="fw-bold"><t t-esc="'{:,.0f}'.format(donor.get('total_budget', 0))"/> €</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Filters -->
+                <section class="pb-4">
+                    <div class="container">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0">
+                                <h2 class="h5 mb-0">Filtres</h2>
+                            </div>
+                            <div class="card-body">
+                                <form action="/dashboard" method="get" class="row g-3">
+                                    <div class="col-md-4">
+                                        <label for="project_type" class="form-label">Type de Projet</label>
+                                        <select name="project_type" id="project_type" class="form-select">
+                                            <option value="">Tous les types</option>
+                                            <t t-foreach="project_types.items()" t-as="type">
+                                                <option t-att-value="type[0]" t-att-selected="type[0] == current_filters.get('project_type')">
+                                                    <t t-esc="type[1]"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="donor_id" class="form-label">Bailleur de Fonds</label>
+                                        <select name="donor_id" id="donor_id" class="form-select">
+                                            <option value="">Tous les bailleurs</option>
+                                            <t t-foreach="donors" t-as="donor">
+                                                <option t-att-value="donor.id" t-att-selected="str(donor.id) == current_filters.get('donor_id')">
+                                                    <t t-esc="donor.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="state" class="form-label">Statut</label>
+                                        <select name="state" id="state" class="form-select">
+                                            <option value="">Tous les statuts</option>
+                                            <t t-foreach="project_states.items()" t-as="state">
+                                                <option t-att-value="state[0]" t-att-selected="state[0] == current_filters.get('state')">
+                                                    <t t-esc="state[1]"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 text-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-filter me-1"></i>Filtrer
+                                        </button>
+                                        <a href="/dashboard" class="btn btn-outline-secondary ms-2">
+                                            <i class="fas fa-times me-1"></i>Réinitialiser
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projects by Status -->
+                <section class="pb-4">
+                    <div class="container">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0">
+                                <h2 class="h5 mb-0">Projets par Statut</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <t t-foreach="projects_by_status.items()" t-as="status">
+                                        <div class="col-md-3 col-6 mb-3">
+                                            <div class="card text-center h-100">
+                                                <div class="card-body">
+                                                    <h3 class="h2 mb-2"><t t-esc="status[1]"/></h3>
+                                                    <p class="text-muted mb-0"><t t-esc="status[0]"/></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projects -->
+                <section class="pb-5">
+                    <div class="container">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+                                <h2 class="h5 mb-0">Projets</h2>
+                                <span class="badge bg-primary"><t t-esc="total_projects"/> projets</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Nom du Projet</th>
+                                                <th>Type</th>
+                                                <th>Statut</th>
+                                                <th>Avancement</th>
+                                                <th>Budget</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr t-foreach="projects" t-as="project">
+                                                <td><t t-esc="project.name"/></td>
+                                                <td>
+                                                    <span class="badge bg-light text-dark">
+                                                        <t t-esc="dict(project._fields['project_type'].selection).get(project.project_type)"/>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span t-attf-class="badge bg-{{ 'success' if project.state == 'in_progress' else 'warning' if project.state == 'draft' else 'secondary' }}">
+                                                        <t t-esc="dict(project._fields['state'].selection).get(project.state)"/>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <div class="progress" style="height: 6px;">
+                                                        <!-- Since project.progress doesn't exist, we'll use a placeholder value based on state -->
+                                                        <t t-set="progress_value" t-value="100 if project.state == 'completed' else 75 if project.state == 'in_progress' else 25 if project.state == 'approved' else 10"/>
+                                                        <div t-attf-class="progress-bar bg-{{ 'success' if progress_value >= 70 else 'warning' if progress_value >= 30 else 'danger' }}"
+                                                             t-attf-style="width: {{progress_value}}%;"></div>
+                                                    </div>
+                                                    <small class="text-muted"><t t-esc="progress_value"/>%</small>
+                                                </td>
+                                                <td><t t-esc="'{:,.0f}'.format(project.total_budget or 0)"/> €</td>
+                                                <td class="text-end">
+                                                    <a t-att-href="'/dashboard/project/' + str(project.id)" class="btn btn-sm btn-outline-primary">
+                                                        Voir
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <!-- Pagination -->
+                                <div class="mt-4">
+                                    <t t-call="website.pager"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="bg-dark text-white py-4">
+                    <div class="container text-center">
+                        <p class="mb-0">© 2025 SAMA PROMIS. Tous droits réservés.</p>
+                    </div>
+                </footer>
+            </div>
+        </xpath>
+    </template>
+</odoo>

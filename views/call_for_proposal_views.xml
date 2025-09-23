@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View for Call for Proposals -->
+    <record id="view_sama_promis_call_proposal_tree" model="ir.ui.view">
+        <field name="name">sama.promis.call.proposal.tree</field>
+        <field name="model">sama.promis.call.proposal</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list string="Appels à Propositions" decoration-info="state in ('published', 'evaluation')" decoration-danger="state == 'cancelled'" decoration-success="state == 'closed'">
+                <field name="name" string="Référence"/>
+                <field name="title"/>
+                <field name="donor_id"/>
+                <field name="publication_date"/>
+                <field name="submission_deadline"/>
+                <field name="total_budget"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,published,evaluation,closed,cancelled"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View for Call for Proposals -->
+    <record id="view_sama_promis_call_proposal_form" model="ir.ui.view">
+        <field name="name">sama.promis.call.proposal.form</field>
+        <field name="model">sama.promis.call.proposal</field>
+        <field name="arch" type="xml">
+            <form string="Appel à Propositions">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,published,evaluation,closed,cancelled" statusbar_colors='{"published": "blue", "evaluation": "blue", "closed": "green"}'/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="title" placeholder="Titre de l'appel à propositions" class="o_field_char o_field_inline o_required_modifier"/>
+                        </h1>
+                        <div class="o_row">
+                            <field name="name" string="Référence" class="o_field_char o_field_inline"/>
+                            <field name="donor_id" class="o_field_many2one o_required_modifier" options="{'no_create': True}"/>
+                        </div>
+                    </div>
+
+                    <notebook>
+                        <page string="Détails">
+                            <group>
+                                <group>
+                                    <field name="publication_date"/>
+                                    <field name="submission_deadline"/>
+                                    <field name="evaluation_start_date"/>
+                                    <field name="evaluation_end_date"/>
+                                </group>
+                                <group>
+                                    <field name="total_budget"/>
+                                    <field name="min_grant_amount"/>
+                                    <field name="max_grant_amount"/>
+                                    <field name="currency_id" options="{'no_open': True, 'no_create': True}" groups="base.group_multi_currency"/>
+                                </group>
+                            </group>
+
+                            <group>
+                                <field name="description" class="oe_inline" nolabel="1"/>
+                            </group>
+                        </page>
+
+                        <page string="Documents">
+                            <group>
+                                <group>
+                                    <field name="guideline_document" filename="guideline_filename" string="Lignes Directrices"/>
+                                    <field name="template_document" filename="template_filename" string="Modèle de Proposition"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Critères d'Évaluation">
+                            <field name="evaluation_criteria_ids" nolabel="1">
+                                <list editable="bottom" string="Critères d'Évaluation">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name" string="Critère" required="1"/>
+                                    <field name="weight" string="Poids (%)" class="text-right"/>
+                                    <field name="description" string="Description"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <page string="Soumissions">
+                            <field name="submission_count" invisible="1"/>
+                            <field name="project_ids" nolabel="1" context="{'default_call_for_proposal_id': id}">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="total_budget"/>
+                                    <field name="state" widget="statusbar"/>
+                                </list>
+                                <form>
+                                    <sheet>
+                                        <div class="oe_title">
+                                            <h1><field name="name"/></h1>
+                                        </div>
+                                        <group>
+                                            <group>
+                                                <field name="partner_id"/>
+                                                <field name="user_id"/>
+                                                <field name="date_start"/>
+                                                <field name="date"/>
+                                            </group>
+                                            <group>
+                                                <field name="total_budget"/>
+                                                <field name="currency_id" groups="base.group_multi_currency"/>
+                                                <field name="state"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View for Call for Proposals -->
+    <record id="view_sama_promis_call_proposal_search" model="ir.ui.view">
+        <field name="name">sama.promis.call.proposal.search</field>
+        <field name="model">sama.promis.call.proposal</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher des appels à propositions">
+                <field name="name" string="Référence"/>
+                <field name="title" string="Titre"/>
+                <field name="donor_id"/>
+                <separator/>
+                <filter string="En Cours" name="in_progress" domain="[('state', 'in', ('published', 'evaluation'))]"/>
+                <filter string="Clôturés" name="closed" domain="[('state', '=', 'closed')]"/>
+                <filter string="Annulés" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Bailleur" name="group_by_donor" context="{'group_by': 'donor_id'}"/>
+                    <filter string="État" name="group_by_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action for Call for Proposals -->
+    <record id="action_sama_promis_call_proposal" model="ir.actions.act_window">
+        <field name="name">Appels à Propositions</field>
+        <field name="res_model">sama.promis.call.proposal</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créez votre premier appel à propositions
+            </p>
+            <p>
+                Les appels à propositions permettent de gérer les soumissions de projets dans le cadre de SAMA PROMIS.
+            </p>
+        </field>
+    </record>
+
+    <!-- Server Actions for State Transitions -->
+    <record id="action_sama_promis_call_publish" model="ir.actions.server">
+        <field name="name">Publier l'appel</field>
+        <field name="model_id" ref="model_sama_promis_call_proposal"/>
+        <field name="binding_model_id" ref="model_sama_promis_call_proposal"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">
+            records.action_publish()
+        </field>
+    </record>
+
+    <record id="action_sama_promis_call_start_evaluation" model="ir.actions.server">
+        <field name="name">Démarrer l'évaluation</field>
+        <field name="model_id" ref="model_sama_promis_call_proposal"/>
+        <field name="binding_model_id" ref="model_sama_promis_call_proposal"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">
+            records.action_start_evaluation()
+        </field>
+    </record>
+
+    <record id="action_sama_promis_call_close" model="ir.actions.server">
+        <field name="name">Clôturer l'appel</field>
+        <field name="model_id" ref="model_sama_promis_call_proposal"/>
+        <field name="binding_model_id" ref="model_sama_promis_call_proposal"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">
+            records.action_close()
+        </field>
+    </record>
+
+    <record id="action_sama_promis_call_cancel" model="ir.actions.server">
+        <field name="name">Annuler l'appel</field>
+        <field name="model_id" ref="model_sama_promis_call_proposal"/>
+        <field name="binding_model_id" ref="model_sama_promis_call_proposal"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">
+            records.action_cancel()
+        </field>
+    </record>
+</odoo>

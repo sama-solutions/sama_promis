@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Event Tree View -->
+    <record id="view_sama_promis_project_event_tree" model="ir.ui.view">
+        <field name="name">sama.promis.project.event.tree</field>
+        <field name="model">sama.promis.project.event</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list string="Événements" decoration-info="state == 'draft'" decoration-warning="state == 'confirmed'" decoration-success="state == 'completed'">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="event_type"/>
+                <field name="start_date"/>
+                <field name="location"/>
+                <field name="expected_participants"/>
+                <field name="actual_participants"/>
+                <field name="budget"/>
+                <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'confirmed'" decoration-success="state == 'completed'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Event Form View -->
+    <record id="view_sama_promis_project_event_form" model="ir.ui.view">
+        <field name="name">sama.promis.project.event.form</field>
+        <field name="model">sama.promis.project.event</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_confirm" string="Confirmer" type="object" class="oe_highlight"/>
+                    <button name="action_start" string="Démarrer" type="object" class="oe_highlight"/>
+                    <button name="action_complete" string="Terminer" type="object" class="oe_highlight"/>
+                    <button name="action_cancel" string="Annuler" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,in_progress,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    
+                    <group>
+                        <group string="Informations Générales">
+                            <field name="project_id"/>
+                            <field name="event_type"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group string="Lieu">
+                            <field name="location"/>
+                            <field name="address"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Participants">
+                            <field name="expected_participants"/>
+                            <field name="actual_participants"/>
+                        </group>
+                        <group string="Budget">
+                            <field name="budget"/>
+                            <field name="actual_cost"/>
+                            <field name="currency_id"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Description">
+                            <field name="description" widget="html"/>
+                            <field name="objectives"/>
+                        </page>
+                        <page string="Rapports">
+                            <field name="report_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="report_date"/>
+                                    <field name="author_id"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Documents">
+                            <field name="document_ids" widget="many2many_binary"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Event Search View -->
+    <record id="view_sama_promis_project_event_search" model="ir.ui.view">
+        <field name="name">sama.promis.project.event.search</field>
+        <field name="model">sama.promis.project.event</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="event_type"/>
+                <field name="location"/>
+                <filter string="Brouillons" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Confirmés" name="confirmed" domain="[('state','=','confirmed')]"/>
+                <filter string="En cours" name="in_progress" domain="[('state','=','in_progress')]"/>
+                <filter string="Terminés" name="completed" domain="[('state','=','completed')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Type d'Événement" name="group_type" context="{'group_by':'event_type'}"/>
+                    <filter string="Projet" name="group_project" context="{'group_by':'project_id'}"/>
+                    <filter string="Statut" name="group_state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Event Report Tree View -->
+    <record id="view_sama_promis_event_report_tree" model="ir.ui.view">
+        <field name="name">sama.promis.event.report.tree</field>
+        <field name="model">sama.promis.event.report</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list string="Rapports d'Événements">
+                <field name="name"/>
+                <field name="event_id"/>
+                <field name="report_date"/>
+                <field name="author_id"/>
+                <field name="attendance_rate"/>
+                <field name="satisfaction_score"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Event Report Form View -->
+    <record id="view_sama_promis_event_report_form" model="ir.ui.view">
+        <field name="name">sama.promis.event.report.form</field>
+        <field name="model">sama.promis.event.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_submit" string="Soumettre" type="object" class="oe_highlight"/>
+                    <button name="action_approve" string="Approuver" type="object" class="oe_highlight"/>
+                    <button name="action_reject" string="Rejeter" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    
+                    <group>
+                        <group>
+                            <field name="event_id"/>
+                            <field name="report_date"/>
+                        </group>
+                        <group>
+                            <field name="author_id"/>
+                            <field name="attendance_rate"/>
+                            <field name="satisfaction_score"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Contenu">
+                            <field name="summary"/>
+                            <field name="key_achievements"/>
+                            <field name="challenges"/>
+                            <field name="recommendations"/>
+                        </page>
+                        <page string="Documents">
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_sama_promis_project_event" model="ir.actions.act_window">
+        <field name="name">Événements</field>
+        <field name="res_model">sama.promis.project.event</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créez votre premier événement
+            </p>
+            <p>
+                Les événements permettent de gérer les activités liées aux projets
+                comme les conférences, ateliers, formations, etc.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_sama_promis_event_report" model="ir.actions.act_window">
+        <field name="name">Rapports d'Événements</field>
+        <field name="res_model">sama.promis.event.report</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créez votre premier rapport d'événement
+            </p>
+            <p>
+                Les rapports d'événements permettent de documenter les résultats
+                et les impacts des événements organisés.
+            </p>
+        </field>
+    </record>
+
+</odoo>
+
+
+
+
+
+

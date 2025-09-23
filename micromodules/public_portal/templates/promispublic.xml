@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Template principal pour PROMISPUBLIC -->
+    <template id="promispublic_dashboard" name="PROMIS PUBLIC Dashboard">
+        <t t-call="website.layout">
+            <t t-set="title">PROMIS PUBLIC et <t t-esc="company_name"/></t>
+            <div id="wrap" class="oe_structure oe_empty">
+                <!-- Header avec titre -->
+                <section class="s_banner pt-5 pb-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-center text-white">
+                                <h1 class="display-4 font-weight-bold">
+                                    PROMIS PUBLIC et <t t-esc="company_name"/>
+                                </h1>
+                                <p class="lead">
+                                    Transparence et suivi des projets de développement
+                                </p>
+                                <p class="text-white-50">
+                                    Dernière mise à jour: <t t-esc="last_update"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Statistiques principales -->
+                <section class="pt-4 pb-4" style="background-color: #f8fafc;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-project-diagram fa-2x text-primary mb-2"></i>
+                                        <h3 class="card-title text-primary"><t t-esc="total_projects"/></h3>
+                                        <p class="card-text">Projets Total</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-play-circle fa-2x text-success mb-2"></i>
+                                        <h3 class="card-title text-success"><t t-esc="active_projects"/></h3>
+                                        <p class="card-text">Projets Actifs</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-check-circle fa-2x text-info mb-2"></i>
+                                        <h3 class="card-title text-info"><t t-esc="completed_projects"/></h3>
+                                        <p class="card-text">Projets Terminés</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-money-bill-wave fa-2x text-warning mb-2"></i>
+                                        <h3 class="card-title text-warning"><t t-esc="total_budget" t-options="{'widget': 'monetary'}"/></h3>
+                                        <p class="card-text">Budget Total</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Filtres -->
+                <section class="pt-3 pb-3" style="background-color: #ffffff;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-header bg-light">
+                                        <h5 class="mb-0">
+                                            <i class="fa fa-filter mr-2"></i>Filtres de Recherche
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <form method="get" action="/promispublic">
+                                            <div class="row">
+                                                <div class="col-md-3 mb-2">
+                                                    <label>Type de Projet</label>
+                                                    <select name="project_type" class="form-control">
+                                                        <option value="">Tous les types</option>
+                                                        <t t-foreach="project_types.items()" t-as="type_item">
+                                                            <option t-att-value="type_item[0]" 
+                                                                    t-att-selected="'selected' if current_filters.get('project_type') == type_item[0] else None">
+                                                                <t t-esc="type_item[1]"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3 mb-2">
+                                                    <label>État</label>
+                                                    <select name="state" class="form-control">
+                                                        <option value="">Tous les états</option>
+                                                        <t t-foreach="project_states.items()" t-as="state_item">
+                                                            <option t-att-value="state_item[0]" 
+                                                                    t-att-selected="'selected' if current_filters.get('state') == state_item[0] else None">
+                                                                <t t-esc="state_item[1]"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3 mb-2">
+                                                    <label>Bailleur</label>
+                                                    <select name="donor_id" class="form-control">
+                                                        <option value="">Tous les bailleurs</option>
+                                                        <t t-foreach="donors" t-as="donor">
+                                                            <option t-att-value="donor.id" 
+                                                                    t-att-selected="'selected' if current_filters.get('donor_id') == str(donor.id) else None">
+                                                                <t t-esc="donor.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3 mb-2">
+                                                    <label>Recherche</label>
+                                                    <div class="input-group">
+                                                        <input type="text" name="search" class="form-control" 
+                                                               placeholder="Rechercher..." 
+                                                               t-att-value="current_filters.get('search', '')"/>
+                                                        <div class="input-group-append">
+                                                            <button type="submit" class="btn btn-primary">
+                                                                <i class="fa fa-search"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Liste des projets -->
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="mb-4">
+                                    <i class="fa fa-list mr-2"></i>Projets 
+                                    <small class="text-muted">(<t t-esc="total_projects"/> projets)</small>
+                                </h3>
+                                
+                                <t t-if="projects">
+                                    <div class="row">
+                                        <t t-foreach="projects" t-as="project">
+                                            <div class="col-lg-6 col-xl-4 mb-4">
+                                                <div class="card border-0 shadow-sm h-100">
+                                                    <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                                                        <span class="badge badge-primary">
+                                                            <t t-esc="project.reference"/>
+                                                        </span>
+                                                        <span t-att-class="'badge badge-' + ('success' if project.state == 'completed' else 'info' if project.state == 'in_progress' else 'warning')">
+                                                            <t t-esc="dict(project._fields['state'].selection)[project.state]"/>
+                                                        </span>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">
+                                                            <a t-att-href="'/promispublic/project/%s' % project.id" class="text-decoration-none">
+                                                                <t t-esc="project.name"/>
+                                                            </a>
+                                                        </h5>
+                                                        <p class="card-text text-muted small">
+                                                            <t t-esc="project.short_description or project.description[:100] + '...' if project.description else 'Aucune description'"/>
+                                                        </p>
+                                                        <div class="mb-2">
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-building mr-1"></i>
+                                                                <t t-esc="project.donor_id.name if project.donor_id else 'Aucun bailleur'"/>
+                                                            </small>
+                                                        </div>
+                                                        <div class="mb-2">
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-money-bill mr-1"></i>
+                                                                <t t-esc="project.total_budget" t-options="{'widget': 'monetary'}"/>
+                                                            </small>
+                                                        </div>
+                                                        <t t-if="project.region">
+                                                            <div class="mb-2">
+                                                                <small class="text-muted">
+                                                                    <i class="fa fa-map-marker-alt mr-1"></i>
+                                                                    <t t-esc="project.region"/>
+                                                                </small>
+                                                            </div>
+                                                        </t>
+                                                        <div class="progress mb-2" style="height: 8px;">
+                                                            <div class="progress-bar bg-success" 
+                                                                 t-att-style="'width: %s%%' % project.progress_percentage"
+                                                                 t-att-aria-valuenow="project.progress_percentage"
+                                                                 aria-valuemin="0" aria-valuemax="100">
+                                                            </div>
+                                                        </div>
+                                                        <small class="text-muted">
+                                                            Progression: <t t-esc="project.progress_percentage"/>%
+                                                        </small>
+                                                    </div>
+                                                    <div class="card-footer bg-transparent">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <a t-att-href="'/promispublic/project/%s' % project.id" class="btn btn-sm btn-outline-primary">
+                                                                <i class="fa fa-eye mr-1"></i>Voir détails
+                                                            </a>
+                                                            <t t-if="project.qr_code_image">
+                                                                <button class="btn btn-sm btn-outline-secondary" 
+                                                                        data-toggle="modal" 
+                                                                        t-att-data-target="'#qrModal%s' % project.id">
+                                                                    <i class="fa fa-qrcode"></i>
+                                                                </button>
+                                                            </t>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                    
+                                    <!-- Pagination -->
+                                    <t t-if="pager">
+                                        <t t-call="website.pager"/>
+                                    </t>
+                                </t>
+                                <t t-else="">
+                                    <div class="text-center py-5">
+                                        <i class="fa fa-search fa-3x text-muted mb-3"></i>
+                                        <h4 class="text-muted">Aucun projet trouvé</h4>
+                                        <p class="text-muted">Essayez de modifier vos critères de recherche.</p>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <section class="pt-4 pb-4" style="background-color: #1f2937;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-center text-white">
+                                <p class="mb-0">
+                                    © 2025 <t t-esc="company_name"/> - SAMA PROMIS
+                                    <span class="mx-2">|</span>
+                                    <a href="/promispublic/citizen" class="text-white">SAMA PROMIS ET MOI</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template pour les détails d'un projet -->
+    <template id="project_detail_public" name="Détail Projet Public">
+        <t t-call="website.layout">
+            <t t-set="title"><t t-esc="project.name"/> - PROMIS PUBLIC</t>
+            <div id="wrap" class="oe_structure">
+                <section class="pt-5 pb-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb bg-transparent p-0">
+                                        <li class="breadcrumb-item">
+                                            <a href="/promispublic" class="text-white">PROMIS PUBLIC</a>
+                                        </li>
+                                        <li class="breadcrumb-item active text-white-50" aria-current="page">
+                                            <t t-esc="project.name"/>
+                                        </li>
+                                    </ol>
+                                </nav>
+                                <h1 class="display-5 font-weight-bold">
+                                    <t t-esc="project.name"/>
+                                </h1>
+                                <p class="lead">
+                                    <t t-esc="project.reference"/>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="card border-0 shadow-sm mb-4">
+                                    <div class="card-body">
+                                        <h3>Description</h3>
+                                        <p><t t-esc="project.description or 'Aucune description disponible'"/></p>
+                                        
+                                        <t t-if="project.objectives">
+                                            <h4>Objectifs</h4>
+                                            <p><t t-esc="project.objectives"/></p>
+                                        </t>
+                                        
+                                        <t t-if="project.expected_results">
+                                            <h4>Résultats Attendus</h4>
+                                            <p><t t-esc="project.expected_results"/></p>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-4">
+                                <div class="card border-0 shadow-sm mb-4">
+                                    <div class="card-header bg-light">
+                                        <h5 class="mb-0">Informations</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>État:</strong> 
+                                            <span t-att-class="'badge badge-' + ('success' if project.state == 'completed' else 'info' if project.state == 'in_progress' else 'warning')">
+                                                <t t-esc="dict(project._fields['state'].selection)[project.state]"/>
+                                            </span>
+                                        </p>
+                                        <p><strong>Type:</strong> <t t-esc="dict(project._fields['project_type'].selection)[project.project_type]"/></p>
+                                        <p><strong>Bailleur:</strong> <t t-esc="project.donor_id.name if project.donor_id else 'Non défini'"/></p>
+                                        <p><strong>Budget:</strong> <t t-esc="project.total_budget" t-options="{'widget': 'monetary'}"/></p>
+                                        <t t-if="project.region">
+                                            <p><strong>Région:</strong> <t t-esc="project.region"/></p>
+                                        </t>
+                                        <div class="mb-2">
+                                            <strong>Progression:</strong>
+                                            <div class="progress mt-1" style="height: 10px;">
+                                                <div class="progress-bar bg-success" 
+                                                     t-att-style="'width: %s%%' % project.progress_percentage">
+                                                </div>
+                                            </div>
+                                            <small class="text-muted"><t t-esc="project.progress_percentage"/>%</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <t t-if="project.qr_code_image">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-header bg-light">
+                                            <h5 class="mb-0">QR Code</h5>
+                                        </div>
+                                        <div class="card-body text-center">
+                                            <img t-att-src="'data:image/png;base64,%s' % project.qr_code_image" 
+                                                 class="img-fluid" style="max-width: 150px;"/>
+                                            <p class="small text-muted mt-2">
+                                                Scannez pour accéder rapidement
+                                            </p>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

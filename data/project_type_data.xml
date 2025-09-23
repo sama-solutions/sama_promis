@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Remove project templates to avoid constraint violations -->
+        <!-- Project categories will be created dynamically when needed -->
+
+        <!-- Default Project Stages for SAMA PROMIS -->
+        <record id="project_stage_draft" model="project.task.type">
+            <field name="name">Brouillon</field>
+            <field name="sequence">10</field>
+            <field name="fold" eval="False"/>
+        </record>
+
+        <record id="project_stage_submitted" model="project.task.type">
+            <field name="name">Soumis</field>
+            <field name="sequence">20</field>
+            <field name="fold" eval="False"/>
+        </record>
+
+        <record id="project_stage_under_review" model="project.task.type">
+            <field name="name">En Évaluation</field>
+            <field name="sequence">30</field>
+            <field name="fold" eval="False"/>
+        </record>
+
+        <record id="project_stage_approved" model="project.task.type">
+            <field name="name">Approuvé</field>
+            <field name="sequence">40</field>
+            <field name="fold" eval="False"/>
+        </record>
+
+        <record id="project_stage_in_progress" model="project.task.type">
+            <field name="name">En Cours</field>
+            <field name="sequence">50</field>
+            <field name="fold" eval="False"/>
+        </record>
+
+        <record id="project_stage_suspended" model="project.task.type">
+            <field name="name">Suspendu</field>
+            <field name="sequence">60</field>
+            <field name="fold" eval="True"/>
+        </record>
+
+        <record id="project_stage_completed" model="project.task.type">
+            <field name="name">Terminé</field>
+            <field name="sequence">70</field>
+            <field name="fold" eval="True"/>
+        </record>
+
+        <record id="project_stage_cancelled" model="project.task.type">
+            <field name="name">Annulé</field>
+            <field name="sequence">80</field>
+            <field name="fold" eval="True"/>
+        </record>
+
+        <!-- IR Sequence for Contracts -->
+        <record id="seq_sama_promis_contract" model="ir.sequence">
+            <field name="name">SAMA PROMIS Contract Sequence</field>
+            <field name="code">sama.promis.contract</field>
+            <field name="prefix">CONT-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="use_date_range" eval="False"/>
+        </record>
+
+        <!-- IR Sequence for Payment Requests -->
+        <record id="seq_sama_promis_payment_request" model="ir.sequence">
+            <field name="name">SAMA PROMIS Payment Request Sequence</field>
+            <field name="code">sama.promis.payment.request</field>
+            <field name="prefix">PAY-REQ-</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="use_date_range" eval="False"/>
+        </record>
+
+        <!-- IR Sequence for Call for Proposals -->
+        <record id="seq_sama_promis_call_proposal" model="ir.sequence">
+            <field name="name">SAMA PROMIS Call for Proposal Sequence</field>
+            <field name="code">sama.promis.call.proposal</field>
+            <field name="prefix">CFP-</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="use_date_range" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

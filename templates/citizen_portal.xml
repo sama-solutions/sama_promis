@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Template pour la page citoyenne publique -->
+    <template id="citizen_portal_public" name="SAMA PROMIS ET MOI - Public">
+        <t t-call="website.layout">
+            <t t-set="title">SAMA PROMIS ET MOI</t>
+            <div id="wrap" class="oe_structure">
+                <!-- Header -->
+                <section class="s_banner pt-5 pb-3" style="background: linear-gradient(135deg, #059669 0%, #1e3a8a 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-center text-white">
+                                <h1 class="display-4 font-weight-bold">
+                                    SAMA PROMIS ET MOI
+                                </h1>
+                                <p class="lead">
+                                    Votre espace citoyen pour suivre les projets de développement
+                                </p>
+                                <a href="/web/login?redirect=/promispublic/citizen" class="btn btn-light btn-lg mt-3">
+                                    <i class="fa fa-sign-in-alt mr-2"></i>Se connecter pour un accès personnalisé
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Statistiques générales -->
+                <section class="pt-4 pb-4" style="background-color: #f8fafc;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-project-diagram fa-3x text-primary mb-3"></i>
+                                        <h3 class="card-title text-primary"><t t-esc="total_projects"/></h3>
+                                        <p class="card-text">Projets Disponibles</p>
+                                        <p class="small text-muted">Découvrez tous les projets en cours dans votre région</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-money-bill-wave fa-3x text-success mb-3"></i>
+                                        <h3 class="card-title text-success"><t t-esc="total_budget" t-options="{'widget': 'monetary'}"/></h3>
+                                        <p class="card-text">Investissement Total</p>
+                                        <p class="small text-muted">Montant total investi dans le développement</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projets récents -->
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="mb-4">
+                                    <i class="fa fa-clock mr-2 text-primary"></i>Projets Récents
+                                </h3>
+                                <div class="row">
+                                    <t t-foreach="recent_projects" t-as="project">
+                                        <div class="col-lg-4 col-md-6 mb-4">
+                                            <div class="card border-0 shadow-sm h-100">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <a t-att-href="'/promispublic/project/%s' % project.id" class="text-decoration-none">
+                                                            <t t-esc="project.name"/>
+                                                        </a>
+                                                    </h5>
+                                                    <p class="card-text text-muted small">
+                                                        <t t-esc="project.short_description or (project.description[:100] + '...' if project.description else 'Aucune description')"/>
+                                                    </p>
+                                                    <div class="mb-2">
+                                                        <small class="text-muted">
+                                                            <i class="fa fa-building mr-1"></i>
+                                                            <t t-esc="project.donor_id.name if project.donor_id else 'Aucun bailleur'"/>
+                                                        </small>
+                                                    </div>
+                                                    <t t-if="project.region">
+                                                        <div class="mb-2">
+                                                            <small class="text-muted">
+                                                                <i class="fa fa-map-marker-alt mr-1"></i>
+                                                                <t t-esc="project.region"/>
+                                                            </small>
+                                                        </div>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projets par région -->
+                <section class="pt-4 pb-4" style="background-color: #f8fafc;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="mb-4">
+                                    <i class="fa fa-map mr-2 text-success"></i>Projets par Région
+                                </h3>
+                                <div class="row">
+                                    <t t-foreach="regions_data.items()" t-as="region_item">
+                                        <div class="col-lg-4 col-md-6 mb-4">
+                                            <div class="card border-0 shadow-sm">
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-primary">
+                                                        <i class="fa fa-map-marker-alt mr-2"></i>
+                                                        <t t-esc="region_item[0]"/>
+                                                    </h5>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <p class="mb-1">
+                                                                <strong><t t-esc="region_item[1]['count']"/></strong>
+                                                                <small class="text-muted">projets</small>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <p class="mb-1">
+                                                                <strong><t t-esc="region_item[1]['budget']" t-options="{'widget': 'monetary'}"/></strong>
+                                                                <small class="text-muted">budget</small>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <a t-att-href="'/promispublic?region=%s' % region_item[0]" class="btn btn-sm btn-outline-primary">
+                                                        Voir les projets
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Call to action -->
+                <section class="pt-5 pb-5" style="background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-center text-white">
+                                <h2 class="mb-4">Restez Informé des Projets de Développement</h2>
+                                <p class="lead mb-4">
+                                    Connectez-vous pour suivre les projets qui vous intéressent et recevoir des notifications personnalisées.
+                                </p>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-4 mb-3">
+                                        <a href="/web/login?redirect=/promispublic/citizen" class="btn btn-light btn-lg btn-block">
+                                            <i class="fa fa-user mr-2"></i>Se connecter
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <a href="/promispublic" class="btn btn-outline-light btn-lg btn-block">
+                                            <i class="fa fa-search mr-2"></i>Explorer les projets
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template pour la page citoyenne authentifiée -->
+    <template id="citizen_portal_authenticated" name="SAMA PROMIS ET MOI - Authentifié">
+        <t t-call="website.layout">
+            <t t-set="title">SAMA PROMIS ET MOI - <t t-esc="user.name"/></t>
+            <div id="wrap" class="oe_structure">
+                <!-- Header personnalisé -->
+                <section class="s_banner pt-4 pb-3" style="background: linear-gradient(135deg, #059669 0%, #1e3a8a 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <h1 class="display-5 font-weight-bold">
+                                    Bonjour <t t-esc="user.name"/>!
+                                </h1>
+                                <p class="lead">
+                                    Votre espace personnel SAMA PROMIS
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Statistiques personnelles -->
+                <section class="pt-4 pb-4" style="background-color: #f8fafc;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-briefcase fa-2x text-primary mb-2"></i>
+                                        <h3 class="card-title text-primary"><t t-esc="user_stats['my_projects']"/></h3>
+                                        <p class="card-text">Mes Projets</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-heart fa-2x text-danger mb-2"></i>
+                                        <h3 class="card-title text-danger"><t t-esc="user_stats['followed_projects']"/></h3>
+                                        <p class="card-text">Projets Suivis</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-play-circle fa-2x text-success mb-2"></i>
+                                        <h3 class="card-title text-success"><t t-esc="user_stats['active_projects']"/></h3>
+                                        <p class="card-text">Projets Actifs</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 shadow-sm h-100">
+                                    <div class="card-body text-center">
+                                        <i class="fa fa-money-bill fa-2x text-warning mb-2"></i>
+                                        <h3 class="card-title text-warning"><t t-esc="user_stats['total_budget_involved']" t-options="{'widget': 'monetary'}"/></h3>
+                                        <p class="card-text">Budget Impliqué</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Onglets de contenu -->
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- Navigation par onglets -->
+                                <ul class="nav nav-tabs mb-4" id="citizenTabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="my-projects-tab" data-toggle="tab" href="#my-projects" role="tab">
+                                            <i class="fa fa-briefcase mr-2"></i>Mes Projets
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="followed-tab" data-toggle="tab" href="#followed" role="tab">
+                                            <i class="fa fa-heart mr-2"></i>Projets Suivis
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="recommended-tab" data-toggle="tab" href="#recommended" role="tab">
+                                            <i class="fa fa-star mr-2"></i>Recommandés
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="activity-tab" data-toggle="tab" href="#activity" role="tab">
+                                            <i class="fa fa-history mr-2"></i>Activité
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <!-- Contenu des onglets -->
+                                <div class="tab-content" id="citizenTabsContent">
+                                    <!-- Mes Projets -->
+                                    <div class="tab-pane fade show active" id="my-projects" role="tabpanel">
+                                        <t t-if="user_projects">
+                                            <div class="row">
+                                                <t t-foreach="user_projects" t-as="project">
+                                                    <div class="col-lg-6 mb-4">
+                                                        <div class="card border-0 shadow-sm">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">
+                                                                    <a t-att-href="'/promispublic/project/%s' % project.id">
+                                                                        <t t-esc="project.name"/>
+                                                                    </a>
+                                                                </h5>
+                                                                <p class="card-text text-muted small">
+                                                                    <t t-esc="project.short_description or (project.description[:100] + '...' if project.description else 'Aucune description')"/>
+                                                                </p>
+                                                                <div class="progress mb-2" style="height: 8px;">
+                                                                    <div class="progress-bar bg-success" 
+                                                                         t-att-style="'width: %s%%' % project.progress_percentage">
+                                                                    </div>
+                                                                </div>
+                                                                <small class="text-muted">
+                                                                    Progression: <t t-esc="project.progress_percentage"/>%
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <div class="text-center py-5">
+                                                <i class="fa fa-briefcase fa-3x text-muted mb-3"></i>
+                                                <h4 class="text-muted">Aucun projet associé</h4>
+                                                <p class="text-muted">Vous n'êtes associé à aucun projet pour le moment.</p>
+                                            </div>
+                                        </t>
+                                    </div>
+
+                                    <!-- Projets Suivis -->
+                                    <div class="tab-pane fade" id="followed" role="tabpanel">
+                                        <div class="row">
+                                            <t t-foreach="followed_projects" t-as="project">
+                                                <div class="col-lg-6 mb-4">
+                                                    <div class="card border-0 shadow-sm">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">
+                                                                <a t-att-href="'/promispublic/project/%s' % project.id">
+                                                                    <t t-esc="project.name"/>
+                                                                </a>
+                                                            </h5>
+                                                            <p class="card-text text-muted small">
+                                                                <t t-esc="project.short_description or (project.description[:100] + '...' if project.description else 'Aucune description')"/>
+                                                            </p>
+                                                            <button class="btn btn-sm btn-outline-danger" 
+                                                                    onclick="unfollowProject(<t t-esc="project.id"/>)">
+                                                                <i class="fa fa-heart-broken mr-1"></i>Ne plus suivre
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+
+                                    <!-- Projets Recommandés -->
+                                    <div class="tab-pane fade" id="recommended" role="tabpanel">
+                                        <div class="row">
+                                            <t t-foreach="recommended_projects" t-as="project">
+                                                <div class="col-lg-6 mb-4">
+                                                    <div class="card border-0 shadow-sm">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">
+                                                                <a t-att-href="'/promispublic/project/%s' % project.id">
+                                                                    <t t-esc="project.name"/>
+                                                                </a>
+                                                            </h5>
+                                                            <p class="card-text text-muted small">
+                                                                <t t-esc="project.short_description or (project.description[:100] + '...' if project.description else 'Aucune description')"/>
+                                                            </p>
+                                                            <button class="btn btn-sm btn-outline-primary" 
+                                                                    onclick="followProject(<t t-esc="project.id"/>)">
+                                                                <i class="fa fa-heart mr-1"></i>Suivre ce projet
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+
+                                    <!-- Activité -->
+                                    <div class="tab-pane fade" id="activity" role="tabpanel">
+                                        <div class="timeline">
+                                            <t t-foreach="recent_activity" t-as="activity">
+                                                <div class="timeline-item mb-3">
+                                                    <div class="card border-0 shadow-sm">
+                                                        <div class="card-body">
+                                                            <div class="d-flex">
+                                                                <div class="mr-3">
+                                                                    <i t-att-class="'fa %s fa-2x text-primary' % activity['icon']"></i>
+                                                                </div>
+                                                                <div class="flex-grow-1">
+                                                                    <h6 class="mb-1"><t t-esc="activity['title']"/></h6>
+                                                                    <p class="mb-1 text-muted"><t t-esc="activity['description']"/></p>
+                                                                    <small class="text-muted">
+                                                                        <t t-esc="activity['date'].strftime('%d/%m/%Y à %H:%M')"/>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

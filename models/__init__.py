@@ -1,6 +1,11 @@
-from . import business_models
-from . import dashboard_models
-from . import ministry_models
-from . import project_extension
-from . import res_users
-from . import strategic_models
+# -*- coding: utf-8 -*-
+"""
+SAMA PROMIS - Models
+===================
+
+Modèles principaux pour SAMA PROMIS.
+"""
+
+from . import sama_promis_project
+from . import sama_promis_tag
+from . import res_partner

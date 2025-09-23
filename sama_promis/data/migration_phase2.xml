@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Migration script for Phase 2 - Add missing columns to project_project table -->
+        <record id="migration_phase2_add_columns" model="ir.module.migration">
+            <field name="name">Add Phase 2 columns to project_project</field>
+            <field name="module_id" ref="base.module_sama_promis"/>
+            <field name="version">18.0.2.0.0</field>
+            <field name="sql">
+                -- Add missing columns for Phase 2
+                DO $$
+                BEGIN
+                    -- Add donor_compliance_level column if it doesn't exist
+                    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                                 WHERE table_name = 'project_project' AND column_name = 'donor_compliance_level') THEN
+                        ALTER TABLE project_project ADD COLUMN donor_compliance_level VARCHAR(10) DEFAULT 'medium';
+                    END IF;
+                    
+                    -- Add event_count column if it doesn't exist
+                    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                                 WHERE table_name = 'project_project' AND column_name = 'event_count') THEN
+                        ALTER TABLE project_project ADD COLUMN event_count INTEGER DEFAULT 0;
+                    END IF;
+                    
+                    -- Add reporting_frequency column if it doesn't exist
+                    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                                 WHERE table_name = 'project_project' AND column_name = 'reporting_frequency') THEN
+                        ALTER TABLE project_project ADD COLUMN reporting_frequency VARCHAR(20) DEFAULT 'quarterly';
+                    END IF;
+                    
+                    -- Add next_report_date column if it doesn't exist
+                    IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                                 WHERE table_name = 'project_project' AND column_name = 'next_report_date') THEN
+                        ALTER TABLE project_project ADD COLUMN next_report_date DATE;
+                    END IF;
+                END $$;
+            </field>
+        </record>
+    </data>
+</odoo>

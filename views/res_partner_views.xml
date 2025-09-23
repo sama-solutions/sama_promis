@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Partner Form View Extension -->
+    <record id="view_partner_form_inherit_sama_promis" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.sama.promis</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="before">
+                <page string="SAMA PROMIS" invisible="not is_company">
+                    <group>
+                        <group>
+                            <field name="is_donor"/>
+                            <field name="donor_type" invisible="not is_donor"/>
+                            <field name="donor_code" invisible="not is_donor"/>
+                            <field name="donor_since" invisible="not is_donor"/>
+                            <field name="donor_focal_point" invisible="not is_donor"/>
+                        </group>
+                        <group invisible="not is_donor">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="funded_project_count" widget="statinfo" string="Projets Financés"/>
+                                </span>
+                            </div>
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_funding_amount" widget="monetary" options="{'display_currency': 'currency_id'}" string="Montant Total"/>
+                                </span>
+                            </div>
+                        </group>
+                    </group>
+                    
+                    <notebook invisible="not is_donor">
+                        <page string="Projets Financés">
+                            <button type="object" name="action_view_funded_projects" 
+                                    string="Voir les Projets" 
+                                    class="oe_stat_button" 
+                                    icon="fa-project-diagram"/>
+                        </page>
+                        
+                        <page string="Documents">
+                            <field name="donor_agreement_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="create_date"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- Partner List View Extension - Temporarily disabled
+    <record id="view_partner_tree_inherit_sama_promis" model="ir.ui.view">
+        <field name="name">res.partner.list.inherit.sama.promis</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="donor_type" optional="show"/>
+            </field>
+        </field>
+    </record>
+    -->
+    
+    <!-- Partner Search View Extension -->
+    <record id="view_partner_search_inherit_sama_promis" model="ir.ui.view">
+        <field name="name">res.partner.search.inherit.sama.promis</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='supplier']" position="after">
+                <separator/>
+                <filter string="Bailleurs de Fonds" name="donors" domain="[('is_donor', '=', True)]"/>
+                <filter string="Type de Bailleur" name="group_donor_type" context="{'group_by':'donor_type'}" help="Type de Bailleur"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

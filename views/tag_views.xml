@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue liste des tags -->
+    <record id="view_sama_promis_tag_tree" model="ir.ui.view">
+        <field name="name">sama.promis.tag.tree</field>
+        <field name="model">sama.promis.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Étiquettes SAMA PROMIS">
+                <field name="name"/>
+                <field name="category"/>
+                <field name="project_count"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue formulaire des tags -->
+    <record id="view_sama_promis_tag_form" model="ir.ui.view">
+        <field name="name">sama.promis.tag.form</field>
+        <field name="model">sama.promis.tag</field>
+        <field name="arch" type="xml">
+            <form string="Étiquette SAMA PROMIS">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="category"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="color" widget="color"/>
+                            <field name="project_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description" placeholder="Description de l'étiquette"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action pour les tags -->
+    <record id="action_sama_promis_tag" model="ir.actions.act_window">
+        <field name="name">Étiquettes</field>
+        <field name="res_model">sama.promis.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer une nouvelle étiquette
+            </p>
+            <p>
+                Les étiquettes permettent d'organiser et de catégoriser les projets SAMA PROMIS.
+            </p>
+        </field>
+    </record>
+</odoo>

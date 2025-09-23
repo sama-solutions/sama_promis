@@ -1,69 +1,67 @@
+# -*- coding: utf-8 -*-
 {
-    'name': 'SAMA ETAT',
-    'version': '1.0',
+    'name': 'SAMA PROMIS - Program Management Information System',
+    'version': '18.0.3.0.0',
     'category': 'Project Management',
-    'summary': 'Module for managing government projects, decisions, events, and budgets based on Plan Senegal 2050.',
+    'summary': 'Program Management Information System - Micromodules Architecture',
     'description': """
-        This module provides a comprehensive solution for managing various aspects of government operations
-        in Senegal, aligning them with the strategic objectives of Plan Senegal 2050.
+        SAMA PROMIS - Program Management Information System
+        ================================================
+
+        Architecture micromodules pour la gestion des projets de bailleurs de fonds internationaux.
+        
+        Micromodules inclus:
+        - Core: Modèles de base, QR codes, workflows, audit
+        - Projects: Gestion des projets avec cycles de vie
+        - Public Portal: Dashboard "PROMISPUBLIC" et page citoyenne
+        - Calls: Appels à propositions
+        - Contracts: Contrats et signatures électroniques
+        - Payments: Gestion des paiements
+        - Evaluations: Évaluations et indicateurs
+        
+        Fonctionnalités:
+        - Cycles de vie complets avec boutons d'action (inspiré SAMA ETAT)
+        - QR codes automatiques pour tous les modèles
+        - Dashboard public moderne avec cartes et filtres
+        - Page citoyenne "SAMA PROMIS ET MOI"
+        - Architecture résiliente et modulaire
     """,
-    'author': 'Your Name/Organization', # TODO: Replace with actual author
-    'website': 'http://www.yourwebsite.com', # TODO: Replace with actual website
-    'depends': ['base', 'project', 'mail', 'website', 'hr', 'calendar', 'website_event'],
-    'data': [
-        # Security files loaded first to ensure groups are defined
-        'security/security.xml',
-        'security/ir.model.access.csv',
-        # Views defining actions and structures must be loaded after security
-        'views/views.xml',
-        'views/strategic_plan_views.xml',
-        'views/strategic_pillar_views.xml',
-        'views/strategic_axis_views.xml',
-        'views/strategic_objective_views.xml',
-        'views/strategic_kpi_views.xml',
-        'views/government_project_views.xml',
-        'views/government_decision_views.xml',
-        'views/government_event_views.xml',
-        'views/government_budget_views.xml',
-        'views/government_ministry_views.xml',
-
-
-        'views/public_templates.xml',
-        'views/public_templates_extra.xml',
-        'views/public_templates_modern.xml',
-        'views/modern_dashboard.xml',
-        'views/public_decision_page.xml',
-        'views/public_event_page.xml',
-        'views/public_objective_page.xml',
-        'views/public_axis_page.xml',
-        'views/public_pillar_page.xml',
-        'views/calendar_event_views.xml',
-        # Wizard views
-        'wizard/government_project_wizard_views.xml',
-        # Menu views loaded after all actions
-        'views/dashboard_views.xml',
-        'views/public_map.xml',
-        'views/fullscreen_map.xml',
-        'views/website_homepage.xml',
-        'views/website_about.xml',
-        # Currency configuration
-        'data/currency_xof_data.xml',
-        # Demo data files
-        'data/strategic_objectives_demo_data.xml',
-        'data/ministries_demo_data.xml',
-        'data/budgets_demo_data.xml',
-        'data/government_projects_demo_data.xml',
-        'data/employees_demo_data.xml',
-        'data/project_tasks_demo_data.xml',
-        'data/government_events_demo_data.xml',
-        'data/government_decisions_demo_data.xml',
-        'views/menu_views.xml',
+    'author': 'SAMA Transparent State Solutions - Solutions Transparentes pour État, Mamadou Mbagnick DOGUE, Rassol DOGUE',
+    'website': 'https://www.samaetat.sn',
+    'license': 'LGPL-3',
+    'depends': [
+        'base',
+        'website',  # For public portal
+        'mail',     # For notifications and chatter
     ],
+    'data': [
+        # Security
+        'security/ir.model.access.csv',
+        'security/sama_promis_security.xml',
+        
+        # Views
+        'views/project_views.xml',
+        'views/tag_views.xml',
+        
+        # Templates
+        'templates/promispublic.xml',
+        'templates/citizen_portal.xml',
+        
+        # Data
+        'data/base_data.xml',
+        
+        # Menus
+        'views/menus.xml',
+    ],
+    'demo': [],
+    'assets': {
+        'web.assets_frontend': [
+            'sama_promis/static/css/promispublic.css',
+            'sama_promis/static/js/promispublic.js',
+        ],
+    },
+    'test': [],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'license': 'LGPL-3',
-    'external_dependencies': {
-        'python': ['qrcode', 'pillow']
-    },
 }

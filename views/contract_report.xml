@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- QWeb Report for Contract -->
+    <record id="report_sama_promis_contract" model="ir.actions.report">
+        <field name="name">Contrat</field>
+        <field name="model">sama.promis.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sama_promis.report_contract_document</field>
+        <field name="report_file">sama_promis.report_contract_document</field>
+        <field name="print_report_name">'Contrat - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_sama_promis_contract"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Contract Document Template -->
+    <data>
+        <template id="report_contract_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <!-- Header -->
+                        <div class="row mb-4">
+                            <div class="col-12 text-center">
+                                <h2>CONTRAT DE FINANCEMENT</h2>
+                                <h3><t t-esc="doc.name"/></h3>
+                            </div>
+                        </div>
+                        
+                        <!-- Contract Parties -->
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <strong>Entre les soussignés:</strong>
+                                <p>
+                                    <t t-if="doc.donor_id">
+                                        <strong><t t-esc="doc.donor_id.name"/></strong><br/>
+                                        <t t-if="doc.donor_id.street"><t t-esc="doc.donor_id.street"/><br/></t>
+                                        <t t-if="doc.donor_id.street2"><t t-esc="doc.donor_id.street2"/><br/></t>
+                                        <t t-if="doc.donor_id.zip or doc.donor_id.city">
+                                            <t t-if="doc.donor_id.zip"><t t-esc="doc.donor_id.zip"/></t>
+                                            <t t-if="doc.donor_id.city"><t t-esc="doc.donor_id.city"/></t><br/>
+                                        </t>
+                                        <t t-if="doc.donor_id.country_id"><t t-esc="doc.donor_id.country_id.name"/></t>
+                                    </t>
+                                    <t t-else="">
+                                        <strong>Bailleur de fonds</strong>
+                                    </t>
+                                </p>
+                                <p>Ci-après dénommé "le Bailleur"</p>
+                            </div>
+                            <div class="col-6">
+                                <strong>Et:</strong>
+                                <p>
+                                    <strong><t t-esc="doc.partner_id.name"/></strong><br/>
+                                    <t t-if="doc.partner_id.street"><t t-esc="doc.partner_id.street"/><br/></t>
+                                    <t t-if="doc.partner_id.street2"><t t-esc="doc.partner_id.street2"/><br/></t>
+                                    <t t-if="doc.partner_id.zip or doc.partner_id.city">
+                                        <t t-if="doc.partner_id.zip"><t t-esc="doc.partner_id.zip"/></t>
+                                        <t t-if="doc.partner_id.city"><t t-esc="doc.partner_id.city"/></t><br/>
+                                    </t>
+                                    <t t-if="doc.partner_id.country_id"><t t-esc="doc.partner_id.country_id.name"/></t>
+                                </p>
+                                <p>Ci-après dénommé "le Bénéficiaire"</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Contract Details -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4>Objet du Contrat</h4>
+                                <p>
+                                    Le présent contrat a pour objet de définir les conditions dans lesquelles le Bailleur apporte son soutien financier au Bénéficiaire pour la réalisation du projet suivant:
+                                </p>
+                                <p>
+                                    <strong>Projet:</strong> <t t-esc="doc.project_id.name"/>
+                                </p>
+                                <p t-if="doc.project_id.description">
+                                    <strong>Description:</strong> <t t-esc="doc.project_id.description"/>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Financial Details -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4>Conditions Financières</h4>
+                                <p>
+                                    <strong>Type de contrat:</strong> <t t-esc="dict(doc._fields['contract_type'].selection)[doc.contract_type]"/>
+                                </p>
+                                <p>
+                                    <strong>Montant total:</strong> <t t-esc="'{:,.2f}'.format(doc.amount)"/> <t t-esc="doc.currency_id.name"/>
+                                </p>
+                                <p>
+                                    <strong>Durée:</strong> Du <t t-if="doc.start_date"><t t-esc="doc.start_date.strftime('%d/%m/%Y')"/></t><t t-else="">___________</t> au <t t-if="doc.end_date"><t t-esc="doc.end_date.strftime('%d/%m/%Y')"/></t><t t-else="">___________</t>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Payment Schedule -->
+                        <div class="row mb-4" t-if="doc.payment_schedule_ids">
+                            <div class="col-12">
+                                <h4>Échéancier de Paiement</h4>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Référence</th>
+                                            <th>Date d'Échéance</th>
+                                            <th>Montant</th>
+                                            <th>Pourcentage</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="doc.payment_schedule_ids" t-as="schedule">
+                                            <td><t t-esc="schedule.name"/></td>
+                                            <td><t t-if="schedule.due_date"><t t-esc="schedule.due_date.strftime('%d/%m/%Y')"/></t></td>
+                                            <td><t t-esc="'{:,.2f}'.format(schedule.amount)"/> <t t-esc="doc.currency_id.name"/></td>
+                                            <td><t t-esc="'{:.1f}'.format(schedule.payment_percentage)"/>%</td>
+                                            <td><t t-esc="schedule.description or ''"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Reporting Requirements -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4>Obligations de Rapportage</h4>
+                                <p>
+                                    <strong>Fréquence de rapportage:</strong> <t t-esc="dict(doc._fields['reporting_frequency'].selection)[doc.reporting_frequency]"/>
+                                </p>
+                                <p t-if="doc.next_report_date">
+                                    <strong>Prochaine date de rapport:</strong> <t t-esc="doc.next_report_date.strftime('%d/%m/%Y')"/>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Terms and Conditions -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h4>Conditions Générales</h4>
+                                <div t-if="doc.terms_conditions" t-raw="doc.terms_conditions"/>
+                                <div t-else="">
+                                    <p>1. Le bénéficiaire s'engage à utiliser les fonds conformément au budget approuvé.</p>
+                                    <p>2. Le bénéficiaire s'engage à fournir des rapports d'avancement selon la fréquence définie.</p>
+                                    <p>3. Le bailleur se réserve le droit de suspendre ou d'annuler le financement en cas de non-respect des obligations.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Special Conditions -->
+                        <div class="row mb-4" t-if="doc.special_conditions">
+                            <div class="col-12">
+                                <h4>Conditions Spéciales</h4>
+                                <p t-esc="doc.special_conditions"/>
+                            </div>
+                        </div>
+                        
+                        <!-- Signatures -->
+                        <div class="row mt-5">
+                            <div class="col-6 text-center">
+                                <p>Pour le Bailleur:</p>
+                                <div style="height: 80px;"></div>
+                                <p>Nom: ______________________</p>
+                                <p>Date: ______________________</p>
+                            </div>
+                            <div class="col-6 text-center">
+                                <p>Pour le Bénéficiaire:</p>
+                                <div style="height: 80px;"></div>
+                                <p>Nom: ______________________</p>
+                                <p>Date: ______________________</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+        </template>
+    </data>
+</odoo>

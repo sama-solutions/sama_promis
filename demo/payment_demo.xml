@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sample Payment Requests -->
+    <record id="demo_payment_request_1" model="sama.promis.payment.request">
+        <field name="name">PR-00001</field>
+        <field name="project_id" ref="sama_promis.project_1"/>
+        <field name="contract_id" ref="sama_promis.contract_1"/>
+        <field name="request_date">2025-08-01</field>
+        <field name="amount">5000.0</field>
+        <field name="state">submitted</field>
+        <field name="notes">Initial payment for project kickoff</field>
+    </record>
+
+    <record id="demo_payment_request_2" model="sama.promis.payment.request">
+        <field name="name">PR-00002</field>
+        <field name="project_id" ref="sama_promis.project_2"/>
+        <field name="contract_id" ref="sama_promis.contract_2"/>
+        <field name="request_date">2025-08-05</field>
+        <field name="payment_date">2025-08-06</field>
+        <field name="amount">7500.0</field>
+        <field name="state">paid</field>
+        <field name="payment_reference">BANK-REF-001</field>
+        <field name="notes">Q2 2025 project funding</field>
+    </record>
+
+    <record id="demo_payment_request_3" model="sama.promis.payment.request">
+        <field name="name">PR-00003</field>
+        <field name="project_id" ref="sama_promis.project_1"/>
+        <field name="contract_id" ref="sama_promis.contract_1"/>
+        <field name="request_date">2025-08-10</field>
+        <field name="amount">3000.0</field>
+        <field name="state">approved</field>
+        <field name="notes">Additional budget for equipment</field>
+    </record>
+
+    <record id="demo_payment_request_4" model="sama.promis.payment.request">
+        <field name="name">PR-00004</field>
+        <field name="project_id" ref="sama_promis.project_3"/>
+        <field name="contract_id" ref="sama_promis.contract_3"/>
+        <field name="request_date">2025-08-15</field>
+        <field name="amount">2500.0</field>
+        <field name="state">rejected</field>
+        <field name="rejection_reason">Insufficient supporting documents</field>
+    </record>
+</odoo>

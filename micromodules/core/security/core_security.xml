@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Groupes de sécurité pour SAMA PROMIS Core -->
+    <record id="group_sama_promis_user" model="res.groups">
+        <field name="name">SAMA PROMIS User</field>
+        <field name="category_id" ref="base.module_category_project"/>
+        <field name="comment">Utilisateur SAMA PROMIS avec accès de base</field>
+    </record>
+
+    <record id="group_sama_promis_manager" model="res.groups">
+        <field name="name">SAMA PROMIS Manager</field>
+        <field name="category_id" ref="base.module_category_project"/>
+        <field name="implied_ids" eval="[(4, ref('group_sama_promis_user'))]"/>
+        <field name="comment">Gestionnaire SAMA PROMIS avec accès complet</field>
+    </record>
+
+    <record id="group_sama_promis_admin" model="res.groups">
+        <field name="name">SAMA PROMIS Administrator</field>
+        <field name="category_id" ref="base.module_category_project"/>
+        <field name="implied_ids" eval="[(4, ref('group_sama_promis_manager'))]"/>
+        <field name="comment">Administrateur SAMA PROMIS avec tous les droits</field>
+    </record>
+
+    <!-- Règles d'accès pour les tags -->
+    <record id="access_sama_promis_tag_user" model="ir.model.access">
+        <field name="name">sama.promis.tag.user</field>
+        <field name="model_id" ref="model_sama_promis_tag"/>
+        <field name="group_id" ref="group_sama_promis_user"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="access_sama_promis_tag_manager" model="ir.model.access">
+        <field name="name">sama.promis.tag.manager</field>
+        <field name="model_id" ref="model_sama_promis_tag"/>
+        <field name="group_id" ref="group_sama_promis_manager"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <!-- Règles d'enregistrement pour la sécurité des données -->
+    <record id="sama_promis_tag_rule" model="ir.rule">
+        <field name="name">SAMA PROMIS Tag Access Rule</field>
+        <field name="model_id" ref="model_sama_promis_tag"/>
+        <field name="domain_force">[('active', '=', True)]</field>
+        <field name="groups" eval="[(4, ref('group_sama_promis_user'))]"/>
+    </record>
+</odoo>
