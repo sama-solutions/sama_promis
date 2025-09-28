@@ -156,16 +156,31 @@ python -m pytest tests/
 
 ## 📈 Versions
 
-### Version actuelle : 18.0.3.0.0
+### Version actuelle : 18.0.3.1.0 (Version Hybride) 🎆
+
+**Cette version combine le meilleur de deux versions précédentes :**
+- Base moderne avec architecture micromodules
+- Améliorations techniques de la version de développement
+- Documentation et outils de migration complets
+
+#### 🎯 **Fonctionnalités principales :**
 - ✅ Architecture micromodules complète
 - ✅ Dashboard public PROMISPUBLIC
 - ✅ Page citoyenne "SAMA PROMIS ET MOI"
 - ✅ QR codes automatiques
 - ✅ Cycles de vie des projets
 - ✅ Appels à propositions
-- ✅ Gestion des contrats
+- ✅ Gestion des contrats (améliorée)
+- ✅ Modèles de contrats avancés avec aperçu
 - ✅ Système de paiements
 - ✅ Évaluations et indicateurs
+- ✅ Scripts de migration robustes
+- ✅ Documentation technique complète
+
+#### 🔄 **Historique des versions :**
+- `18.0.3.1.0` - Version hybride (actuelle)
+- `18.0.3.0.0` - Version avec architecture micromodules
+- `18.0.2.0.2` - Version de développement avec améliorations
 
 ## 🤝 Contribution
 

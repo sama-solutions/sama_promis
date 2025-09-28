@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Actions (defined first so they can be referenced in views) -->
+    <record id="action_contract_template_usage" model="ir.actions.act_window">
+        <field name="name">Contrats Utilisant ce Modèle</field>
+        <field name="res_model">sama.promis.contract</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('contract_template_id', '=', active_id)]</field>
+        <field name="context">{'default_contract_template_id': active_id}</field>
+    </record>
+
+    <!-- Contract Template Views -->
+    <record id="view_contract_template_tree_v2" model="ir.ui.view">
+        <field name="name">sama.promis.contract.template.tree.v2</field>
+        <field name="model">sama.promis.contract.template</field>
+        <field name="arch" type="xml">
+            <list string="Modèles de Contrat">
+                <field name="name"/>
+                <field name="template_type"/>
+                <field name="active"/>
+                <field name="usage_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_contract_template_form_v2" model="ir.ui.view">
+        <field name="name">sama.promis.contract.template.form.v2</field>
+        <field name="model">sama.promis.contract.template</field>
+        <field name="arch" type="xml">
+            <form string="Modèle de Contrat">
+                <header>
+                    <button name="action_preview_template" string="Aperçu" type="object" class="btn-primary"/>
+                    <button name="action_duplicate_template" string="Dupliquer" type="object" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_contract_template_usage)d" type="action" class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="usage_count" widget="statinfo" string="Utilisations"/>
+                        </button>
+                    </div>
+                    <div class="text-danger fw-bold mb-2" invisible="active">Archivé</div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="Nom du modèle..."/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="template_type"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="usage_count" readonly="True"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Contenu du Modèle">
+                            <field name="html_content" widget="html"/>
+                        </page>
+                        <page string="Description">
+                            <field name="description" placeholder="Description du modèle..."/>
+                        </page>
+                        <page string="Variables Disponibles">
+                            <field name="available_variables" readonly="True"/>
+                        </page>
+                        <page string="Contrats Utilisant ce Modèle">
+                            <field name="contract_ids" readonly="True">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="project_id"/>
+                                    <field name="partner_id"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Contract Template Preview Form View - Temporarily commented out -->
+    <!--
+    <record id="view_contract_template_preview_form" model="ir.ui.view">
+        <field name="name">sama.promis.contract.template.preview.form</field>
+        <field name="model">sama.promis.contract.template.preview</field>
+        <field name="arch" type="xml">
+            <form string="Aperçu du Modèle de Contrat">
+                <sheet>
+                    <group>
+                        <field name="template_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Aperçu">
+                            <field name="preview_content" widget="html"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    -->
+
+    <!-- Actions -->
+    <record id="action_contract_template" model="ir.actions.act_window">
+        <field name="name">Modèles de Contrat</field>
+        <field name="res_model">sama.promis.contract.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_contract_template_tree_v2"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+                                      (0, 0, {'view_mode': 'list', 'view_id': ref('view_contract_template_tree_v2')}),
+                                      (0, 0, {'view_mode': 'form', 'view_id': ref('view_contract_template_form_v2')})]"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer votre premier modèle de contrat
+            </p>
+            <p>
+                Les modèles de contrat permettent de standardiser la génération des contrats
+                en utilisant des variables dynamiques qui seront remplacées par les données
+                réelles du projet et du bénéficiaire.
+            </p>
+        </field>
+    </record>
+
+    <!-- Temporarily commented out - Preview action -->
+    <!--
+    <record id="action_contract_template_preview" model="ir.actions.act_window">
+        <field name="name">Aperçu du Modèle de Contrat</field>
+        <field name="res_model">sama.promis.contract.template.preview</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    -->
+</odoo>

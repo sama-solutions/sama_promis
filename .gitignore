@@ -149,3 +149,36 @@ dev_files/
 *_dev.*
 *_micromodules.*
 formation-*/
+
+# Archive and backup directories
+archive/
+*_backup*/
+*backup*/
+
+# Migration files (keep only if needed)
+migrations/
+
+# Documentation technique (archivée)
+*_REPORT.md
+*_GUIDE.md
+*_CLEANUP.md
+*_SUMMARY.md
+*_STATUS.md
+*_READY.md
+*_IMPLEMENTATION.md
+
+# Scripts utilitaires (archivés)
+*.sh
+*.sql
+
+# Fichiers temporaires de développement
+*.md.bak
+*.py.bak
+*.xml.bak
+
+# Dossiers de test et développement
+tests/test_phase2_features.py
+
+# Fichiers de configuration spécifiques
+10*.md
+prompt*.md

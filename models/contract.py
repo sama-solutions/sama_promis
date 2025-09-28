@@ -117,7 +117,7 @@ class SamaPromisContract(models.Model):
         for contract in self:
             if contract.contract_template_id and contract.project_id and contract.partner_id:
                 # Get template content
-                template_content = contract.contract_template_id.template_content or ''
+                template_content = contract.contract_template_id.html_content or ''
                 
                 # Replace placeholders with actual data
                 content = template_content
@@ -386,47 +386,6 @@ class SamaPromisContract(models.Model):
                         'signature_status': 'refused',
                     })
 
-
-class SamaPromisContractTemplate(models.Model):
-    _name = 'sama.promis.contract.template'
-    _description = 'Modèle de Contrat SAMA PROMIS'
-    _inherit = ['mail.thread']
-
-    name = fields.Char(string="Nom du Modèle", required=True, tracking=True)
-    contract_type = fields.Selection([
-        ('grant', 'Subvention'),
-        ('service', 'Prestation de Service'),
-        ('partnership', 'Partenariat'),
-        ('other', 'Autre'),
-    ], string="Type de Contrat", required=True, tracking=True)
-    
-    template_content = fields.Html(string="Contenu du Modèle", required=True)
-    sign_template_id = fields.Many2one('sign.template', string="Modèle de Signature",
-                                      help="Modèle de signature électronique associé (nécessite le module sign)")
-    
-    is_active = fields.Boolean(string="Actif", default=True, tracking=True)
-    
-    description = fields.Text(string="Description")
-    
-    # Template variables
-    available_variables = fields.Text(string="Variables Disponibles", readonly=True,
-                                     default="""
-Variables disponibles:
-{{ contract.reference }} - Référence du contrat
-{{ project.title }} - Titre du projet
-{{ project.description }} - Description du projet
-{{ grantee.name }} - Nom du bénéficiaire
-{{ grantee.address }} - Adresse du bénéficiaire
-{{ contract.amount }} - Montant du contrat
-{{ contract.start_date }} - Date de début
-{{ contract.end_date }} - Date de fin
-{{ donor.name }} - Nom du bailleur
-{{ payment_schedule_table }} - Tableau de l'échéancier de paiement
-""")
-
-    _sql_constraints = [
-        ('unique_template_name', 'UNIQUE(name)', 'Le nom du modèle doit être unique.')
-    ]
 
 
 class SamaPromisPaymentSchedule(models.Model):
