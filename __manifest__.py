@@ -35,7 +35,12 @@
         'base',
         'website',  # For public portal
         'mail',     # For notifications and chatter
+        'project',
+        'account',
     ],
+    'external_dependencies': {
+        'python': ['qrcode'],
+    },
     'data': [
         # Security
         'security/ir.model.access.csv',
@@ -52,24 +57,38 @@
         'views/event_views.xml',
         'views/tag_views.xml',
         
-        # Templates
         'templates/promispublic.xml',
         'templates/citizen_portal.xml',
         
         # Data
         'data/base_data.xml',
-        
-        # Menus
-        'views/menus.xml',
+        'data/project_type_data.xml',
+        'data/sequences.xml',
+        'demo/enhanced_demo_data.xml',
     ],
-    'demo': [],
+    'demo': [
+        'demo/project_demo.xml',
+        'demo/contract_demo.xml',
+        'demo/payment_demo.xml',
+        'demo/partner_demo.xml',
+        'demo/enhanced_demo_data.xml',  # Données enrichies supplémentaires
+    ],
     'assets': {
         'web.assets_frontend': [
             'sama_promis/static/css/promispublic.css',
-            'sama_promis/static/js/promispublic.js',
         ],
     },
-    'test': [],
+    'test': [
+        'tests/test_installation.py',
+        'tests/test_models.py',
+        'tests/test_payment.py',
+        'tests/test_phase2_features.py',
+        'tests/test_controllers.py',
+        'tests/test_micromodules.py',
+        'tests/test_public_portal.py',
+        'tests/test_qr_codes.py',
+        'tests/test_workflows.py',
+    ],
     'installable': True,
     'application': True,
     'auto_install': False,

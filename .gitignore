@@ -150,6 +150,13 @@ dev_files/
 *_micromodules.*
 formation-*/
 
+# Allow promised validation assets
+!tests/test_controllers.py
+!tests/test_micromodules.py
+!tests/test_public_portal.py
+!tests/test_qr_codes.py
+!tests/test_workflows.py
+
 # Archive and backup directories
 archive/
 *_backup*/
@@ -161,6 +168,7 @@ migrations/
 # Documentation technique (archivée)
 *_REPORT.md
 *_GUIDE.md
+!docs/TESTING_GUIDE.md
 *_CLEANUP.md
 *_SUMMARY.md
 *_STATUS.md
@@ -170,6 +178,8 @@ migrations/
 # Scripts utilitaires (archivés)
 *.sh
 *.sql
+!scripts/install.sh
+!scripts/run_tests.sh
 
 # Fichiers temporaires de développement
 *.md.bak
