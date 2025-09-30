@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- European Union Compliance Report Template -->
+    <record id="report_sama_promis_compliance_eu" model="ir.actions.report">
+        <field name="name">Rapport de Conformité (Union Européenne)</field>
+        <field name="model">sama.promis.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sama_promis.report_compliance_eu_document</field>
+        <field name="report_file">sama_promis.report_compliance_eu_document</field>
+        <field name="binding_model_id" ref="model_sama_promis_contract"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'EU_Compliance_Report_%s' % (object.name)</field>
+    </record>
+
+    <!-- EU Compliance Report QWeb Template -->
+    <template id="report_compliance_eu_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        
+                        <!-- Header with EU Branding -->
+                        <div class="row mt-4 mb-4">
+                            <div class="col-12 text-center">
+                                <h2>European Union Compliance Report</h2>
+                                <h4>Grant Agreement Implementation Report</h4>
+                                <h5 t-field="o.name"/></h5>
+                            </div>
+                        </div>
+
+                        <!-- Project Identification -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>1. Project Identification</h4>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td style="width: 30%;"><strong>Project Title:</strong></td>
+                                        <td><span t-field="o.project_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Beneficiary Organization:</strong></td>
+                                        <td><span t-field="o.partner_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Grant Agreement Number:</strong></td>
+                                        <td><span t-field="o.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Implementation Period:</strong></td>
+                                        <td><span t-field="o.start_date"/> - <span t-field="o.end_date"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Grant Amount:</strong></td>
+                                        <td><span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Technical Implementation -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>2. Technical Implementation</h4>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td style="width: 30%;"><strong>Overall Progress:</strong></td>
+                                        <td><span t-field="o.compliance_rate"/>% completed</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Deliverables Status:</strong></td>
+                                        <td>
+                                            <span t-field="o.compliance_tasks_completed"/> of <span t-field="o.compliance_task_count"/> deliverables completed
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Deliverables and Milestones -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>3. Deliverables and Milestones</h4>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Deliverable/Milestone</th>
+                                            <th>Type</th>
+                                            <th>Planned Date</th>
+                                            <th>Status</th>
+                                            <th>Completion Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.compliance_task_ids.filtered(lambda t: t.task_type in ['deliverable', 'milestone'])" t-as="task">
+                                            <tr>
+                                                <td><span t-field="task.name"/></td>
+                                                <td><span t-field="task.task_type"/></td>
+                                                <td><span t-field="task.deadline"/></td>
+                                                <td>
+                                                    <span t-if="task.state == 'completed'" class="badge badge-success">Completed</span>
+                                                    <span t-elif="task.state == 'approved'" class="badge badge-success">Approved</span>
+                                                    <span t-elif="task.state == 'submitted'" class="badge badge-info">Submitted</span>
+                                                    <span t-elif="task.is_overdue" class="badge badge-danger">Delayed</span>
+                                                    <span t-else="" class="badge badge-warning">In Progress</span>
+                                                </td>
+                                                <td><span t-field="task.actual_completion_date"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Financial Reporting -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>4. Financial Reporting</h4>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td style="width: 30%;"><strong>Contract Amount:</strong></td>
+                                        <td><span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Reporting Frequency:</strong></td>
+                                        <td><span t-field="o.compliance_profile_id.reporting_frequency"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Last Report Date:</strong></td>
+                                        <td><span t-field="o.last_compliance_report_date"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Next Report Due:</strong></td>
+                                        <td><span t-field="o.next_report_date"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Visibility and Communication -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>5. Visibility and Communication</h4>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Activity</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.compliance_task_ids.filtered(lambda t: 'visibility' in (t.name or '').lower() or 'communication' in (t.name or '').lower())" t-as="task">
+                                            <tr>
+                                                <td><span t-field="task.name"/></td>
+                                                <td><span t-field="task.state"/></td>
+                                                <td><span t-field="task.deadline"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="not o.compliance_task_ids.filtered(lambda t: 'visibility' in (t.name or '').lower() or 'communication' in (t.name or '').lower())">
+                                            <tr>
+                                                <td colspan="3" class="text-center">No visibility activities recorded</td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Compliance with EU Regulations -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>6. Compliance with EU Regulations</h4>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Requirement</th>
+                                            <th>Compliance Status</th>
+                                            <th>Evidence</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.compliance_task_ids.filtered(lambda t: t.task_type in ['checklist', 'approval'])" t-as="task">
+                                            <tr>
+                                                <td><span t-field="task.name"/></td>
+                                                <td>
+                                                    <span t-if="task.state in ['completed', 'approved']" class="badge badge-success">Compliant</span>
+                                                    <span t-elif="task.is_overdue" class="badge badge-danger">Non-Compliant</span>
+                                                    <span t-else="" class="badge badge-warning">Under Review</span>
+                                                </td>
+                                                <td>
+                                                    <span t-if="task.document_ids">
+                                                        <span t-esc="len(task.document_ids)"/> document(s)
+                                                    </span>
+                                                    <span t-else="">Pending</span>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Issues and Corrective Actions -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>7. Issues and Corrective Actions</h4>
+                                <t t-if="o.overdue_compliance_tasks &gt; 0">
+                                    <div class="alert alert-danger">
+                                        <strong>Action Required:</strong> <span t-field="o.overdue_compliance_tasks"/> compliance tasks are overdue and require immediate corrective action.
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                    <div class="alert alert-success">
+                                        No major issues identified. All compliance requirements are being met according to schedule.
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+
+                        <!-- Certification -->
+                        <div class="row mt-5">
+                            <div class="col-12">
+                                <p>I certify that the information provided in this report is accurate and complete to the best of my knowledge.</p>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p><strong>Name:</strong> _______________________</p>
+                                        <p><strong>Title:</strong> _______________________</p>
+                                        <p><strong>Signature:</strong> _______________________</p>
+                                    </div>
+                                    <div class="col-6 text-right">
+                                        <p><strong>Date:</strong> <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

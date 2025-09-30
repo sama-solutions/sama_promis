@@ -4,7 +4,6 @@
     <record id="view_sama_promis_project_event_tree" model="ir.ui.view">
         <field name="name">sama.promis.project.event.tree</field>
         <field name="model">sama.promis.project.event</field>
-        <field name="type">list</field>
         <field name="arch" type="xml">
             <list string="Événements" decoration-info="state == 'draft'" decoration-warning="state == 'confirmed'" decoration-success="state == 'completed'">
                 <field name="name"/>
@@ -118,7 +117,6 @@
     <record id="view_sama_promis_event_report_tree" model="ir.ui.view">
         <field name="name">sama.promis.event.report.tree</field>
         <field name="model">sama.promis.event.report</field>
-        <field name="type">list</field>
         <field name="arch" type="xml">
             <list string="Rapports d'Événements">
                 <field name="name"/>

@@ -3,6 +3,36 @@
 [![Odoo Version](https://img.shields.io/badge/Odoo-18.0-blue.svg)](https://github.com/odoo/odoo)
 [![License](https://img.shields.io/badge/License-LGPL--3-green.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 [![Author](https://img.shields.io/badge/Author-SAMA%20Solutions-orange.svg)](https://www.samaetat.sn)
+[![Community Edition](https://img.shields.io/badge/Edition-Community-brightgreen.svg)](https://www.odoo.com/page/editions)
+
+## ⚠️ Compatibilité Odoo 18 Community Edition
+
+**Ce module est 100% compatible avec Odoo 18 Community Edition.**
+
+### Prérequis Techniques
+- **Python**: 3.11 ou supérieur
+- **PostgreSQL**: 13 ou supérieur
+- **Odoo**: 18.0 Community Edition
+
+### Modules Odoo Requis (CE uniquement)
+- ✅ `base` - Module de base Odoo
+- ✅ `mail` - Système de messagerie et notifications
+- ✅ `website` - Portail public
+- ✅ `project` - Gestion de projets
+
+### ⚠️ Modules NON Requis
+Ce module **NE DÉPEND PAS** des modules suivants (Enterprise/absents de CE):
+- ❌ `account` - Module comptabilité (Enterprise)
+
+### Fonctionnalités Désactivées (nécessitent Enterprise)
+Les fonctionnalités suivantes sont désactivées car elles nécessitent le module `account` (Enterprise):
+- Génération automatique d'écritures comptables
+- Intégration avec les journaux comptables
+- Paiements comptables automatiques
+
+**Alternative CE**: Le module utilise un système de suivi financier simplifié avec des champs monétaires directs, sans intégration comptable.
+
+📖 **Documentation complète**: Voir [ODOO18_CE_COMPATIBILITY.md](./ODOO18_CE_COMPATIBILITY.md)
 
 ## 📋 Description
 
@@ -71,9 +101,24 @@
 ## 🚀 Installation
 
 ### Prérequis
-- Odoo 18.0
-- Python 3.8+
-- PostgreSQL
+- **Odoo**: 18.0 Community Edition
+- **Python**: 3.11 ou supérieur
+- **PostgreSQL**: 13 ou supérieur
+- **Dépendances Python**: `qrcode`
+
+### Vérification de Compatibilité
+
+Avant l'installation, vérifiez que vous utilisez:
+```bash
+# Vérifier la version Python
+python3 --version  # Doit être >= 3.11
+
+# Vérifier la version PostgreSQL
+psql --version  # Doit être >= 13
+
+# Vérifier la version Odoo
+odoo --version  # Doit être 18.0 Community Edition
+```
 
 ### Installation du module
 
@@ -83,20 +128,35 @@ git clone https://github.com/sama-solutions/sama_promis.git
 cd sama_promis
 ```
 
-2. **Copier dans addons :**
+2. **Installer les dépendances Python :**
+```bash
+pip install qrcode
+```
+
+3. **Copier dans addons :**
 ```bash
 cp -r sama_promis /path/to/odoo/addons/
 ```
 
-3. **Redémarrer Odoo :**
+4. **Redémarrer Odoo :**
 ```bash
 sudo systemctl restart odoo
+# ou
+odoo-bin -u sama_promis -d your_database
 ```
 
-4. **Installer le module :**
+5. **Installer le module :**
 - Aller dans Apps
 - Rechercher "SAMA PROMIS"
 - Cliquer sur "Install"
+
+### Vérification Post-Installation
+
+Après installation, vérifiez que:
+- ✅ Aucune erreur liée au module `account`
+- ✅ Toutes les vues s'affichent correctement
+- ✅ Les listes sont éditables en masse (`multi_edit`)
+- ✅ Les QR codes se génèrent correctement
 
 ## 📖 Configuration
 

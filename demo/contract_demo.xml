@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="contract_1" model="sama.promis.contract">
+        <field name="name">CT-001</field>
+        <field name="project_id" ref="sama_promis.project_1"/>
+        <field name="partner_id" ref="sama_promis.partner_beneficiary_1"/>
+        <field name="contract_type">grant</field>
+        <field name="start_date">2024-02-01</field>
+        <field name="end_date">2025-12-31</field>
+        <field name="amount">120000000</field>
+        <field name="currency_id" ref="base.main_company_currency"/>
+        <field name="state">active</field>
+    </record>
+
+    <record id="contract_2" model="sama.promis.contract">
+        <field name="name">CT-002</field>
+        <field name="project_id" ref="sama_promis.project_2"/>
+        <field name="partner_id" ref="sama_promis.partner_beneficiary_2"/>
+        <field name="contract_type">service</field>
+        <field name="start_date">2023-09-01</field>
+        <field name="end_date">2025-08-31</field>
+        <field name="amount">90000000</field>
+        <field name="currency_id" ref="base.main_company_currency"/>
+        <field name="state">signed</field>
+    </record>
+
+    <record id="contract_3" model="sama.promis.contract">
+        <field name="name">CT-003</field>
+        <field name="project_id" ref="sama_promis.project_3"/>
+        <field name="partner_id" ref="sama_promis.partner_beneficiary_3"/>
+        <field name="contract_type">partnership</field>
+        <field name="start_date">2022-02-01</field>
+        <field name="end_date">2023-06-30</field>
+        <field name="amount">45000000</field>
+        <field name="currency_id" ref="base.main_company_currency"/>
+        <field name="state">active</field>
+    </record>
+</odoo>

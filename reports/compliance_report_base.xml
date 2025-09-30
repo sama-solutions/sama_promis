@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Base Compliance Report Template -->
+    <record id="report_sama_promis_compliance_base" model="ir.actions.report">
+        <field name="name">Rapport de Conformité (Base)</field>
+        <field name="model">sama.promis.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sama_promis.report_compliance_base_document</field>
+        <field name="report_file">sama_promis.report_compliance_base_document</field>
+        <field name="binding_model_id" ref="model_sama_promis_contract"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Rapport_Conformite_%s' % (object.name)</field>
+    </record>
+
+    <!-- Base Compliance Report QWeb Template -->
+    <template id="report_compliance_base_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        
+                        <!-- Header -->
+                        <div class="row mt-4 mb-4">
+                            <div class="col-12 text-center">
+                                <h2>Rapport de Conformité</h2>
+                                <h4 t-field="o.name"/>
+                            </div>
+                        </div>
+
+                        <!-- Contract Information -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>Informations du Contrat</h4>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td><strong>Projet:</strong></td>
+                                        <td><span t-field="o.project_id.name"/></td>
+                                        <td><strong>Bénéficiaire:</strong></td>
+                                        <td><span t-field="o.partner_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Date de Début:</strong></td>
+                                        <td><span t-field="o.start_date"/></td>
+                                        <td><strong>Date de Fin:</strong></td>
+                                        <td><span t-field="o.end_date"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Montant:</strong></td>
+                                        <td><span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                        <td><strong>Profil de Conformité:</strong></td>
+                                        <td><span t-field="o.compliance_profile_id.name"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Compliance Statistics -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>Statistiques de Conformité</h4>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td><strong>Tâches Totales:</strong></td>
+                                        <td><span t-field="o.compliance_task_count"/></td>
+                                        <td><strong>Tâches Complétées:</strong></td>
+                                        <td><span t-field="o.compliance_tasks_completed"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Taux de Conformité:</strong></td>
+                                        <td><span t-field="o.compliance_rate"/>%</td>
+                                        <td><strong>Tâches en Retard:</strong></td>
+                                        <td><span t-field="o.overdue_compliance_tasks"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Dernier Rapport:</strong></td>
+                                        <td><span t-field="o.last_compliance_report_date"/></td>
+                                        <td><strong>Prochain Rapport:</strong></td>
+                                        <td><span t-field="o.next_report_date"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Compliance Tasks -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>Tâches de Conformité</h4>
+                                <table class="table table-sm table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Tâche</th>
+                                            <th>Type</th>
+                                            <th>Échéance</th>
+                                            <th>État</th>
+                                            <th>Priorité</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.compliance_task_ids" t-as="task">
+                                            <tr>
+                                                <td><span t-field="task.name"/></td>
+                                                <td><span t-field="task.task_type"/></td>
+                                                <td><span t-field="task.deadline"/></td>
+                                                <td><span t-field="task.state"/></td>
+                                                <td><span t-field="task.priority"/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Report Footer -->
+                        <div class="row mt-5">
+                            <div class="col-12 text-center">
+                                <p>Rapport généré le <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y à %H:%M')"/></p>
+                            </div>
+                        </div>
+
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree view for funding sources -->
+    <record id="view_sama_promis_funding_source_tree" model="ir.ui.view">
+        <field name="name">sama.promis.project.funding.source.tree</field>
+        <field name="model">sama.promis.project.funding.source</field>
+        <field name="arch" type="xml">
+            <list string="Sources de Financement" decoration-success="state=='received'" decoration-muted="state=='cancelled'">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="partner_id"/>
+                <field name="amount" sum="Total" widget="monetary"/>
+                <field name="currency_id" groups="base.group_multi_currency"/>
+                <field name="funding_type"/>
+                <field name="funding_origin"/>
+                <field name="percentage_of_total" widget="percentage"/>
+                <field name="state" widget="badge"/>
+                <field name="commitment_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form view for funding sources -->
+    <record id="view_sama_promis_funding_source_form" model="ir.ui.view">
+        <field name="name">sama.promis.project.funding.source.form</field>
+        <field name="model">sama.promis.project.funding.source</field>
+        <field name="arch" type="xml">
+            <form string="Source de Financement">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirmer" states="draft" class="btn-primary"/>
+                    <button name="action_mark_received" type="object" string="Marquer comme Reçu" states="confirmed" class="btn-primary"/>
+                    <button name="action_cancel" type="object" string="Annuler" states="draft,confirmed"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,received"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nom de la source de financement"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Informations Générales">
+                            <field name="project_id"/>
+                            <field name="partner_id" domain="[('is_donor', '=', True)]"/>
+                            <field name="funding_type"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group string="Montant">
+                            <field name="amount"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="percentage_of_total" widget="percentage"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Origine">
+                            <field name="funding_origin" readonly="1"/>
+                            <field name="funding_origin_manual"/>
+                        </group>
+                        <group string="Dates">
+                            <field name="commitment_date"/>
+                            <field name="received_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="contract_reference"/>
+                    </group>
+                    <group>
+                        <field name="description" placeholder="Notes additionnelles sur cette source de financement..."/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search view for funding sources -->
+    <record id="view_sama_promis_funding_source_search" model="ir.ui.view">
+        <field name="name">sama.promis.project.funding.source.search</field>
+        <field name="model">sama.promis.project.funding.source</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher Sources de Financement">
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="partner_id"/>
+                <field name="contract_reference"/>
+                <filter string="Brouillon" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmé" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter string="Reçu" name="received" domain="[('state', '=', 'received')]"/>
+                <separator/>
+                <filter string="International" name="international" domain="[('funding_origin', '=', 'international')]"/>
+                <filter string="Local" name="local" domain="[('funding_origin', '=', 'local')]"/>
+                <separator/>
+                <filter string="Subvention" name="grant" domain="[('funding_type', '=', 'grant')]"/>
+                <filter string="Prêt" name="loan" domain="[('funding_type', '=', 'loan')]"/>
+                <filter string="Cofinancement" name="co_financing" domain="[('funding_type', '=', 'co_financing')]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="Projet" name="group_project" context="{'group_by': 'project_id'}"/>
+                    <filter string="Bailleur" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Type" name="group_type" context="{'group_by': 'funding_type'}"/>
+                    <filter string="Origine" name="group_origin" context="{'group_by': 'funding_origin'}"/>
+                    <filter string="État" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action for funding sources -->
+    <record id="action_sama_promis_funding_source" model="ir.actions.act_window">
+        <field name="name">Sources de Financement</field>
+        <field name="res_model">sama.promis.project.funding.source</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_sama_promis_funding_source_search"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Créer une nouvelle source de financement
+            </p>
+            <p>
+                Les sources de financement permettent de gérer plusieurs bailleurs
+                et contributions pour un même projet, avec traçabilité complète.
+            </p>
+        </field>
+    </record>
+
+    <!-- Optional: Add menu item if you want standalone access -->
+    <!-- Uncomment if needed:
+    <menuitem id="menu_sama_promis_funding_sources"
+              name="Sources de Financement"
+              parent="menu_sama_promis_projects"  
+              action="action_sama_promis_funding_source"
+              sequence="25"/>
+    -->
+</odoo>

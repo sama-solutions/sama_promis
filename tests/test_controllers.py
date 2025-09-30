@@ -2,6 +2,7 @@
 """HTTP controller tests for SAMA PROMIS dashboards and public portal."""
 
 from odoo.tests import HttpCase, tagged
+from unittest import skip
 
 
 class ControllerTestMixin:
@@ -27,6 +28,7 @@ class TestInternalDashboardController(ControllerTestMixin, HttpCase):
             self.assertIn(key, payload)
 
 
+@skip('Public portal disabled - to be developed later')
 @tagged('post_install', '-at_install')
 class TestPromisPublicController(ControllerTestMixin, HttpCase):
     """Validate the public PROMIS portal routes and APIs."""

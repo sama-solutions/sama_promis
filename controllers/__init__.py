@@ -6,5 +6,7 @@ SAMA PROMIS - Controllers
 Contrôleurs pour SAMA PROMIS.
 """
 
-from . import promispublic
-from . import citizen_portal
+# Public portal controllers disabled - to be developed later
+# from . import promispublic
+# from . import citizen_portal
+# from . import dashboard

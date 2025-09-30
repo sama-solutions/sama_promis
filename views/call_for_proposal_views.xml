@@ -4,7 +4,6 @@
     <record id="view_sama_promis_call_proposal_tree" model="ir.ui.view">
         <field name="name">sama.promis.call.proposal.tree</field>
         <field name="model">sama.promis.call.proposal</field>
-        <field name="type">list</field>
         <field name="arch" type="xml">
             <list string="Appels à Propositions" decoration-info="state in ('published', 'evaluation')" decoration-danger="state == 'cancelled'" decoration-success="state == 'closed'">
                 <field name="name" string="Référence"/>
@@ -71,7 +70,7 @@
 
                         <page string="Critères d'Évaluation">
                             <field name="evaluation_criteria_ids" nolabel="1">
-                                <list editable="bottom" string="Critères d'Évaluation">
+                                <list editable="bottom" multi_edit="1" string="Critères d'Évaluation">
                                     <field name="sequence" widget="handle"/>
                                     <field name="name" string="Critère" required="1"/>
                                     <field name="weight" string="Poids (%)" class="text-right"/>

@@ -11,7 +11,7 @@ class SamaPromisPaymentRequest(models.Model):
     
     # Basic Information
     name = fields.Char('Reference', readonly=True, default=lambda self: _('New'))
-    project_id = fields.Many2one('project.project', required=True, 
+    project_id = fields.Many2one('sama.promis.project', required=True, 
                                domain="[('state', 'in', ['approved', 'in_progress'])]")
     contract_id = fields.Many2one('sama.promis.contract', 
                                 domain="[('project_id', '=', project_id)]")
@@ -53,8 +53,13 @@ class SamaPromisPaymentRequest(models.Model):
         self._notify_approvers()
     
     def action_approve(self):
-        self.write({'state': 'approved'})
-        self._create_account_payment()
+        self.write({
+            'state': 'approved',
+            'payment_date': fields.Date.today()
+        })
+        # Note: Account payment integration disabled - requires 'account' module (Enterprise)
+        # self._create_account_payment()
+        self._notify_payment_approved()
     
     def action_reject(self):
         return {
@@ -67,9 +72,17 @@ class SamaPromisPaymentRequest(models.Model):
         }
     
     def _notify_approvers(self):
+        """Notify approvers when payment request is submitted."""
         # Implementation for notifying approvers
         pass
     
-    def _create_account_payment(self):
-        # Implementation for creating account payment
+    def _notify_payment_approved(self):
+        """Notify requester when payment is approved."""
+        # Implementation for notifying requester
         pass
+    
+    # Note: Account payment integration disabled - requires 'account' module (Enterprise)
+    # def _create_account_payment(self):
+    #     """Create account.payment record for approved payment request."""
+    #     # This functionality requires the 'account' module which is not available in CE
+    #     pass

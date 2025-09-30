@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Cron Job: Send Compliance Reminders -->
+    <record id="cron_send_compliance_reminders" model="ir.cron">
+        <field name="name">SAMA PROMIS: Send Compliance Reminders</field>
+        <field name="model_id" ref="model_sama_promis_compliance_task"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_send_compliance_reminders()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+        <field name="doall" eval="False"/>
+        <field name="priority">5</field>
+    </record>
+
+    <!-- Cron Job: Send Compliance Escalations -->
+    <record id="cron_send_compliance_escalations" model="ir.cron">
+        <field name="name">SAMA PROMIS: Send Compliance Escalations</field>
+        <field name="model_id" ref="model_sama_promis_compliance_task"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_send_compliance_escalations()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+        <field name="doall" eval="False"/>
+        <field name="priority">5</field>
+    </record>
+
+    <!-- Cron Job: Update Compliance Report Status -->
+    <record id="cron_update_compliance_report_status" model="ir.cron">
+        <field name="name">SAMA PROMIS: Update Compliance Report Status</field>
+        <field name="model_id" ref="model_sama_promis_contract"/>
+        <field name="state">code</field>
+        <field name="code">model.search([])._compute_compliance_report_status()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="True"/>
+        <field name="doall" eval="False"/>
+        <field name="priority">10</field>
+    </record>
+</odoo>

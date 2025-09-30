@@ -24,7 +24,10 @@ class TestProjectQRCodes(TransactionCase):
         })
 
     def test_qr_code_fields_are_computed(self):
-        """Les champs QR Code doivent être calculés lors de la création du projet."""
+        """Les champs QR Code doivent être calculés lors de la création du projet.
+        
+        Note: QR codes point to backend URLs temporarily until public portal is developed.
+        """
         project = self.env['sama.promis.project'].create({
             'name': 'QR Enabled Project',
             'project_type': 'education',
@@ -33,10 +36,10 @@ class TestProjectQRCodes(TransactionCase):
             'end_date': date.today() + timedelta(days=30),
         })
 
-        expected_path = f"/promispublic/project/{project.id}"
+        expected_path = f"/web#id={project.id}&model=sama.promis.project&view_type=form"
         self.assertTrue(project.qr_code_data, "Le champ qr_code_data doit être renseigné")
         self.assertTrue(project.qr_code_data.startswith('https://test.example'))
-        self.assertIn(expected_path, project.qr_code_data)
+        self.assertIn(expected_path, project.qr_code_data, "QR code should point to backend form view")
         self.assertEqual(project.qr_code_url, project.qr_code_data)
 
         if QRCODE_AVAILABLE:

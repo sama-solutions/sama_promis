@@ -9,3 +9,4 @@ Module principal pour SAMA PROMIS.
 # Import des modules
 from . import models
 from . import controllers
+from . import micromodules

@@ -4,7 +4,6 @@
     <record id="view_sama_promis_contract_template_tree" model="ir.ui.view">
         <field name="name">sama.promis.contract.template.tree</field>
         <field name="model">sama.promis.contract.template</field>
-        <field name="type">list</field>
         <field name="arch" type="xml">
             <list string="Modèles de Contrats" create="true" edit="true" delete="true">
                 <field name="name"/>
@@ -74,7 +73,6 @@
     <record id="view_sama_promis_contract_tree" model="ir.ui.view">
         <field name="name">sama.promis.contract.tree</field>
         <field name="model">sama.promis.contract</field>
-        <field name="type">list</field>
         <field name="arch" type="xml">
             <list string="Contrats" decoration-info="state == 'draft'" decoration-warning="state == 'sent_for_signature'" decoration-success="state == 'signed'">
                 <field name="name"/>
@@ -104,6 +102,21 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,generated,sent_for_signature,signed"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_compliance_tasks" type="object" class="oe_stat_button" icon="fa-check-square"
+                                invisible="not use_compliance_profile">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="compliance_task_count"/> / <field name="compliance_tasks_completed"/>
+                                </span>
+                                <span class="o_stat_text">Tâches Conformité</span>
+                            </div>
+                        </button>
+                        <button name="action_view_procurement_plans" type="object" class="oe_stat_button" icon="fa-shopping-cart">
+                            <field name="procurement_plan_count" widget="statinfo" string="Plans de Passation"/>
+                        </button>
+                    </div>
+                    
                     <div class="oe_title">
                         <h1><field name="name"/></h1>
                     </div>
@@ -129,9 +142,19 @@
                             <field name="sign_request_id" readonly="1"/>
                             <field name="signed_document_id" readonly="1"/>
                         </group>
-                        <group string="Rapportage">
+                        <group string="Rapportage et Conformité">
                             <field name="reporting_frequency"/>
-                            <field name="next_report_date"/>
+                            <field name="next_report_date" readonly="1"/>
+                            <field name="last_compliance_report_date" readonly="1" invisible="not use_compliance_profile"/>
+                            <field name="compliance_report_status" widget="badge" 
+                                   invisible="not use_compliance_profile"
+                                   decoration-success="compliance_report_status=='on_time'"
+                                   decoration-warning="compliance_report_status=='due_soon'"
+                                   decoration-danger="compliance_report_status=='overdue'"/>
+                            <button name="action_submit_compliance_report" type="object" string="Soumettre Rapport de Conformité" 
+                                    class="btn-primary" invisible="not use_compliance_profile"/>
+                            <button name="action_generate_compliance_report" type="object" string="Générer Rapport Bailleur" 
+                                    class="btn-secondary" invisible="not compliance_profile_id"/>
                         </group>
                     </group>
 
@@ -141,7 +164,7 @@
                         </page>
                         <page string="Échéancier de Paiement">
                             <field name="payment_schedule_ids">
-                                <list editable="bottom">
+                                <list editable="bottom" multi_edit="1">
                                     <field name="name"/>
                                     <field name="due_date"/>
                                     <field name="amount"/>
@@ -160,6 +183,39 @@
                         <page string="Documents">
                             <field name="contract_document" filename="contract_filename"/>
                             <field name="contract_filename" invisible="1"/>
+                        </page>
+                        <page string="Conformité" invisible="not use_compliance_profile">
+                            <div class="alert alert-info">
+                                <p><strong>Profil de conformité hérité du projet.</strong></p>
+                                <p>Profil: <field name="compliance_profile_id" readonly="1" nolabel="1"/></p>
+                            </div>
+                            
+                            <div class="alert alert-warning" invisible="overdue_compliance_tasks == 0">
+                                <strong>Attention!</strong> <field name="overdue_compliance_tasks"/> tâche(s) de conformité en retard.
+                            </div>
+                            
+                            <group>
+                                <button name="action_generate_compliance_tasks" type="object" string="Générer Tâches Contractuelles" 
+                                        class="btn-secondary" invisible="compliance_task_count > 0"/>
+                            </group>
+                            
+                            <field name="compliance_task_ids" context="{'default_contract_id': id, 'default_project_id': project_id, 'default_responsible_id': uid}">
+                                <list editable="bottom" multi_edit="1" decoration-danger="is_overdue==True" decoration-success="state in ['completed','approved']">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="task_type"/>
+                                    <field name="responsible_id"/>
+                                    <field name="deadline"/>
+                                    <field name="days_until_deadline"/>
+                                    <field name="priority" widget="priority"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="is_overdue" invisible="1"/>
+                                </list>
+                            </field>
+                            
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="compliance_rate" widget="progressbar" string="Taux de Conformité"/>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>

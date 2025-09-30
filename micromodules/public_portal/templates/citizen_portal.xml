@@ -390,4 +390,499 @@
             </div>
         </t>
     </template>
+
+    <!-- Template pour le profil citoyen -->
+    <template id="citizen_profile" name="Profil Citoyen">
+        <t t-call="website.layout">
+            <t t-set="title">Mon Profil - <t t-esc="user.name"/></t>
+            <div id="wrap" class="oe_structure">
+                <section class="pt-5 pb-3" style="background: linear-gradient(135deg, #059669 0%, #1e3a8a 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <h1 class="display-5 font-weight-bold">Mon Profil</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h3>Informations Personnelles</h3>
+                                <p><strong>Nom:</strong> <t t-esc="user.name"/></p>
+                                <p><strong>Email:</strong> <t t-esc="user.email or 'Non défini'"/></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template pour l'activité citoyenne -->
+    <template id="citizen_activity" name="Activité Citoyenne">
+        <t t-call="website.layout">
+            <t t-set="title">Mon Activité - <t t-esc="user.name"/></t>
+            <div id="wrap" class="oe_structure">
+                <section class="pt-5 pb-3" style="background: linear-gradient(135deg, #059669 0%, #1e3a8a 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <h1 class="display-5 font-weight-bold">Mon Activité</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="timeline">
+                            <t t-foreach="activities" t-as="activity">
+                                <div class="card border-0 shadow-sm mb-3">
+                                    <div class="card-body">
+                                        <h5><t t-esc="activity['title']"/></h5>
+                                        <p class="text-muted"><t t-esc="activity['description']"/></p>
+                                        <small class="text-muted">
+                                            <t t-esc="activity['date'].strftime('%d/%m/%Y à %H:%M')"/>
+                                        </small>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- ========================================================================= -->
+    <!-- REQUESTOR PORTAL TEMPLATES -->
+    <!-- ========================================================================= -->
+
+    <!-- Template pour le dashboard du portail demandeur -->
+    <template id="requestor_portal_dashboard" name="Portail Demandeur Dashboard">
+        <t t-call="website.layout">
+            <t t-set="title">Mon Portail PROMIS</t>
+            <div id="wrap" class="oe_structure">
+                <section class="pt-5 pb-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <h1 class="display-5 font-weight-bold">Mon Portail PROMIS</h1>
+                                <p class="lead">Bienvenue <t t-esc="user.name"/></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <h3 class="text-primary"><t t-esc="stats['total_projects']"/></h3>
+                                        <p>Mes Projets</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <h3 class="text-success"><t t-esc="stats['total_contracts']"/></h3>
+                                        <p>Mes Contrats</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <h3 class="text-warning"><t t-esc="stats['pending_tasks']"/></h3>
+                                        <p>Tâches en Attente</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <h3 class="text-info"><t t-esc="stats['total_received']" t-options="{'widget': 'monetary'}"/></h3>
+                                        <p>Paiements Reçus</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4">
+                            <div class="col-lg-6 mb-4">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-header bg-light">
+                                        <h5 class="mb-0">Activité Récente</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <t t-foreach="recent_activity" t-as="activity">
+                                            <div class="mb-2">
+                                                <p class="mb-0"><t t-esc="activity['title']"/></p>
+                                                <small class="text-muted"><t t-esc="activity['date'].strftime('%d/%m/%Y')"/></small>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-4">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-header bg-light">
+                                        <h5 class="mb-0">Échéances à Venir</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <t t-foreach="upcoming_deadlines" t-as="task">
+                                            <div class="mb-2">
+                                                <p class="mb-0"><t t-esc="task.name"/></p>
+                                                <small class="text-muted">
+                                                    <i class="fa fa-calendar mr-1"></i>
+                                                    <t t-esc="task.deadline.strftime('%d/%m/%Y') if task.deadline else 'Non définie'"/>
+                                                </small>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template pour la liste des projets du demandeur -->
+    <template id="requestor_projects" name="Mes Projets">
+        <t t-call="website.layout">
+            <t t-set="title">Mes Projets</t>
+            <div id="wrap" class="oe_structure">
+                <section class="pt-5 pb-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <h1 class="display-5 font-weight-bold">Mes Projets</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="row">
+                            <t t-foreach="projects" t-as="project">
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <a t-att-href="'/promispublic/project/%s' % project.id">
+                                                    <t t-esc="project.name"/>
+                                                </a>
+                                            </h5>
+                                            <p class="text-muted small">
+                                                <t t-esc="project.short_description or (project.description[:100] + '...' if project.description else 'Aucune description')"/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template pour les propositions du demandeur -->
+    <template id="requestor_proposals" name="Mes Propositions">
+        <t t-call="website.layout">
+            <t t-set="title">Mes Propositions</t>
+            <div id="wrap" class="oe_structure">
+                <section class="pt-5 pb-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <h1 class="display-5 font-weight-bold">Mes Propositions</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="row">
+                            <t t-foreach="calls" t-as="call">
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <a t-att-href="'/promispublic/call/%s' % call.id">
+                                                    <t t-esc="call.name"/>
+                                                </a>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template pour les contrats du demandeur -->
+    <template id="requestor_contracts" name="Mes Contrats">
+        <t t-call="website.layout">
+            <t t-set="title">Mes Contrats</t>
+            <div id="wrap" class="oe_structure">
+                <section class="pt-5 pb-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <h1 class="display-5 font-weight-bold">Mes Contrats</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="row">
+                            <t t-foreach="contracts" t-as="contract">
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><t t-esc="contract.name"/></h5>
+                                            <p class="text-muted">
+                                                Montant: <t t-esc="contract.contract_amount" t-options="{'widget': 'monetary'}"/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template pour les tâches de conformité du demandeur -->
+    <template id="requestor_compliance" name="Mes Tâches de Conformité">
+        <t t-call="website.layout">
+            <t t-set="title">Mes Tâches de Conformité</t>
+            <div id="wrap" class="oe_structure">
+                <section class="pt-5 pb-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <h1 class="display-5 font-weight-bold">Mes Tâches de Conformité</h1>
+                                <p class="lead">Taux de conformité: <t t-esc="compliance_rate"/>%</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="row">
+                            <t t-foreach="tasks" t-as="task">
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><t t-esc="task.name"/></h5>
+                                            <p class="text-muted">
+                                                État: <span t-att-class="'badge badge-' + ('success' if task.state == 'completed' else 'warning')">
+                                                    <t t-esc="dict(task._fields['state'].selection).get(task.state, task.state)"/>
+                                                </span>
+                                            </p>
+                                            <t t-if="task.deadline">
+                                                <p class="text-muted small">
+                                                    <i class="fa fa-calendar mr-1"></i>
+                                                    Échéance: <t t-esc="task.deadline.strftime('%d/%m/%Y')"/>
+                                                </p>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template pour les paiements du demandeur -->
+    <template id="requestor_payments" name="Mes Paiements">
+        <t t-call="website.layout">
+            <t t-set="title">Mes Paiements</t>
+            <div id="wrap" class="oe_structure">
+                <section class="pt-5 pb-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <h1 class="display-5 font-weight-bold">Mes Paiements</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <h3 class="text-success"><t t-esc="total_received" t-options="{'widget': 'monetary'}"/></h3>
+                                        <p>Total Reçu</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-body text-center">
+                                        <h3 class="text-warning"><t t-esc="total_pending" t-options="{'widget': 'monetary'}"/></h3>
+                                        <p>En Attente</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <t t-foreach="payments" t-as="payment">
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <t t-esc="payment.amount" t-options="{'widget': 'monetary'}"/>
+                                            </h5>
+                                            <p class="text-muted">
+                                                État: <span t-att-class="'badge badge-' + ('success' if payment.state == 'paid' else 'warning')">
+                                                    <t t-esc="dict(payment._fields['state'].selection).get(payment.state, payment.state)"/>
+                                                </span>
+                                            </p>
+                                            <p class="text-muted small">
+                                                <i class="fa fa-calendar mr-1"></i>
+                                                <t t-esc="payment.payment_date.strftime('%d/%m/%Y') if payment.payment_date else 'Date non définie'"/>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template pour les notifications du demandeur -->
+    <template id="requestor_notifications" name="Préférences de Notification">
+        <t t-call="website.layout">
+            <t t-set="title">Préférences de Notification</t>
+            <div id="wrap" class="oe_structure">
+                <section class="pt-5 pb-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <h1 class="display-5 font-weight-bold">Préférences de Notification</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h3>Paramètres de Notification</h3>
+                                <p>Gérez vos préférences de notification ici.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template pour le profil du demandeur -->
+    <template id="requestor_profile" name="Mon Profil Demandeur">
+        <t t-call="website.layout">
+            <t t-set="title">Mon Profil</t>
+            <div id="wrap" class="oe_structure">
+                <section class="pt-5 pb-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <h1 class="display-5 font-weight-bold">Mon Profil</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h3>Informations Personnelles</h3>
+                                <p><strong>Nom:</strong> <t t-esc="user.name"/></p>
+                                <p><strong>Email:</strong> <t t-esc="user.email or 'Non défini'"/></p>
+                                <t t-if="partner">
+                                    <p><strong>Organisation:</strong> <t t-esc="partner.name"/></p>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Template pour l'activité du demandeur -->
+    <template id="requestor_activity" name="Mon Activité Demandeur">
+        <t t-call="website.layout">
+            <t t-set="title">Mon Activité</t>
+            <div id="wrap" class="oe_structure">
+                <section class="pt-5 pb-3" style="background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-white">
+                                <h1 class="display-5 font-weight-bold">Mon Activité</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="pt-4 pb-4">
+                    <div class="container">
+                        <div class="timeline">
+                            <t t-foreach="activities" t-as="activity">
+                                <div class="card border-0 shadow-sm mb-3">
+                                    <div class="card-body">
+                                        <div class="d-flex">
+                                            <div class="mr-3">
+                                                <i t-att-class="'fa %s fa-2x text-primary' % activity['icon']"></i>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h5><t t-esc="activity['title']"/></h5>
+                                                <p class="text-muted"><t t-esc="activity.get('description', '')"/></p>
+                                                <small class="text-muted">
+                                                    <t t-esc="activity['date'].strftime('%d/%m/%Y à %H:%M')"/>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
 </odoo>

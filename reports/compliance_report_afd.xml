@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- AFD (Agence Française de Développement) Compliance Report Template -->
+    <record id="report_sama_promis_compliance_afd" model="ir.actions.report">
+        <field name="name">Rapport de Conformité (AFD)</field>
+        <field name="model">sama.promis.contract</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sama_promis.report_compliance_afd_document</field>
+        <field name="report_file">sama_promis.report_compliance_afd_document</field>
+        <field name="binding_model_id" ref="model_sama_promis_contract"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'AFD_Rapport_Conformite_%s' % (object.name)</field>
+    </record>
+
+    <!-- AFD Compliance Report QWeb Template -->
+    <template id="report_compliance_afd_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        
+                        <!-- Header with AFD Branding -->
+                        <div class="row mt-4 mb-4">
+                            <div class="col-12 text-center">
+                                <h2>Agence Française de Développement</h2>
+                                <h3>Rapport de Suivi et de Conformité</h3>
+                                <h5 t-field="o.name"/></h5>
+                            </div>
+                        </div>
+
+                        <!-- Identification du Projet -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>I. Identification du Projet</h4>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td style="width: 35%;"><strong>Intitulé du Projet:</strong></td>
+                                        <td><span t-field="o.project_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Maître d'Ouvrage:</strong></td>
+                                        <td><span t-field="o.partner_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Numéro de Convention:</strong></td>
+                                        <td><span t-field="o.name"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Période de Mise en Œuvre:</strong></td>
+                                        <td><span t-field="o.start_date" t-options='{"format": "dd/MM/yyyy"}'/> au <span t-field="o.end_date" t-options='{"format": "dd/MM/yyyy"}'/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Montant de la Convention:</strong></td>
+                                        <td><span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Date du Rapport:</strong></td>
+                                        <td><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- État d'Avancement Physique -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>II. État d'Avancement Physique</h4>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td style="width: 35%;"><strong>Taux d'Avancement Global:</strong></td>
+                                        <td><span t-field="o.compliance_rate"/>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Nombre d'Activités Réalisées:</strong></td>
+                                        <td><span t-field="o.compliance_tasks_completed"/> / <span t-field="o.compliance_task_count"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Activités en Retard:</strong></td>
+                                        <td>
+                                            <span t-field="o.overdue_compliance_tasks"/>
+                                            <span t-if="o.overdue_compliance_tasks &gt; 0" class="badge badge-danger ml-2">Attention requise</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Réalisation des Activités -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>III. Réalisation des Activités</h4>
+                                <table class="table table-sm table-bordered">
+                                    <thead style="background-color: #f0f0f0;">
+                                        <tr>
+                                            <th>Activité</th>
+                                            <th>Type</th>
+                                            <th>Date Prévue</th>
+                                            <th>Date Réelle</th>
+                                            <th>Statut</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.compliance_task_ids" t-as="task">
+                                            <tr>
+                                                <td><span t-field="task.name"/></td>
+                                                <td><span t-field="task.task_type"/></td>
+                                                <td><span t-field="task.deadline" t-options='{"format": "dd/MM/yyyy"}'/></td>
+                                                <td><span t-field="task.actual_completion_date" t-options='{"format": "dd/MM/yyyy"}'/></td>
+                                                <td>
+                                                    <span t-if="task.state == 'completed'" class="badge badge-success">Réalisé</span>
+                                                    <span t-elif="task.state == 'approved'" class="badge badge-success">Validé</span>
+                                                    <span t-elif="task.state == 'in_progress'" class="badge badge-info">En cours</span>
+                                                    <span t-elif="task.is_overdue" class="badge badge-danger">En retard</span>
+                                                    <span t-else="" class="badge badge-warning">Prévu</span>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Situation Financière -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>IV. Situation Financière</h4>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td style="width: 35%;"><strong>Montant de la Convention:</strong></td>
+                                        <td><span t-field="o.amount" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Fréquence de Rapportage:</strong></td>
+                                        <td><span t-field="o.reporting_frequency"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Dernier Rapport Financier:</strong></td>
+                                        <td><span t-field="o.last_compliance_report_date" t-options='{"format": "dd/MM/yyyy"}'/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Prochain Rapport Attendu:</strong></td>
+                                        <td>
+                                            <span t-field="o.next_report_date" t-options='{"format": "dd/MM/yyyy"}'/>
+                                            <span t-if="o.compliance_report_status == 'overdue'" class="badge badge-danger ml-2">En retard</span>
+                                            <span t-elif="o.compliance_report_status == 'due_soon'" class="badge badge-warning ml-2">Échéance proche</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Passation de Marchés -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>V. Passation de Marchés</h4>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td style="width: 35%;"><strong>Plans de Passation Soumis:</strong></td>
+                                        <td><span t-esc="len(o.procurement_plan_ids)"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Seuil d'Avis Préalable AFD:</strong></td>
+                                        <td>
+                                            <span t-if="o.compliance_profile_id.prior_review_threshold">
+                                                <span t-field="o.compliance_profile_id.prior_review_threshold" t-options='{"widget": "monetary", "display_currency": o.compliance_profile_id.currency_id}'/>
+                                            </span>
+                                            <span t-else="">Non spécifié</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <h5 class="mt-3">Tâches de Passation</h5>
+                                <table class="table table-sm table-bordered">
+                                    <thead style="background-color: #f0f0f0;">
+                                        <tr>
+                                            <th>Marché</th>
+                                            <th>Échéance</th>
+                                            <th>Statut</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="o.compliance_task_ids.filtered(lambda t: 'marché' in (t.name or '').lower() or 'procurement' in (t.name or '').lower())" t-as="task">
+                                            <tr>
+                                                <td><span t-field="task.name"/></td>
+                                                <td><span t-field="task.deadline" t-options='{"format": "dd/MM/yyyy"}'/></td>
+                                                <td><span t-field="task.state"/></td>
+                                            </tr>
+                                        </t>
+                                        <t t-if="not o.compliance_task_ids.filtered(lambda t: 'marché' in (t.name or '').lower() or 'procurement' in (t.name or '').lower())">
+                                            <tr>
+                                                <td colspan="3" class="text-center">Aucune tâche de passation enregistrée</td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Difficultés Rencontrées et Solutions -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>VI. Difficultés Rencontrées et Solutions Proposées</h4>
+                                <t t-if="o.overdue_compliance_tasks &gt; 0">
+                                    <div class="alert alert-warning">
+                                        <strong>Difficultés Identifiées:</strong>
+                                        <ul>
+                                            <li><span t-field="o.overdue_compliance_tasks"/> activités en retard nécessitant une action corrective</li>
+                                            <li>Recommandation: Révision du calendrier d'exécution et mobilisation des ressources nécessaires</li>
+                                        </ul>
+                                    </div>
+                                </t>
+                                <t t-else="">
+                                    <div class="alert alert-success">
+                                        Aucune difficulté majeure identifiée. Le projet se déroule conformément au calendrier prévu.
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+
+                        <!-- Perspectives et Recommandations -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <h4>VII. Perspectives et Recommandations</h4>
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td style="width: 35%;"><strong>Taux de Conformité Global:</strong></td>
+                                        <td>
+                                            <span t-field="o.compliance_rate"/>%
+                                            <span t-if="o.compliance_rate &gt;= 80" class="badge badge-success ml-2">Satisfaisant</span>
+                                            <span t-elif="o.compliance_rate &gt;= 60" class="badge badge-warning ml-2">À améliorer</span>
+                                            <span t-else="" class="badge badge-danger ml-2">Insuffisant</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Recommandations:</strong></td>
+                                        <td>
+                                            <t t-if="o.compliance_rate &lt; 80">
+                                                Renforcer le suivi des activités et respecter les échéances de rapportage
+                                            </t>
+                                            <t t-else="">
+                                                Maintenir le niveau de performance actuel
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Signatures -->
+                        <div class="row mt-5">
+                            <div class="col-6">
+                                <p><strong>Le Maître d'Ouvrage</strong></p>
+                                <br/><br/>
+                                <p>Nom: _______________________</p>
+                                <p>Fonction: _______________________</p>
+                                <p>Signature: _______________________</p>
+                            </div>
+                            <div class="col-6">
+                                <p><strong>Le Chargé de Projet AFD</strong></p>
+                                <br/><br/>
+                                <p>Nom: _______________________</p>
+                                <p>Fonction: _______________________</p>
+                                <p>Signature: _______________________</p>
+                            </div>
+                        </div>
+
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

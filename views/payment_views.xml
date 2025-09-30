@@ -38,7 +38,6 @@
     <record id="view_payment_request_tree" model="ir.ui.view">
         <field name="name">sama.promis.payment.request.list</field>
         <field name="model">sama.promis.payment.request</field>
-        <field name="type">list</field>
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>

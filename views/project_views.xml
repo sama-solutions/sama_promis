@@ -5,7 +5,7 @@
         <field name="name">sama.promis.project.tree</field>
         <field name="model">sama.promis.project</field>
         <field name="arch" type="xml">
-            <tree string="Projets SAMA PROMIS" decoration-info="state=='draft'" decoration-warning="state=='under_review'" decoration-success="state=='completed'">
+            <list string="Projets SAMA PROMIS" decoration-info="state=='draft'" decoration-warning="state=='under_review'" decoration-success="state=='completed'">
                 <field name="reference"/>
                 <field name="name"/>
                 <field name="project_type"/>
@@ -17,7 +17,7 @@
                 <field name="start_date"/>
                 <field name="end_date"/>
                 <field name="progress_percentage" widget="progressbar"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -55,6 +55,30 @@
                         <button name="action_view_evaluations" type="object" class="oe_stat_button" icon="fa-chart-line">
                             <field name="evaluation_ids" widget="statinfo" string="Évaluations"/>
                         </button>
+                        <button name="action_view_funding_sources" type="object" class="oe_stat_button" icon="fa-hand-holding-usd">
+                            <field name="funding_sources_count" widget="statinfo" string="Sources de Financement"/>
+                        </button>
+                        <button name="action_view_procurement_plans" type="object" class="oe_stat_button" icon="fa-shopping-cart">
+                            <field name="procurement_plan_count" widget="statinfo" string="Plans de Passation"/>
+                        </button>
+                        <button name="action_view_compliance_tasks" type="object" class="oe_stat_button" icon="fa-check-square"
+                                invisible="not use_compliance_profile">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="compliance_task_count"/> / <field name="compliance_tasks_completed"/>
+                                </span>
+                                <span class="o_stat_text">Tâches Conformité</span>
+                            </div>
+                        </button>
+                        <button name="action_view_compliance_profile" type="object" class="oe_stat_button" icon="fa-shield-alt"
+                                invisible="not compliance_profile_id">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="compliance_rate" widget="percentage"/>
+                                </span>
+                                <span class="o_stat_text">Taux Conformité</span>
+                            </div>
+                        </button>
                     </div>
                     
                     <div class="oe_title">
@@ -75,11 +99,18 @@
                             <field name="call_for_proposal_id"/>
                         </group>
                         <group>
-                            <field name="total_budget"/>
+                            <field name="use_multi_source_funding"/>
+                            <field name="total_budget" invisible="use_multi_source_funding"/>
                             <field name="currency_id"/>
-                            <field name="donor_contribution"/>
-                            <field name="partner_contribution"/>
+                            <field name="donor_contribution" invisible="use_multi_source_funding"/>
+                            <field name="partner_contribution" invisible="use_multi_source_funding"/>
+                            <field name="total_budget_computed" invisible="not use_multi_source_funding" readonly="1"/>
+                            <field name="total_international_funding" invisible="not use_multi_source_funding" readonly="1"/>
+                            <field name="total_local_funding" invisible="not use_multi_source_funding" readonly="1"/>
                             <field name="progress_percentage" widget="progressbar"/>
+                            <field name="use_compliance_profile"/>
+                            <field name="compliance_profile_id" invisible="not use_compliance_profile" required="use_compliance_profile"/>
+                            <field name="compliance_profile_manual" invisible="not use_compliance_profile"/>
                         </group>
                     </group>
                     
@@ -114,16 +145,19 @@
                         
                         <page string="Partenaires">
                             <field name="implementing_partner_ids">
-                                <tree>
+                                <list>
                                     <field name="name"/>
                                     <field name="partner_type"/>
                                     <field name="email"/>
                                     <field name="phone"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         
                         <page string="Finances">
+                            <div class="alert alert-info" invisible="not use_multi_source_funding">
+                                <p><strong>Mode multi-sources activé.</strong> Le budget total est calculé automatiquement à partir des sources de financement.</p>
+                            </div>
                             <group>
                                 <group string="Budget">
                                     <field name="spent_amount"/>
@@ -133,9 +167,115 @@
                                 <group string="Indicateurs">
                                     <field name="duration_days"/>
                                     <field name="is_delayed"/>
-                                    <field name="delay_days" attrs="{'invisible': [('is_delayed', '=', False)]}"/>
+                                    <field name="delay_days" invisible="not is_delayed"/>
                                     <field name="days_to_deadline"/>
                                 </group>
+                            </group>
+                        </page>
+                        
+                        <page string="Sources de Financement" invisible="not use_multi_source_funding">
+                            <group>
+                                <group>
+                                    <button name="action_migrate_legacy_funding" type="object" string="Migrer les données existantes" 
+                                            class="btn-primary" invisible="funding_sources_count > 0"/>
+                                    <field name="funding_sources_count" invisible="1"/>
+                                </group>
+                            </group>
+                            <field name="funding_source_ids" context="{'default_project_id': id, 'default_currency_id': currency_id}">
+                                <list editable="bottom" multi_edit="1" decoration-success="state=='received'" decoration-muted="state=='cancelled'">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="partner_id" domain="[('is_donor', '=', True)]"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="currency_id" groups="base.group_multi_currency"/>
+                                    <field name="funding_type"/>
+                                    <field name="funding_origin" readonly="1"/>
+                                    <field name="funding_origin_manual"/>
+                                    <field name="percentage_of_total" widget="percentage"/>
+                                    <field name="state"/>
+                                    <field name="commitment_date"/>
+                                    <field name="received_date"/>
+                                </list>
+                                <form>
+                                    <header>
+                                        <button name="action_confirm" type="object" string="Confirmer" states="draft" class="btn-primary"/>
+                                        <button name="action_mark_received" type="object" string="Marquer comme Reçu" states="confirmed" class="btn-primary"/>
+                                        <button name="action_cancel" type="object" string="Annuler" states="draft,confirmed"/>
+                                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,received"/>
+                                    </header>
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="partner_id" domain="[('is_donor', '=', True)]"/>
+                                                <field name="amount"/>
+                                                <field name="currency_id" groups="base.group_multi_currency"/>
+                                                <field name="funding_type"/>
+                                            </group>
+                                            <group>
+                                                <field name="funding_origin" readonly="1"/>
+                                                <field name="funding_origin_manual"/>
+                                                <field name="percentage_of_total" widget="percentage"/>
+                                                <field name="commitment_date"/>
+                                                <field name="received_date"/>
+                                                <field name="contract_reference"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="description" placeholder="Notes additionnelles sur cette source de financement..."/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_budget_computed" class="oe_subtotal_footer_separator" widget="monetary"/>
+                                <field name="total_international_funding" widget="monetary"/>
+                                <field name="total_local_funding" widget="monetary"/>
+                            </group>
+                        </page>
+                        
+                        <page string="Conformité" invisible="not use_compliance_profile">
+                            <div class="alert alert-warning" invisible="overdue_compliance_tasks == 0">
+                                <strong>Attention!</strong> <field name="overdue_compliance_tasks"/> tâche(s) de conformité en retard.
+                            </div>
+                            
+                            <group>
+                                <group string="Profil de Conformité">
+                                    <field name="compliance_profile_id" readonly="1"/>
+                                    <button name="action_view_compliance_profile" type="object" string="Voir le Profil" class="btn-link"/>
+                                </group>
+                                <group string="Rapportage">
+                                    <field name="last_compliance_report_date" readonly="1"/>
+                                    <field name="next_compliance_report_date" readonly="1"/>
+                                    <field name="compliance_report_status" widget="badge" 
+                                           decoration-success="compliance_report_status=='on_time'"
+                                           decoration-warning="compliance_report_status=='due_soon'"
+                                           decoration-danger="compliance_report_status=='overdue'"/>
+                                    <button name="action_submit_compliance_report" type="object" string="Soumettre Rapport" class="btn-primary"/>
+                                </group>
+                            </group>
+                            
+                            <group>
+                                <button name="action_generate_compliance_tasks" type="object" string="Générer Tâches depuis Profil" 
+                                        class="btn-secondary" invisible="compliance_task_count > 0"/>
+                            </group>
+                            
+                            <field name="compliance_task_ids" context="{'default_project_id': id, 'default_responsible_id': uid}">
+                                <list editable="bottom" multi_edit="1" decoration-danger="is_overdue==True" decoration-success="state in ['completed','approved']">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="task_type"/>
+                                    <field name="responsible_id"/>
+                                    <field name="deadline"/>
+                                    <field name="days_until_deadline"/>
+                                    <field name="priority" widget="priority"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="is_overdue" invisible="1"/>
+                                </list>
+                            </field>
+                            
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="compliance_rate" widget="progressbar" string="Taux de Conformité"/>
                             </group>
                         </page>
                         

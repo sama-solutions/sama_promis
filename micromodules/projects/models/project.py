@@ -259,16 +259,19 @@ class SamaPromisProject(models.Model):
         }
         return type_prefixes.get(self.project_type, 'PROJ')
 
-    @api.depends('payment_ids', 'total_budget')
+    @api.depends('payment_ids', 'total_budget', 'total_budget_computed', 'use_multi_source_funding')
     def _compute_financial_data(self):
         """Calcule les données financières."""
         for project in self:
             paid_payments = project.payment_ids.filtered(lambda p: p.state == 'paid')
             project.spent_amount = sum(paid_payments.mapped('amount'))
-            project.remaining_budget = project.total_budget - project.spent_amount
             
-            if project.total_budget > 0:
-                project.budget_utilization_rate = (project.spent_amount / project.total_budget) * 100
+            # Use multi-source total if enabled, else use legacy total_budget
+            effective_budget = project.total_budget_computed if project.use_multi_source_funding else project.total_budget
+            project.remaining_budget = effective_budget - project.spent_amount
+            
+            if effective_budget > 0:
+                project.budget_utilization_rate = (project.spent_amount / effective_budget) * 100
             else:
                 project.budget_utilization_rate = 0
 
@@ -364,7 +367,10 @@ class SamaPromisProject(models.Model):
         """Soumet le projet pour révision."""
         if not self.partner_id:
             raise UserError(_("Un partenaire principal doit être défini avant la soumission."))
-        if not self.total_budget:
+        
+        # Use multi-source total if enabled, else use legacy total_budget
+        effective_budget = self.total_budget_computed if self.use_multi_source_funding else self.total_budget
+        if not effective_budget:
             raise UserError(_("Le budget total doit être défini avant la soumission."))
         
         self.change_state('submitted', 'Soumission pour révision')
@@ -460,9 +466,12 @@ class SamaPromisProject(models.Model):
             count = self.search_count([('project_type', '=', ptype)])
             type_stats[ptype] = {'label': label, 'count': count}
         
-        # Budget total
+        # Budget total (considérer le mode multi-sources)
         all_projects = self.search([])
-        total_budget = sum(all_projects.mapped('total_budget'))
+        total_budget = sum(
+            project.total_budget_computed if project.use_multi_source_funding else project.total_budget
+            for project in all_projects
+        )
         spent_budget = sum(all_projects.mapped('spent_amount'))
         
         return {

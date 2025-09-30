@@ -5,12 +5,12 @@
         <field name="name">sama.promis.tag.tree</field>
         <field name="model">sama.promis.tag</field>
         <field name="arch" type="xml">
-            <tree string="Étiquettes SAMA PROMIS">
+            <list string="Étiquettes SAMA PROMIS">
                 <field name="name"/>
                 <field name="color" widget="color"/>
                 <field name="description"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
 

@@ -9,7 +9,7 @@ class SamaPromisProjectEvaluation(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     
     name = fields.Char(string="Reference", compute='_compute_name')
-    project_id = fields.Many2one('project.project', string="Project", required=True, ondelete='cascade')
+    project_id = fields.Many2one('sama.promis.project', string="Project", required=True, ondelete='cascade')
     call_id = fields.Many2one('sama.promis.call.proposal', string="Call for Proposal", required=True, ondelete='cascade')
     evaluator_id = fields.Many2one('res.users', string="Evaluator", required=True, default=lambda self: self.env.user)
     

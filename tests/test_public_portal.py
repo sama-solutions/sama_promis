@@ -4,8 +4,10 @@
 from datetime import date, timedelta
 
 from odoo.tests import HttpCase, tagged
+from unittest import skip
 
 
+@skip('Public portal disabled - to be developed later')
 @tagged('post_install', '-at_install')
 class TestPublicPortal(HttpCase):
     """Valide les pages principales du portail citoyen."""

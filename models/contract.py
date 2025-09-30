@@ -11,7 +11,7 @@ class SamaPromisContract(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string="Référence du Contrat", required=True, tracking=True)
-    project_id = fields.Many2one('project.project', string="Projet",
+    project_id = fields.Many2one('sama.promis.project', string="Projet",
                                required=True, ondelete='cascade')
     partner_id = fields.Many2one('res.partner', string="Bénéficiaire",
                                required=True, tracking=True)
@@ -80,10 +80,6 @@ class SamaPromisContract(models.Model):
                                          string="Échéancier de Paiement")
 
     # Additional Fields for Enhanced Functionality
-    donor_id = fields.Many2one('res.partner', string="Bailleur de Fonds",
-                              related='project_id.donor_id', store=True)
-    project_manager_id = fields.Many2one('res.users', string="Chef de Projet",
-                                        related='project_id.user_id', store=True)
     
     # Contract Terms and Conditions
     terms_conditions = fields.Html(string="Conditions Générales")
@@ -97,7 +93,85 @@ class SamaPromisContract(models.Model):
         ('annual', 'Annuel'),
     ], string="Fréquence de Rapportage", default='quarterly')
     
-    next_report_date = fields.Date(string="Prochaine Date de Rapport")
+    next_report_date = fields.Date(
+        string="Prochaine Date de Rapport",
+        compute='_compute_next_report_date',
+        store=True,
+        help="Prochaine date de rapport calculée"
+    )
+
+    procurement_plan_ids = fields.One2many(
+        'sama.promis.procurement.plan',
+        'contract_id',
+        string='Plans de Passation de Marché',
+        help="Plans de passation de marché liés à ce contrat"
+    )
+
+    procurement_plan_count = fields.Integer(
+        string='Nombre de Plans de Passation',
+        compute='_compute_procurement_plan_count',
+        store=False
+    )
+    
+    # Compliance Profile (inherited from project)
+    compliance_profile_id = fields.Many2one(
+        'sama.promis.compliance.profile',
+        string='Profil de Conformité',
+        related='project_id.compliance_profile_id',
+        store=True,
+        help="Profil de conformité hérité du projet"
+    )
+    use_compliance_profile = fields.Boolean(
+        string='Utiliser Conformité',
+        related='project_id.use_compliance_profile',
+        help="Activer la gestion de conformité (hérité du projet)"
+    )
+    
+    # Compliance Tasks
+    compliance_task_ids = fields.One2many(
+        'sama.promis.compliance.task',
+        'contract_id',
+        string='Tâches de Conformité',
+        help="Tâches de conformité spécifiques au contrat"
+    )
+    compliance_task_count = fields.Integer(
+        string='Nombre de Tâches',
+        compute='_compute_compliance_statistics',
+        store=True,
+        help="Nombre de tâches de conformité"
+    )
+    compliance_tasks_completed = fields.Integer(
+        string='Tâches Complétées',
+        compute='_compute_compliance_statistics',
+        store=True,
+        help="Nombre de tâches complétées"
+    )
+    compliance_rate = fields.Float(
+        string='Taux de Conformité',
+        compute='_compute_compliance_statistics',
+        store=True,
+        help="Pourcentage de tâches complétées"
+    )
+    overdue_compliance_tasks = fields.Integer(
+        string='Tâches en Retard',
+        compute='_compute_compliance_statistics',
+        store=True,
+        help="Nombre de tâches en retard"
+    )
+    
+    # Reporting Compliance
+    last_compliance_report_date = fields.Date(
+        string='Dernier Rapport',
+        readonly=True,
+        help="Date du dernier rapport de conformité"
+    )
+    compliance_report_status = fields.Selection([
+        ('on_time', 'À Jour'),
+        ('due_soon', 'Échéance Proche'),
+        ('overdue', 'En Retard')
+    ], string='Statut Rapport',
+        compute='_compute_compliance_report_status',
+        help="Statut du rapport de conformité")
 
     _sql_constraints = [
         ('check_dates', 'CHECK(start_date <= end_date)',
@@ -132,7 +206,7 @@ class SamaPromisContract(models.Model):
                     '{{ contract.amount }}': f"{contract.amount:,.2f} {contract.currency_id.name}" if contract.amount else '',
                     '{{ contract.start_date }}': contract.start_date.strftime('%d/%m/%Y') if contract.start_date else '',
                     '{{ contract.end_date }}': contract.end_date.strftime('%d/%m/%Y') if contract.end_date else '',
-                    '{{ donor.name }}': contract.donor_id.name if contract.donor_id else '',
+                    '{{ donor.name }}': contract.project_id.donor_id.name if contract.project_id and contract.project_id.donor_id else '',
                 }
                 
                 for placeholder, value in replacements.items():
@@ -207,6 +281,10 @@ class SamaPromisContract(models.Model):
             subject=_("Contrat Généré"),
             message_type='notification'
         )
+        
+        # Generate initial compliance tasks if compliance profile exists
+        if self.compliance_profile_id and not self.compliance_task_ids:
+            self.action_generate_compliance_tasks()
 
         return {
             'type': 'ir.actions.act_window',
@@ -408,15 +486,215 @@ class SamaPromisPaymentSchedule(models.Model):
     description = fields.Text(string="Description")
 
     # Payment tracking
-    payment_id = fields.Many2one('account.payment',
-                               string="Paiement Réalisé",
-                               readonly=True)
-    payment_state = fields.Selection(related='payment_id.state',
-                                   string="État du Paiement",
-                                   store=True)
+    # Note: account.payment integration disabled - requires 'account' module (Enterprise)
+    # payment_id = fields.Many2one('account.payment',
+    #                            string="Paiement Réalisé",
+    #                            readonly=True)
+    # payment_state = fields.Selection(related='payment_id.state',
+    #                                string="État du Paiement",
+    #                                store=True)
+    
+    # Alternative CE-compatible payment tracking
+    payment_reference = fields.Char(string="Référence de Paiement")
+    payment_state = fields.Selection([
+        ('not_paid', 'Non Payé'),
+        ('partial', 'Partiellement Payé'),
+        ('paid', 'Payé'),
+    ], string="État du Paiement", default='not_paid')
 
     @api.onchange('amount', 'contract_id.amount')
     def _onchange_amount(self):
         for record in self:
             if record.contract_id and record.contract_id.amount != 0:
                 record.payment_percentage = (record.amount / record.contract_id.amount) * 100
+
+    @api.depends('procurement_plan_ids')
+    def _compute_procurement_plan_count(self):
+        """Calcule le nombre de plans de passation de marché."""
+        for contract in self:
+            contract.procurement_plan_count = len(contract.procurement_plan_ids)
+
+    def action_view_procurement_plans(self):
+        """Afficher les plans de passation de marché liés au contrat."""
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Plans de Passation de Marché',
+            'res_model': 'sama.promis.procurement.plan',
+            'view_mode': 'tree,form',
+            'domain': [('contract_id', '=', self.id)],
+            'context': {
+                'default_contract_id': self.id,
+                'default_project_id': self.project_id.id,
+                'default_currency_id': self.currency_id.id,
+                'default_plan_start_date': self.start_date,
+                'default_plan_end_date': self.end_date,
+            }
+        }
+    
+    # Compliance Management Methods
+    
+    @api.depends('compliance_task_ids', 'compliance_task_ids.state', 'compliance_task_ids.is_overdue')
+    def _compute_compliance_statistics(self):
+        """Calculate compliance statistics."""
+        for contract in self:
+            tasks = contract.compliance_task_ids
+            contract.compliance_task_count = len(tasks)
+            
+            completed_tasks = tasks.filtered(lambda t: t.state in ['completed', 'approved'])
+            contract.compliance_tasks_completed = len(completed_tasks)
+            
+            if tasks:
+                contract.compliance_rate = (len(completed_tasks) / len(tasks)) * 100
+            else:
+                contract.compliance_rate = 0.0
+            
+            overdue_tasks = tasks.filtered(lambda t: t.is_overdue)
+            contract.overdue_compliance_tasks = len(overdue_tasks)
+    
+    @api.depends('compliance_profile_id', 'compliance_profile_id.reporting_frequency',
+                 'last_compliance_report_date', 'reporting_frequency', 'start_date')
+    def _compute_next_report_date(self):
+        """Calculate next report date based on reporting frequency or compliance profile."""
+        from dateutil.relativedelta import relativedelta
+        from datetime import timedelta
+        
+        for contract in self:
+            # Use compliance profile if available
+            if contract.compliance_profile_id:
+                start_date = contract.last_compliance_report_date or contract.start_date
+                if start_date:
+                    contract.next_report_date = contract.compliance_profile_id.calculate_next_report_date(start_date)
+                else:
+                    contract.next_report_date = False
+            # Otherwise use contract's own reporting frequency
+            elif contract.reporting_frequency and contract.start_date:
+                start_date = contract.last_compliance_report_date or contract.start_date
+                
+                if contract.reporting_frequency == 'monthly':
+                    contract.next_report_date = start_date + relativedelta(months=1)
+                elif contract.reporting_frequency == 'quarterly':
+                    contract.next_report_date = start_date + relativedelta(months=3)
+                elif contract.reporting_frequency == 'semi_annual':
+                    contract.next_report_date = start_date + relativedelta(months=6)
+                elif contract.reporting_frequency == 'annual':
+                    contract.next_report_date = start_date + relativedelta(years=1)
+                else:
+                    contract.next_report_date = False
+            else:
+                contract.next_report_date = False
+    
+    @api.depends('next_report_date')
+    def _compute_compliance_report_status(self):
+        """Calculate compliance report status."""
+        today = fields.Date.today()
+        
+        for contract in self:
+            if not contract.next_report_date:
+                contract.compliance_report_status = False
+                continue
+            
+            if contract.next_report_date < today:
+                contract.compliance_report_status = 'overdue'
+            elif (contract.next_report_date - today).days <= 7:
+                contract.compliance_report_status = 'due_soon'
+            else:
+                contract.compliance_report_status = 'on_time'
+    
+    def action_view_compliance_tasks(self):
+        """Open compliance tasks for this contract."""
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Tâches de Conformité - %s') % self.name,
+            'res_model': 'sama.promis.compliance.task',
+            'view_mode': 'tree,form,kanban,calendar',
+            'domain': [('contract_id', '=', self.id)],
+            'context': {
+                'default_contract_id': self.id,
+                'default_project_id': self.project_id.id,
+                'default_responsible_id': self.env.user.id,
+            }
+        }
+    
+    def action_generate_compliance_tasks(self):
+        """Generate contract-specific compliance tasks from compliance profile."""
+        self.ensure_one()
+        
+        if not self.compliance_profile_id:
+            raise ValidationError(_('Aucun profil de conformité défini pour ce contrat.'))
+        
+        # Get checklist items from profile
+        checklist_items = self.compliance_profile_id.get_compliance_checklist_items()
+        
+        task_obj = self.env['sama.promis.compliance.task']
+        created_tasks = task_obj
+        
+        # Create contract-specific tasks
+        for idx, item in enumerate(checklist_items):
+            # Only create contract-level tasks (e.g., reports, audits)
+            if item.get('level') == 'contract' or item.get('type') in ['report', 'review', 'approval']:
+                task_vals = {
+                    'name': item.get('name', f'Tâche Contractuelle {idx + 1}'),
+                    'description': item.get('description', ''),
+                    'project_id': self.project_id.id,
+                    'contract_id': self.id,
+                    'compliance_profile_id': self.compliance_profile_id.id,
+                    'task_type': item.get('type', 'other'),
+                    'priority': item.get('priority', 'normal'),
+                    'deadline': item.get('deadline', fields.Date.today()),
+                    'requires_document': item.get('requires_document', False),
+                    'requires_approval': item.get('requires_approval', False),
+                    'sequence': (idx + 1) * 10,
+                }
+                created_tasks |= task_obj.create(task_vals)
+        
+        if created_tasks:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('Tâches Générées'),
+                    'message': _('%d tâches de conformité contractuelles ont été générées.') % len(created_tasks),
+                    'type': 'success',
+                    'sticky': False,
+                }
+            }
+        
+        return True
+    
+    def action_submit_compliance_report(self):
+        """Mark last compliance report date and generate report PDF."""
+        self.ensure_one()
+        
+        self.write({
+            'last_compliance_report_date': fields.Date.today()
+        })
+        
+        # Create activity/notification
+        self.message_post(
+            body=_('Rapport de conformité soumis le %s') % fields.Date.today(),
+            message_type='notification'
+        )
+        
+        # Generate the report
+        return self.action_generate_compliance_report()
+    
+    def action_generate_compliance_report(self):
+        """Generate donor-specific compliance report using appropriate QWeb template."""
+        self.ensure_one()
+        
+        if not self.compliance_profile_id:
+            raise ValidationError(_('Aucun profil de conformité défini.'))
+        
+        # Determine which report template to use based on compliance profile
+        report_action = self.compliance_profile_id.report_template_id
+        
+        if not report_action:
+            # Use default base compliance report
+            report_action = self.env.ref('sama_promis.report_sama_promis_compliance_base', raise_if_not_found=False)
+        
+        if report_action:
+            return report_action.report_action(self)
+        else:
+            raise ValidationError(_('Aucun modèle de rapport configuré pour ce profil de conformité.'))

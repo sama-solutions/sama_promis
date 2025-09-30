@@ -5,7 +5,7 @@
         <field name="name">sama.promis.project.tree</field>
         <field name="model">sama.promis.project</field>
         <field name="arch" type="xml">
-            <tree string="Projets SAMA PROMIS" decoration-info="state=='draft'" decoration-warning="state=='under_review'" decoration-success="state=='completed'">
+            <list string="Projets SAMA PROMIS" decoration-info="state=='draft'" decoration-warning="state=='under_review'" decoration-success="state=='completed'">
                 <field name="reference"/>
                 <field name="name"/>
                 <field name="project_type"/>
@@ -17,7 +17,7 @@
                 <field name="start_date"/>
                 <field name="end_date"/>
                 <field name="progress_percentage" widget="progressbar"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -114,12 +114,12 @@
                         
                         <page string="Partenaires">
                             <field name="implementing_partner_ids">
-                                <tree>
+                                <list>
                                     <field name="name"/>
                                     <field name="partner_type"/>
                                     <field name="email"/>
                                     <field name="phone"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         
@@ -133,7 +133,7 @@
                                 <group string="Indicateurs">
                                     <field name="duration_days"/>
                                     <field name="is_delayed"/>
-                                    <field name="delay_days" attrs="{'invisible': [('is_delayed', '=', False)]}"/>
+                                    <field name="delay_days" invisible="not is_delayed"/>
                                     <field name="days_to_deadline"/>
                                 </group>
                             </group>

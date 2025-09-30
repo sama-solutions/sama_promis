@@ -157,9 +157,11 @@ class SamaPromisBaseModel(models.AbstractModel):
         """Calcule les données à encoder dans le QR code."""
         for record in self:
             if record.id:
-                # URL publique vers l'enregistrement
+                # TODO: Pointer vers le portail public une fois développé
+                # Pour l'instant, on pointe vers le backend Odoo
                 base_url = record.env['ir.config_parameter'].sudo().get_param('web.base.url', 'https://sama-promis.sn')
-                record.qr_code_data = f"{base_url}/promispublic/{record._name.replace('.', '_')}/{record.id}"
+                # Format backend: /web#id={id}&model={model}&view_type=form
+                record.qr_code_data = f"{base_url}/web#id={record.id}&model={record._name}&view_type=form"
             else:
                 record.qr_code_data = False
 

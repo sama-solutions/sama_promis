@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Mail Template: Compliance Task Reminder -->
+    <record id="mail_template_compliance_task_reminder" model="mail.template">
+        <field name="name">Compliance Task Reminder</field>
+        <field name="model_id" ref="model_sama_promis_compliance_task"/>
+        <field name="subject">Rappel: Tâche de Conformité - ${object.name}</field>
+        <field name="email_from">${(object.company_id.email or user.email_formatted) | safe}</field>
+        <field name="email_to">${object.responsible_id.email | safe}</field>
+        <field name="body_html" type="html">
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <div style="background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                    <h2 style="color: #721c24; margin: 0;">Rappel: Tâche de Conformité</h2>
+                </div>
+                
+                <p>Bonjour <strong>${object.responsible_id.name}</strong>,</p>
+                
+                <p>Ceci est un rappel concernant la tâche de conformité suivante qui approche de son échéance:</p>
+                
+                <div style="background-color: #f8f9fa; border-left: 4px solid #007bff; padding: 15px; margin: 20px 0;">
+                    <h3 style="margin-top: 0; color: #007bff;">${object.name}</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Projet:</strong></td>
+                            <td style="padding: 5px 0;">${object.project_id.name if object.project_id else 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Contrat:</strong></td>
+                            <td style="padding: 5px 0;">${object.contract_id.name if object.contract_id else 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Type:</strong></td>
+                            <td style="padding: 5px 0;">${dict(object._fields['task_type'].selection).get(object.task_type, object.task_type)}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Priorité:</strong></td>
+                            <td style="padding: 5px 0;">${dict(object._fields['priority'].selection).get(object.priority, object.priority)}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Échéance:</strong></td>
+                            <td style="padding: 5px 0; color: #d9534f; font-weight: bold;">${format_date(object.deadline)}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Jours restants:</strong></td>
+                            <td style="padding: 5px 0;">${object.days_until_deadline} jour(s)</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                % if object.description:
+                <div style="margin: 20px 0;">
+                    <h4>Description:</h4>
+                    <div style="background-color: #ffffff; border: 1px solid #dee2e6; padding: 10px; border-radius: 3px;">
+                        ${object.description}
+                    </div>
+                </div>
+                % endif
+                
+                % if object.requires_document:
+                <div style="background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; border-radius: 3px; margin: 20px 0;">
+                    <strong>⚠️ Attention:</strong> Cette tâche requiert la soumission de documents justificatifs.
+                </div>
+                % endif
+                
+                <div style="margin: 30px 0; text-align: center;">
+                    <a href="${ctx.get('base_url', '')}/web#id=${object.id}&amp;model=sama.promis.compliance.task&amp;view_type=form" 
+                       style="background-color: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                        Voir la Tâche
+                    </a>
+                </div>
+                
+                <p style="color: #6c757d; font-size: 12px; margin-top: 30px; border-top: 1px solid #dee2e6; padding-top: 15px;">
+                    Ce message a été envoyé automatiquement par le système SAMA PROMIS.<br/>
+                    Pour toute question, veuillez contacter votre gestionnaire de projet.
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <!-- Mail Template: Compliance Task Escalation -->
+    <record id="mail_template_compliance_task_escalation" model="mail.template">
+        <field name="name">Compliance Task Escalation</field>
+        <field name="model_id" ref="model_sama_promis_compliance_task"/>
+        <field name="subject">URGENT: Tâche de Conformité en Retard - ${object.name}</field>
+        <field name="email_from">${(object.company_id.email or user.email_formatted) | safe}</field>
+        <field name="email_to">${object.responsible_id.email | safe}</field>
+        <field name="email_cc">${','.join([u.email for u in object.project_id.created_by if object.project_id and object.project_id.created_by]) if object.project_id else ''}</field>
+        <field name="body_html" type="html">
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <div style="background-color: #dc3545; color: white; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
+                    <h2 style="margin: 0;">🚨 ESCALADE: Tâche de Conformité en Retard</h2>
+                </div>
+                
+                <p>Bonjour <strong>${object.responsible_id.name}</strong>,</p>
+                
+                <p style="color: #dc3545; font-weight: bold;">
+                    La tâche de conformité suivante est maintenant EN RETARD et nécessite une action immédiate:
+                </p>
+                
+                <div style="background-color: #f8d7da; border-left: 4px solid #dc3545; padding: 15px; margin: 20px 0;">
+                    <h3 style="margin-top: 0; color: #721c24;">${object.name}</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Projet:</strong></td>
+                            <td style="padding: 5px 0;">${object.project_id.name if object.project_id else 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Contrat:</strong></td>
+                            <td style="padding: 5px 0;">${object.contract_id.name if object.contract_id else 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Type:</strong></td>
+                            <td style="padding: 5px 0;">${dict(object._fields['task_type'].selection).get(object.task_type, object.task_type)}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Priorité:</strong></td>
+                            <td style="padding: 5px 0; color: #dc3545; font-weight: bold;">
+                                ${dict(object._fields['priority'].selection).get(object.priority, object.priority)}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Échéance:</strong></td>
+                            <td style="padding: 5px 0; color: #dc3545; font-weight: bold;">${format_date(object.deadline)}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Jours de retard:</strong></td>
+                            <td style="padding: 5px 0; color: #dc3545; font-weight: bold; font-size: 18px;">
+                                ${object.days_overdue} jour(s)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>État actuel:</strong></td>
+                            <td style="padding: 5px 0;">${dict(object._fields['state'].selection).get(object.state, object.state)}</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                % if object.description:
+                <div style="margin: 20px 0;">
+                    <h4>Description:</h4>
+                    <div style="background-color: #ffffff; border: 1px solid #dee2e6; padding: 10px; border-radius: 3px;">
+                        ${object.description}
+                    </div>
+                </div>
+                % endif
+                
+                <div style="background-color: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 3px; margin: 20px 0;">
+                    <h4 style="margin-top: 0; color: #856404;">⚠️ Actions Requises:</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>Compléter la tâche immédiatement</li>
+                        % if object.requires_document:
+                        <li>Soumettre les documents requis</li>
+                        % endif
+                        % if object.requires_approval:
+                        <li>Demander l'approbation nécessaire</li>
+                        % endif
+                        <li>Informer le gestionnaire de projet de tout blocage</li>
+                    </ul>
+                </div>
+                
+                % if object.compliance_profile_id:
+                <div style="margin: 20px 0;">
+                    <p><strong>Profil de Conformité:</strong> ${object.compliance_profile_id.name}</p>
+                    <p style="color: #6c757d; font-size: 14px;">
+                        Le non-respect des délais de conformité peut avoir des conséquences sur le financement du projet.
+                    </p>
+                </div>
+                % endif
+                
+                <div style="margin: 30px 0; text-align: center;">
+                    <a href="${ctx.get('base_url', '')}/web#id=${object.id}&amp;model=sama.promis.compliance.task&amp;view_type=form" 
+                       style="background-color: #dc3545; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
+                        Traiter Immédiatement
+                    </a>
+                </div>
+                
+                <p style="color: #6c757d; font-size: 12px; margin-top: 30px; border-top: 1px solid #dee2e6; padding-top: 15px;">
+                    Ce message d'escalade a été envoyé automatiquement par le système SAMA PROMIS.<br/>
+                    Une copie a été envoyée au gestionnaire de projet.<br/>
+                    Pour toute urgence, veuillez contacter immédiatement votre superviseur.
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <!-- Mail Template: Compliance Report Due Soon -->
+    <record id="mail_template_compliance_report_due_soon" model="mail.template">
+        <field name="name">Compliance Report Due Soon</field>
+        <field name="model_id" ref="model_sama_promis_contract"/>
+        <field name="subject">Rappel: Rapport de Conformité à Soumettre - ${object.name}</field>
+        <field name="email_from">${(object.company_id.email or user.email_formatted) | safe}</field>
+        <field name="email_to">${object.project_id.created_by.email if object.project_id and object.project_id.created_by else user.email | safe}</field>
+        <field name="body_html" type="html">
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <div style="background-color: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                    <h2 style="color: #856404; margin: 0;">Rappel: Rapport de Conformité</h2>
+                </div>
+                
+                <p>Bonjour,</p>
+                
+                <p>Le prochain rapport de conformité pour le contrat suivant doit être soumis prochainement:</p>
+                
+                <div style="background-color: #f8f9fa; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0;">
+                    <h3 style="margin-top: 0;">${object.name}</h3>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 5px 0; width: 40%;"><strong>Projet:</strong></td>
+                            <td style="padding: 5px 0;">${object.project_id.name}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Bénéficiaire:</strong></td>
+                            <td style="padding: 5px 0;">${object.partner_id.name}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Profil de Conformité:</strong></td>
+                            <td style="padding: 5px 0;">${object.compliance_profile_id.name if object.compliance_profile_id else 'N/A'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Fréquence:</strong></td>
+                            <td style="padding: 5px 0;">${dict(object._fields['reporting_frequency'].selection).get(object.reporting_frequency, object.reporting_frequency)}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Dernier Rapport:</strong></td>
+                            <td style="padding: 5px 0;">${format_date(object.last_compliance_report_date) if object.last_compliance_report_date else 'Aucun'}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px 0;"><strong>Prochain Rapport:</strong></td>
+                            <td style="padding: 5px 0; color: #ffc107; font-weight: bold;">${format_date(object.next_report_date)}</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div style="background-color: #d1ecf1; border: 1px solid #bee5eb; padding: 15px; border-radius: 3px; margin: 20px 0;">
+                    <h4 style="margin-top: 0; color: #0c5460;">📊 Statistiques de Conformité</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>Taux de conformité: <strong>${object.compliance_rate}%</strong></li>
+                        <li>Tâches complétées: <strong>${object.compliance_tasks_completed} / ${object.compliance_task_count}</strong></li>
+                        <li>Tâches en retard: <strong>${object.overdue_compliance_tasks}</strong></li>
+                    </ul>
+                </div>
+                
+                <div style="margin: 30px 0; text-align: center;">
+                    <a href="${ctx.get('base_url', '')}/web#id=${object.id}&amp;model=sama.promis.contract&amp;view_type=form" 
+                       style="background-color: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; margin-right: 10px;">
+                        Voir le Contrat
+                    </a>
+                    <a href="${ctx.get('base_url', '')}/web#action=action_generate_compliance_report&amp;id=${object.id}" 
+                       style="background-color: #28a745; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                        Générer le Rapport
+                    </a>
+                </div>
+                
+                <p style="color: #6c757d; font-size: 12px; margin-top: 30px; border-top: 1px solid #dee2e6; padding-top: 15px;">
+                    Ce rappel a été envoyé automatiquement par le système SAMA PROMIS.
+                </p>
+            </div>
+        </field>
+    </record>
+</odoo>

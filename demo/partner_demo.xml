@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="partner_beneficiary_1" model="res.partner">
+        <field name="name">Association Santé Plus</field>
+        <field name="company_type">company</field>
+        <field name="street">123 Rue de la Santé</field>
+        <field name="city">Dakar</field>
+        <field name="phone">+221 33 123 45 67</field>
+        <field name="email">contact@santeplus.sn</field>
+        <field name="is_beneficiary">True</field>
+    </record>
+
+    <record id="partner_beneficiary_2" model="res.partner">
+        <field name="name">Coopérative Agricole du Sahel</field>
+        <field name="company_type">company</field>
+        <field name="street">456 Route Nationale</field>
+        <field name="city">Thiès</field>
+        <field name="phone">+221 33 765 43 21</field>
+        <field name="email">contact@coopsahel.sn</field>
+        <field name="is_beneficiary">True</field>
+    </record>
+
+    <record id="partner_beneficiary_3" model="res.partner">
+        <field name="name">Fondation Éducation Futur</field>
+        <field name="company_type">company</field>
+        <field name="street">78 Avenue de l'Éducation</field>
+        <field name="city">Saint-Louis</field>
+        <field name="phone">+221 33 654 32 10</field>
+        <field name="email">info@educationfutur.sn</field>
+        <field name="is_beneficiary">True</field>
+    </record>
+
+    <record id="partner_donor_1" model="res.partner">
+        <field name="name">Agence Internationale de Développement</field>
+        <field name="company_type">company</field>
+        <field name="street">10 Boulevard des Nations</field>
+        <field name="city">Dakar</field>
+        <field name="phone">+221 33 101 20 30</field>
+        <field name="email">aid@developpement.sn</field>
+        <field name="is_donor">True</field>
+    </record>
+
+    <record id="partner_donor_2" model="res.partner">
+        <field name="name">Fondation Horizon 2030</field>
+        <field name="company_type">company</field>
+        <field name="street">22 Rue des Ambassades</field>
+        <field name="city">Dakar</field>
+        <field name="phone">+221 33 203 40 50</field>
+        <field name="email">contact@horizon2030.org</field>
+        <field name="is_donor">True</field>
+    </record>
+
+    <record id="partner_implementer_1" model="res.partner">
+        <field name="name">ONG Impact Solidaire</field>
+        <field name="company_type">company</field>
+        <field name="street">5 Rue des Volontaires</field>
+        <field name="city">Kaolack</field>
+        <field name="phone">+221 33 909 80 70</field>
+        <field name="email">impact@solidarite.sn</field>
+        <field name="is_implementing_partner">True</field>
+    </record>
+</odoo>

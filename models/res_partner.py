@@ -92,6 +92,50 @@ class ResPartner(models.Model):
         string='Secteurs Préférés',
         domain=[('category', '=', 'theme')]
     )
+    
+    # Compliance Profiles
+    compliance_profile_ids = fields.Many2many(
+        'sama.promis.compliance.profile',
+        'partner_compliance_profile_rel',
+        'partner_id',
+        'profile_id',
+        string='Profils de Conformité',
+        help="Profils de conformité applicables à ce bailleur"
+    )
+    default_compliance_profile_id = fields.Many2one(
+        'sama.promis.compliance.profile',
+        string='Profil de Conformité par Défaut',
+        help="Profil de conformité utilisé par défaut pour les nouveaux projets"
+    )
+    
+    # Funding origin classification
+    funding_origin = fields.Selection([
+        ('international', 'International'),
+        ('local', 'Local')
+    ], string='Origine du Financement', 
+       compute='_compute_funding_origin', 
+       store=True,
+       help="Origine du financement basée sur le pays du partenaire")
+    
+    funding_origin_manual = fields.Selection([
+        ('international', 'International'),
+        ('local', 'Local')
+    ], string='Origine Manuelle',
+       help="Définir manuellement l'origine du financement (remplace le calcul automatique)")
+    
+    is_international_donor = fields.Boolean(
+        string='Bailleur International',
+        compute='_compute_funding_origin',
+        store=True,
+        help="Ce bailleur est international"
+    )
+    
+    is_local_donor = fields.Boolean(
+        string='Bailleur Local',
+        compute='_compute_funding_origin',
+        store=True,
+        help="Ce bailleur est local"
+    )
 
     # Informations de contact spécialisées
     focal_point_name = fields.Char(
@@ -194,18 +238,58 @@ class ResPartner(models.Model):
         currency_field='currency_id'
     )
     
+    total_international_funding_provided = fields.Monetary(
+        string='Financement International Fourni',
+        compute='_compute_project_statistics',
+        currency_field='currency_id',
+        help="Total des financements internationaux fournis"
+    )
+    
+    total_local_funding_provided = fields.Monetary(
+        string='Financement Local Fourni',
+        compute='_compute_project_statistics',
+        currency_field='currency_id',
+        help="Total des financements locaux fournis"
+    )
+    
     active_projects_count = fields.Integer(
         string='Projets Actifs',
         compute='_compute_project_statistics'
     )
 
+    @api.depends('country_id', 'funding_origin_manual', 'is_donor')
+    def _compute_funding_origin(self):
+        """Compute funding origin based on partner's country vs company country."""
+        company_country = self.env.company.country_id
+        
+        for partner in self:
+            # Use manual override if set
+            if partner.funding_origin_manual:
+                partner.funding_origin = partner.funding_origin_manual
+            elif partner.is_donor and partner.country_id:
+                # Compare partner country with company country
+                if partner.country_id != company_country:
+                    partner.funding_origin = 'international'
+                else:
+                    partner.funding_origin = 'local'
+            else:
+                # Default to local if no country specified
+                partner.funding_origin = 'local'
+            
+            # Set boolean flags
+            partner.is_international_donor = (partner.funding_origin == 'international')
+            partner.is_local_donor = (partner.funding_origin == 'local')
+    
     @api.depends('name', 'id')
     def _compute_qr_code_data(self):
         """Calcule les données du QR code."""
+        # TODO: Pointer vers le portail public une fois développé
+        # Pour l'instant, on pointe vers le backend Odoo
         base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url', 'https://sama-promis.sn')
         for partner in self:
             if partner.id:
-                partner.qr_code_data = f"{base_url}/promispublic/partner/{partner.id}"
+                # Format backend: /web#id={id}&model={model}&view_type=form
+                partner.qr_code_data = f"{base_url}/web#id={partner.id}&model=res.partner&view_type=form"
             else:
                 partner.qr_code_data = False
 
@@ -260,10 +344,50 @@ class ResPartner(models.Model):
             
             # Calcul du financement total fourni (si bailleur)
             if partner.is_donor:
+                # Legacy calculation from donor_contribution
                 partner.total_funding_provided = sum(projects_as_donor.mapped('donor_contribution'))
+                
+                # Calculate from funding sources
+                funding_sources = self.env['sama.promis.project.funding.source'].search([
+                    ('partner_id', '=', partner.id)
+                ])
+                
+                international_total = 0.0
+                local_total = 0.0
+                
+                for source in funding_sources:
+                    # Convert to partner currency if needed
+                    amount = source.amount
+                    if source.currency_id != partner.currency_id:
+                        amount = source.currency_id._convert(
+                            amount,
+                            partner.currency_id,
+                            self.env.company,
+                            fields.Date.today()
+                        )
+                    
+                    if source.funding_origin == 'international':
+                        international_total += amount
+                    elif source.funding_origin == 'local':
+                        local_total += amount
+                
+                partner.total_international_funding_provided = international_total
+                partner.total_local_funding_provided = local_total
             else:
                 partner.total_funding_provided = 0
+                partner.total_international_funding_provided = 0
+                partner.total_local_funding_provided = 0
 
+    @api.constrains('default_compliance_profile_id', 'compliance_profile_ids')
+    def _check_default_compliance_profile(self):
+        """Ensure default compliance profile is in the list of profiles."""
+        for partner in self:
+            if partner.default_compliance_profile_id:
+                if partner.default_compliance_profile_id not in partner.compliance_profile_ids:
+                    raise ValidationError(_(
+                        'Le profil de conformité par défaut doit être dans la liste des profils de conformité.'
+                    ))
+    
     @api.onchange('is_donor')
     def _onchange_is_donor(self):
         """Actions lors du changement du statut bailleur."""

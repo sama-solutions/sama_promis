@@ -18,6 +18,36 @@
               action="action_sama_promis_project" 
               sequence="10"/>
 
+    <!-- Menu Conformité -->
+    <menuitem id="menu_sama_promis_compliance" 
+              name="Conformité" 
+              parent="menu_sama_promis_main" 
+              sequence="40"/>
+
+    <menuitem id="menu_sama_promis_compliance_profiles" 
+              name="Profils de Conformité" 
+              parent="menu_sama_promis_compliance" 
+              action="action_sama_promis_compliance_profile" 
+              sequence="10"/>
+
+    <menuitem id="menu_sama_promis_compliance_tasks" 
+              name="Tâches de Conformité" 
+              parent="menu_sama_promis_compliance" 
+              action="action_sama_promis_compliance_task" 
+              sequence="20"/>
+
+    <menuitem id="menu_sama_promis_compliance_tasks_my" 
+              name="Mes Tâches" 
+              parent="menu_sama_promis_compliance" 
+              action="action_sama_promis_compliance_task_my" 
+              sequence="30"/>
+
+    <menuitem id="menu_sama_promis_compliance_tasks_overdue" 
+              name="Tâches en Retard" 
+              parent="menu_sama_promis_compliance" 
+              action="action_sama_promis_compliance_task_overdue" 
+              sequence="40"/>
+
     <!-- Menu Configuration -->
     <menuitem id="menu_sama_promis_config" 
               name="Configuration" 
@@ -30,7 +60,8 @@
               action="action_sama_promis_tag" 
               sequence="10"/>
 
-    <!-- Menu Dashboard Public -->
+    <!-- Public portal menus disabled - to be developed later
+    Menu Dashboard Public
     <menuitem id="menu_sama_promis_public" 
               name="Dashboard Public" 
               parent="menu_sama_promis_main" 
@@ -59,4 +90,5 @@
               parent="menu_sama_promis_public" 
               action="action_citizen_portal" 
               sequence="20"/>
+    -->
 </odoo>

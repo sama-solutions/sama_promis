@@ -217,8 +217,11 @@ class ResPartner(models.Model):
         """Calcule les données du QR code pour le partenaire."""
         for partner in self:
             if partner.id:
+                # TODO: Pointer vers le portail public une fois développé
+                # Pour l'instant, on pointe vers le backend Odoo
                 base_url = partner.env['ir.config_parameter'].sudo().get_param('web.base.url', 'https://sama-promis.sn')
-                partner.qr_code_data = f"{base_url}/promispublic/partner/{partner.id}"
+                # Format backend: /web#id={id}&model={model}&view_type=form
+                partner.qr_code_data = f"{base_url}/web#id={partner.id}&model=res.partner&view_type=form"
             else:
                 partner.qr_code_data = False
 

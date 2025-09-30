@@ -1,0 +1,917 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+    <!-- Partenaires supplémentaires pour couvrir divers profils -->
+    <record id="demo_partner_local_ngo" model="res.partner">
+        <field name="name">Alliance Locale pour le Développement</field>
+        <field name="is_company" eval="True"/>
+        <field name="company_type">company</field>
+        <field name="street">123 Rue des Solidarités</field>
+        <field name="city">Dakar</field>
+        <field name="country_id" ref="base.sn"/>
+        <field name="email">contact@ald.sn</field>
+        <field name="phone">+221 33 800 11 22</field>
+        <field name="is_donor" eval="False"/>
+        <field name="is_implementing_partner" eval="True"/>
+        <field name="partner_type">implementing_partner</field>
+        <field name="region">Dakar</field>
+        <field name="department">Dakar</field>
+        <field name="commune">Plateau</field>
+    </record>
+
+    <record id="demo_partner_private_company" model="res.partner">
+        <field name="name">SunEnergy Afrique</field>
+        <field name="is_company" eval="True"/>
+        <field name="company_type">company</field>
+        <field name="street">45 Avenue du Soleil</field>
+        <field name="city">Thiès</field>
+        <field name="country_id" ref="base.sn"/>
+        <field name="email">info@sunenergyafrique.com</field>
+        <field name="phone">+221 33 912 45 67</field>
+        <field name="is_donor" eval="True"/>
+        <field name="donor_type">private</field>
+        <field name="is_private_sector" eval="True"/>
+        <field name="partner_type">donor</field>
+    </record>
+
+    <record id="demo_partner_government_agency" model="res.partner">
+        <field name="name">Agence Nationale de l'Eau et de l'Assainissement</field>
+        <field name="is_company" eval="True"/>
+        <field name="company_type">company</field>
+        <field name="street">Boulevard de l'Emergence</field>
+        <field name="city">Saint-Louis</field>
+        <field name="country_id" ref="base.sn"/>
+        <field name="email">contact@anea.sn</field>
+        <field name="phone">+221 33 955 33 11</field>
+        <field name="is_government_entity" eval="True"/>
+        <field name="is_implementing_partner" eval="True"/>
+        <field name="partner_type">government_entity</field>
+    </record>
+
+    <record id="demo_partner_international_foundation" model="res.partner">
+        <field name="name">Fondation Internationale pour l'Éducation</field>
+        <field name="is_company" eval="True"/>
+        <field name="company_type">company</field>
+        <field name="street">789 Avenue de la Paix</field>
+        <field name="city">Paris</field>
+        <field name="country_id" ref="base.fr"/>
+        <field name="email">grants@fie.org</field>
+        <field name="phone">+33 1 55 66 77 88</field>
+        <field name="is_donor" eval="True"/>
+        <field name="donor_type">foundation</field>
+        <field name="is_international_org" eval="True"/>
+        <field name="partner_type">donor</field>
+    </record>
+
+    <record id="demo_partner_agri_cooperative" model="res.partner">
+        <field name="name">Coopérative Agricole du Sahel</field>
+        <field name="is_company" eval="True"/>
+        <field name="company_type">company</field>
+        <field name="street">Route Nationale 2</field>
+        <field name="city">Kaolack</field>
+        <field name="country_id" ref="base.sn"/>
+        <field name="email">contact@coopsahel.sn</field>
+        <field name="phone">+221 77 445 12 30</field>
+        <field name="is_beneficiary" eval="True"/>
+        <field name="is_implementing_partner" eval="True"/>
+        <field name="partner_type">beneficiary</field>
+        <field name="region">Kaolack</field>
+        <field name="department">Kaolack</field>
+        <field name="commune">Kaolack</field>
+    </record>
+
+    <!-- Tags supplémentaires pour enrichir le filtrage -->
+    <record id="demo_tag_education_innovation" model="sama.promis.tag">
+        <field name="name">Éducation &amp; Innovation</field>
+        <field name="color">4</field>
+    </record>
+    <record id="demo_tag_green_energy" model="sama.promis.tag">
+        <field name="name">Énergie Verte</field>
+        <field name="color">10</field>
+    </record>
+    <record id="demo_tag_resilience" model="sama.promis.tag">
+        <field name="name">Résilience Communautaire</field>
+        <field name="color">2</field>
+    </record>
+    <record id="demo_tag_smart_agriculture" model="sama.promis.tag">
+        <field name="name">Agriculture Intelligente</field>
+        <field name="color">6</field>
+    </record>
+
+    <!-- Projets diversifiés couvrant plusieurs secteurs -->
+    <record id="demo_project_solar_schools" model="sama.promis.project">
+        <field name="name">Écoles Solaires pour Tous</field>
+        <field name="project_type">education</field>
+        <field name="priority">high</field>
+        <field name="partner_id" ref="demo_partner_local_ngo"/>
+        <field name="donor_id" ref="demo_partner_international_foundation"/>
+        <field name="start_date">2024-01-10</field>
+        <field name="end_date">2025-06-30</field>
+        <field name="total_budget">3500000</field>
+        <field name="donor_contribution">2500000</field>
+        <field name="partner_contribution">1000000</field>
+        <field name="region">Dakar</field>
+        <field name="department">Guédiawaye</field>
+        <field name="commune">Wakhinane Nimzatt</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('demo_tag_education_innovation'), ref('demo_tag_green_energy')]) ]"/>
+        <field name="target_population">15000</field>
+        <field name="state">in_progress</field>
+        <field name="spent_amount">1450000</field>
+    </record>
+
+    <record id="demo_project_irrigation" model="sama.promis.project">
+        <field name="name">Irrigation Intelligente du Delta</field>
+        <field name="project_type">agriculture</field>
+        <field name="priority">urgent</field>
+        <field name="partner_id" ref="demo_partner_agri_cooperative"/>
+        <field name="donor_id" ref="demo_partner_private_company"/>
+        <field name="start_date">2023-11-01</field>
+        <field name="end_date">2025-12-31</field>
+        <field name="total_budget">5200000</field>
+        <field name="donor_contribution">4200000</field>
+        <field name="partner_contribution">1000000</field>
+        <field name="region">Saint-Louis</field>
+        <field name="department">Dagana</field>
+        <field name="commune">Richard-Toll</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('demo_tag_smart_agriculture'), ref('demo_tag_resilience')]) ]"/>
+        <field name="target_population">22000</field>
+        <field name="state">under_review</field>
+        <field name="spent_amount">950000</field>
+    </record>
+
+    <record id="demo_project_health_clinics" model="sama.promis.project">
+        <field name="name">Clinics Santé Mobile</field>
+        <field name="project_type">health</field>
+        <field name="priority">high</field>
+        <field name="partner_id" ref="demo_partner_government_agency"/>
+        <field name="donor_id" ref="demo_partner_international_foundation"/>
+        <field name="start_date">2024-03-01</field>
+        <field name="end_date">2025-12-31</field>
+        <field name="total_budget">7800000</field>
+        <field name="donor_contribution">5800000</field>
+        <field name="partner_contribution">2000000</field>
+        <field name="region">Kolda</field>
+        <field name="department">Médina Yoro Foulah</field>
+        <field name="commune">Pata</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('demo_tag_resilience')]) ]"/>
+        <field name="target_population">8000</field>
+        <field name="state">submitted</field>
+        <field name="spent_amount">250000</field>
+    </record>
+
+    <record id="demo_project_green_markets" model="sama.promis.project">
+        <field name="name">Marchés Verts Communautaires</field>
+        <field name="project_type">environment</field>
+        <field name="priority">normal</field>
+        <field name="partner_id" ref="demo_partner_local_ngo"/>
+        <field name="donor_id" ref="demo_partner_private_company"/>
+        <field name="start_date">2023-12-01</field>
+        <field name="end_date">2025-03-31</field>
+        <field name="total_budget">2100000</field>
+        <field name="donor_contribution">1500000</field>
+        <field name="partner_contribution">600000</field>
+        <field name="region">Fatick</field>
+        <field name="department">Foundiougne</field>
+        <field name="commune">Karang</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('demo_tag_green_energy')]) ]"/>
+        <field name="target_population">12000</field>
+        <field name="state">approved</field>
+        <field name="spent_amount">400000</field>
+    </record>
+
+    <record id="demo_project_digital_citizens" model="sama.promis.project">
+        <field name="name">Citoyenneté Numérique Inclusive</field>
+        <field name="project_type">social</field>
+        <field name="priority">high</field>
+        <field name="partner_id" ref="demo_partner_local_ngo"/>
+        <field name="donor_id" ref="demo_partner_international_foundation"/>
+        <field name="start_date">2024-05-15</field>
+        <field name="end_date">2026-02-28</field>
+        <field name="total_budget">4600000</field>
+        <field name="donor_contribution">3200000</field>
+        <field name="partner_contribution">1400000</field>
+        <field name="region">Ziguinchor</field>
+        <field name="department">Bignona</field>
+        <field name="commune">Thionck Essyl</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('demo_tag_education_innovation')]) ]"/>
+        <field name="target_population">9500</field>
+        <field name="state">draft</field>
+        <field name="spent_amount">0</field>
+    </record>
+
+    <record id="demo_project_inclusive_finance" model="sama.promis.project">
+        <field name="name">Finance Inclusive pour les Femmes</field>
+        <field name="project_type">economic</field>
+        <field name="priority">urgent</field>
+        <field name="partner_id" ref="demo_partner_agri_cooperative"/>
+        <field name="donor_id" ref="demo_partner_private_company"/>
+        <field name="start_date">2023-08-01</field>
+        <field name="end_date">2025-04-30</field>
+        <field name="total_budget">6300000</field>
+        <field name="donor_contribution">4300000</field>
+        <field name="partner_contribution">2000000</field>
+        <field name="region">Kaolack</field>
+        <field name="department">Nioro du Rip</field>
+        <field name="commune">Porokhane</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('demo_tag_resilience')]) ]"/>
+        <field name="target_population">30000</field>
+        <field name="state">in_progress</field>
+        <field name="spent_amount">2200000</field>
+    </record>
+
+    <record id="demo_project_resilient_infrastructure" model="sama.promis.project">
+        <field name="name">Infrastructures Résilientes Côtières</field>
+        <field name="project_type">infrastructure</field>
+        <field name="priority">urgent</field>
+        <field name="partner_id" ref="demo_partner_government_agency"/>
+        <field name="donor_id" ref="demo_partner_private_company"/>
+        <field name="start_date">2023-07-01</field>
+        <field name="end_date">2025-09-30</field>
+        <field name="total_budget">9800000</field>
+        <field name="donor_contribution">6800000</field>
+        <field name="partner_contribution">3000000</field>
+        <field name="region">Louga</field>
+        <field name="department">Kébémer</field>
+        <field name="commune">Darou Mousty</field>
+        <field name="tag_ids" eval="[(6, 0, [ref('demo_tag_green_energy'), ref('demo_tag_resilience')]) ]"/>
+        <field name="target_population">18000</field>
+        <field name="state">approved</field>
+        <field name="spent_amount">4100000</field>
+    </record>
+
+    <!-- Contrats complexes couvrant plusieurs types -->
+    <record id="demo_contract_solar_schools_grant" model="sama.promis.contract">
+        <field name="name">Grant Fondation - Écoles Solaires</field>
+        <field name="project_id" ref="demo_project_solar_schools"/>
+        <field name="partner_id" ref="demo_partner_local_ngo"/>
+        <field name="contract_type">grant</field>
+        <field name="start_date">2024-01-15</field>
+        <field name="end_date">2025-06-30</field>
+        <field name="amount">2500000</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="demo_contract_irrigation_service" model="sama.promis.contract">
+        <field name="name">Service Technique Irrigation</field>
+        <field name="project_id" ref="demo_project_irrigation"/>
+        <field name="partner_id" ref="demo_partner_agri_cooperative"/>
+        <field name="contract_type">service</field>
+        <field name="start_date">2023-12-01</field>
+        <field name="end_date">2025-12-31</field>
+        <field name="amount">1200000</field>
+        <field name="state">draft</field>
+    </record>
+
+    <record id="demo_contract_health_partnership" model="sama.promis.contract">
+        <field name="name">Partenariat Santé Mobile</field>
+        <field name="project_id" ref="demo_project_health_clinics"/>
+        <field name="partner_id" ref="demo_partner_government_agency"/>
+        <field name="contract_type">partnership</field>
+        <field name="start_date">2024-03-15</field>
+        <field name="end_date">2025-12-31</field>
+        <field name="amount">3200000</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="demo_contract_resilience_loan" model="sama.promis.contract">
+        <field name="name">Prêt Résilience Communautaire</field>
+        <field name="project_id" ref="demo_project_resilient_infrastructure"/>
+        <field name="partner_id" ref="demo_partner_government_agency"/>
+        <field name="contract_type">loan</field>
+        <field name="start_date">2023-08-10</field>
+        <field name="end_date">2025-09-30</field>
+        <field name="amount">5000000</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="demo_contract_green_markets_service" model="sama.promis.contract">
+        <field name="name">Service Gestion Marchés Verts</field>
+        <field name="project_id" ref="demo_project_green_markets"/>
+        <field name="partner_id" ref="demo_partner_local_ngo"/>
+        <field name="contract_type">service</field>
+        <field name="start_date">2023-12-15</field>
+        <field name="end_date">2025-03-31</field>
+        <field name="amount">600000</field>
+        <field name="state">active</field>
+    </record>
+
+    <record id="demo_contract_digital_citizens_grant" model="sama.promis.contract">
+        <field name="name">Grant Citoyenneté Numérique</field>
+        <field name="project_id" ref="demo_project_digital_citizens"/>
+        <field name="partner_id" ref="demo_partner_local_ngo"/>
+        <field name="contract_type">grant</field>
+        <field name="start_date">2024-05-20</field>
+        <field name="end_date">2026-02-28</field>
+        <field name="amount">1500000</field>
+        <field name="state">draft</field>
+    </record>
+
+    <record id="demo_contract_inclusive_finance_support" model="sama.promis.contract">
+        <field name="name">Soutien Finance Inclusive</field>
+        <field name="project_id" ref="demo_project_inclusive_finance"/>
+        <field name="partner_id" ref="demo_partner_agri_cooperative"/>
+        <field name="contract_type">grant</field>
+        <field name="start_date">2023-08-15</field>
+        <field name="end_date">2025-04-30</field>
+        <field name="amount">900000</field>
+        <field name="state">active</field>
+    </record>
+
+    <!-- Paiements réalistes couvrant tous les états -->
+    <record id="demo_payment_solar_advance" model="sama.promis.payment.request">
+        <field name="name">Avance Matériel Solaire</field>
+        <field name="project_id" ref="demo_project_solar_schools"/>
+        <field name="contract_id" ref="demo_contract_solar_schools_grant"/>
+        <field name="amount">450000</field>
+        <field name="state">approved</field>
+        <field name="request_date">2024-02-01</field>
+    </record>
+    <record id="demo_payment_solar_installation" model="sama.promis.payment.request">
+        <field name="name">Installation Lot 1</field>
+        <field name="project_id" ref="demo_project_solar_schools"/>
+        <field name="contract_id" ref="demo_contract_solar_schools_grant"/>
+        <field name="amount">275000</field>
+        <field name="state">in_progress</field>
+        <field name="request_date">2024-05-20</field>
+    </record>
+    <record id="demo_payment_irrigation_design" model="sama.promis.payment.request">
+        <field name="name">Conception Système Irrigation</field>
+        <field name="project_id" ref="demo_project_irrigation"/>
+        <field name="contract_id" ref="demo_contract_irrigation_service"/>
+        <field name="amount">315000</field>
+        <field name="state">submitted</field>
+        <field name="request_date">2024-04-15</field>
+    </record>
+    <record id="demo_payment_health_mobile_units" model="sama.promis.payment.request">
+        <field name="name">Achat Unités Mobiles</field>
+        <field name="project_id" ref="demo_project_health_clinics"/>
+        <field name="contract_id" ref="demo_contract_health_partnership"/>
+        <field name="amount">870000</field>
+        <field name="state">approved</field>
+        <field name="request_date">2024-06-02</field>
+    </record>
+    <record id="demo_payment_green_market_training" model="sama.promis.payment.request">
+        <field name="name">Formation Gestion Marchés</field>
+        <field name="project_id" ref="demo_project_green_markets"/>
+        <field name="contract_id" ref="demo_contract_green_markets_service"/>
+        <field name="amount">120000</field>
+        <field name="state">draft</field>
+        <field name="request_date">2024-07-10</field>
+    </record>
+    <record id="demo_payment_digital_platform" model="sama.promis.payment.request">
+        <field name="name">Plateforme Numérique</field>
+        <field name="project_id" ref="demo_project_digital_citizens"/>
+        <field name="contract_id" ref="demo_contract_digital_citizens_grant"/>
+        <field name="amount">540000</field>
+        <field name="state">submitted</field>
+        <field name="request_date">2024-09-05</field>
+    </record>
+    <record id="demo_payment_inclusive_finance_training" model="sama.promis.payment.request">
+        <field name="name">Formation Éducation Financière</field>
+        <field name="project_id" ref="demo_project_inclusive_finance"/>
+        <field name="contract_id" ref="demo_contract_inclusive_finance_support"/>
+        <field name="amount">220000</field>
+        <field name="state">approved</field>
+        <field name="request_date">2024-03-12</field>
+    </record>
+    <record id="demo_payment_resilience_infrastructure" model="sama.promis.payment.request">
+        <field name="name">Travaux Route Côtière</field>
+        <field name="project_id" ref="demo_project_resilient_infrastructure"/>
+        <field name="contract_id" ref="demo_contract_resilience_loan"/>
+        <field name="amount">450000</field>
+        <field name="state">in_progress</field>
+        <field name="request_date">2024-01-25</field>
+    </record>
+    <record id="demo_payment_irrigation_equipment" model="sama.promis.payment.request">
+        <field name="name">Équipements Pompes</field>
+        <field name="project_id" ref="demo_project_irrigation"/>
+        <field name="contract_id" ref="demo_contract_irrigation_service"/>
+        <field name="amount">380000</field>
+        <field name="state">approved</field>
+        <field name="request_date">2024-08-18</field>
+    </record>
+    <record id="demo_payment_health_training" model="sama.promis.payment.request">
+        <field name="name">Formation Personnel Santé</field>
+        <field name="project_id" ref="demo_project_health_clinics"/>
+        <field name="contract_id" ref="demo_contract_health_partnership"/>
+        <field name="amount">195000</field>
+        <field name="state">submitted</field>
+        <field name="request_date">2024-07-04</field>
+    </record>
+    <record id="demo_payment_green_market_infra" model="sama.promis.payment.request">
+        <field name="name">Aménagement Écologique</field>
+        <field name="project_id" ref="demo_project_green_markets"/>
+        <field name="contract_id" ref="demo_contract_green_markets_service"/>
+        <field name="amount">285000</field>
+        <field name="state">draft</field>
+        <field name="request_date">2024-06-20</field>
+    </record>
+    <record id="demo_payment_digital_devices" model="sama.promis.payment.request">
+        <field name="name">Distribution Tablettes</field>
+        <field name="project_id" ref="demo_project_digital_citizens"/>
+        <field name="contract_id" ref="demo_contract_digital_citizens_grant"/>
+        <field name="amount">310000</field>
+        <field name="state">approved</field>
+        <field name="request_date">2024-11-02</field>
+    </record>
+    <record id="demo_payment_finance_grants" model="sama.promis.payment.request">
+        <field name="name">Micro-subventions Femmes</field>
+        <field name="project_id" ref="demo_project_inclusive_finance"/>
+        <field name="contract_id" ref="demo_contract_inclusive_finance_support"/>
+        <field name="amount">410000</field>
+        <field name="state">approved</field>
+        <field name="request_date">2024-05-14</field>
+    </record>
+    <record id="demo_payment_resilience_maintenance" model="sama.promis.payment.request">
+        <field name="name">Maintenance Ouvrages Côtiers</field>
+        <field name="project_id" ref="demo_project_resilient_infrastructure"/>
+        <field name="contract_id" ref="demo_contract_resilience_loan"/>
+        <field name="amount">265000</field>
+        <field name="state">submitted</field>
+        <field name="request_date">2024-09-01</field>
+    </record>
+    <record id="demo_payment_irrigation_training" model="sama.promis.payment.request">
+        <field name="name">Ateliers Gestion Eau</field>
+        <field name="project_id" ref="demo_project_irrigation"/>
+        <field name="contract_id" ref="demo_contract_irrigation_service"/>
+        <field name="amount">190000</field>
+        <field name="state">draft</field>
+        <field name="request_date">2024-10-15</field>
+    </record>
+
+    <!-- Évaluations de projet pour tester le module d'évaluation -->
+    <record id="demo_evaluation_solar_midterm" model="sama.promis.project.evaluation">
+        <field name="project_id" ref="demo_project_solar_schools"/>
+        <field name="call_id" ref="sama_promis.call_for_proposal_demo_1"/>
+        <field name="evaluator_id" ref="base.user_admin"/>
+        <field name="state">completed</field>
+        <field name="evaluation_date">2024-08-01 10:00:00</field>
+        <field name="score">82</field>
+        <field name="notes">Les installations solaires sont complétées dans 12 écoles sur 20 prévues.</field>
+    </record>
+    <record id="demo_evaluation_irrigation_baseline" model="sama.promis.project.evaluation">
+        <field name="project_id" ref="demo_project_irrigation"/>
+        <field name="call_id" ref="sama_promis.call_for_proposal_demo_1"/>
+        <field name="evaluator_id" ref="base.user_admin"/>
+        <field name="state">in_progress</field>
+        <field name="evaluation_date">2024-04-30 09:30:00</field>
+        <field name="score">68</field>
+        <field name="notes">Le système d'irrigation nécessite une optimisation énergétique.</field>
+    </record>
+    <record id="demo_evaluation_health_initial" model="sama.promis.project.evaluation">
+        <field name="project_id" ref="demo_project_health_clinics"/>
+        <field name="call_id" ref="sama_promis.call_for_proposal_demo_1"/>
+        <field name="evaluator_id" ref="base.user_admin"/>
+        <field name="state">draft</field>
+        <field name="evaluation_date">2024-03-20 11:15:00</field>
+        <field name="notes">Les unités mobiles sont en cours d'équipement, formation en préparation.</field>
+    </record>
+    <record id="demo_evaluation_green_markets_midterm" model="sama.promis.project.evaluation">
+        <field name="project_id" ref="demo_project_green_markets"/>
+        <field name="call_id" ref="sama_promis.call_for_proposal_demo_1"/>
+        <field name="evaluator_id" ref="base.user_demo"/>
+        <field name="state">completed</field>
+        <field name="evaluation_date">2024-09-12 16:45:00</field>
+        <field name="score">88</field>
+        <field name="notes">Les infrastructures vertes sont opérationnelles dans 4 marchés pilotes.</field>
+    </record>
+
+    <!-- Multi-source funding demo data -->
+    <!-- Multi-source funding project example -->
+    <record id="demo_project_multi_source_education" model="sama.promis.project">
+        <field name="name">Programme Éducation Multi-Bailleurs</field>
+        <field name="project_type">education</field>
+        <field name="priority">high</field>
+        <field name="partner_id" ref="demo_partner_local_ngo"/>
+        <field name="start_date">2024-06-01</field>
+        <field name="end_date">2026-12-31</field>
+        <field name="region">Thiès</field>
+        <field name="department">Thiès</field>
+        <field name="commune">Thiès Nord</field>
+        <field name="target_population">25000</field>
+        <field name="state">in_progress</field>
+        <field name="use_multi_source_funding" eval="True"/>
+        <field name="spent_amount">1200000</field>
+        <field name="description">Programme d'éducation financé par plusieurs bailleurs internationaux et locaux pour améliorer l'accès à l'éducation de qualité.</field>
+    </record>
+
+    <!-- Funding source 1: International donor (World Bank) -->
+    <record id="demo_funding_source_wb_education" model="sama.promis.project.funding.source">
+        <field name="name">Subvention Banque Mondiale</field>
+        <field name="project_id" ref="demo_project_multi_source_education"/>
+        <field name="partner_id" ref="sama_promis.partner_donor_1"/>
+        <field name="amount">4500000</field>
+        <field name="funding_type">grant</field>
+        <field name="state">received</field>
+        <field name="commitment_date">2024-05-15</field>
+        <field name="received_date">2024-06-01</field>
+        <field name="contract_reference">WB-EDU-2024-001</field>
+        <field name="sequence">10</field>
+        <field name="description">Financement principal pour la construction et l'équipement des infrastructures scolaires.</field>
+    </record>
+
+    <!-- Funding source 2: European Commission -->
+    <record id="demo_funding_source_ec_education" model="sama.promis.project.funding.source">
+        <field name="name">Cofinancement Commission Européenne</field>
+        <field name="project_id" ref="demo_project_multi_source_education"/>
+        <field name="partner_id" ref="demo_partner_international_foundation"/>
+        <field name="amount">3000000</field>
+        <field name="funding_type">co_financing</field>
+        <field name="state">confirmed</field>
+        <field name="commitment_date">2024-05-20</field>
+        <field name="contract_reference">EC-EDU-2024-042</field>
+        <field name="sequence">20</field>
+        <field name="description">Cofinancement pour la formation des enseignants et le matériel pédagogique.</field>
+    </record>
+
+    <!-- Funding source 3: Local government -->
+    <record id="demo_funding_source_gov_education" model="sama.promis.project.funding.source">
+        <field name="name">Contribution Gouvernement Sénégal</field>
+        <field name="project_id" ref="demo_project_multi_source_education"/>
+        <field name="partner_id" ref="demo_partner_government_agency"/>
+        <field name="amount">1500000</field>
+        <field name="funding_type">co_financing</field>
+        <field name="state">received</field>
+        <field name="commitment_date">2024-05-10</field>
+        <field name="received_date">2024-06-01</field>
+        <field name="contract_reference">GOV-EDU-2024-SN</field>
+        <field name="sequence">30</field>
+        <field name="description">Contribution nationale pour les salaires du personnel local et les frais de fonctionnement.</field>
+    </record>
+
+    <!-- Funding source 4: Private sector -->
+    <record id="demo_funding_source_private_education" model="sama.promis.project.funding.source">
+        <field name="name">Don Secteur Privé Local</field>
+        <field name="project_id" ref="demo_project_multi_source_education"/>
+        <field name="partner_id" ref="demo_partner_private_company"/>
+        <field name="amount">800000</field>
+        <field name="funding_type">grant</field>
+        <field name="state">received</field>
+        <field name="commitment_date">2024-06-05</field>
+        <field name="received_date">2024-06-15</field>
+        <field name="sequence">40</field>
+        <field name="description">Don du secteur privé pour l'équipement en panneaux solaires des écoles.</field>
+    </record>
+
+    <!-- Another multi-source project: Infrastructure -->
+    <record id="demo_project_multi_source_infrastructure" model="sama.promis.project">
+        <field name="name">Infrastructure Routière Multi-Devises</field>
+        <field name="project_type">infrastructure</field>
+        <field name="priority">urgent</field>
+        <field name="partner_id" ref="demo_partner_government_agency"/>
+        <field name="start_date">2024-03-01</field>
+        <field name="end_date">2026-06-30</field>
+        <field name="region">Diourbel</field>
+        <field name="department">Bambey</field>
+        <field name="commune">Bambey</field>
+        <field name="target_population">40000</field>
+        <field name="state">approved</field>
+        <field name="use_multi_source_funding" eval="True"/>
+        <field name="description">Projet d'infrastructure routière avec financement multi-devises pour améliorer la connectivité régionale.</field>
+    </record>
+
+    <!-- Funding in XOF (local currency) -->
+    <record id="demo_funding_source_local_currency" model="sama.promis.project.funding.source">
+        <field name="name">Financement Local XOF</field>
+        <field name="project_id" ref="demo_project_multi_source_infrastructure"/>
+        <field name="partner_id" ref="demo_partner_government_agency"/>
+        <field name="amount">5000000000</field>
+        <field name="currency_id" ref="base.XOF"/>
+        <field name="funding_type">grant</field>
+        <field name="state">confirmed</field>
+        <field name="sequence">10</field>
+        <field name="description">Financement du gouvernement en francs CFA pour les travaux de terrassement.</field>
+    </record>
+
+    <!-- Funding in EUR (international) -->
+    <record id="demo_funding_source_eur_currency" model="sama.promis.project.funding.source">
+        <field name="name">Financement AFD EUR</field>
+        <field name="project_id" ref="demo_project_multi_source_infrastructure"/>
+        <field name="partner_id" ref="demo_partner_international_foundation"/>
+        <field name="amount">8000000</field>
+        <field name="currency_id" ref="base.EUR"/>
+        <field name="funding_type">loan</field>
+        <field name="state">confirmed</field>
+        <field name="sequence">20</field>
+        <field name="description">Prêt de l'Agence Française de Développement en euros pour l'équipement et le bitumage.</field>
+    </record>
+
+    <!-- Update existing partners with funding origin -->
+    <record id="demo_partner_international_foundation" model="res.partner">
+        <field name="funding_origin_manual">international</field>
+    </record>
+
+    <record id="demo_partner_private_company" model="res.partner">
+        <field name="funding_origin_manual">local</field>
+    </record>
+
+    <record id="demo_partner_government_agency" model="res.partner">
+        <field name="is_donor" eval="True"/>
+        <field name="donor_type">government</field>
+        <field name="funding_origin_manual">local</field>
+    </record>
+
+    <!-- ========================================== -->
+    <!-- COMPLIANCE MANAGEMENT DEMO DATA (Phase 3) -->
+    <!-- ========================================== -->
+
+    <!-- Compliance Profiles for Different Donors -->
+    <record id="demo_compliance_profile_worldbank" model="sama.promis.compliance.profile">
+        <field name="name">World Bank Standard Compliance</field>
+        <field name="code">WB_STD</field>
+        <field name="description">
+            <![CDATA[
+            <p>Standard compliance requirements for World Bank financed projects including:</p>
+            <ul>
+                <li>Quarterly financial and narrative reports</li>
+                <li>Procurement compliance with World Bank guidelines</li>
+                <li>Environmental and Social Safeguards (ESS)</li>
+                <li>Disbursement Linked Indicators (DLIs)</li>
+                <li>Annual audits by independent auditors</li>
+            </ul>
+            ]]>
+        </field>
+        <field name="reporting_frequency">quarterly</field>
+        <field name="requires_financial_report" eval="True"/>
+        <field name="requires_narrative_report" eval="True"/>
+        <field name="requires_indicator_report" eval="True"/>
+        <field name="approval_workflow">dual</field>
+        <field name="prior_review_threshold">100000</field>
+        <field name="reminder_days_before">7</field>
+        <field name="escalation_days_after">3</field>
+        <field name="report_template_id" ref="report_sama_promis_compliance_worldbank"/>
+        <field name="is_active" eval="True"/>
+    </record>
+
+    <record id="demo_compliance_profile_eu" model="sama.promis.compliance.profile">
+        <field name="name">European Union Grant Compliance</field>
+        <field name="code">EU_GRANT</field>
+        <field name="description">
+            <![CDATA[
+            <p>EU compliance requirements including:</p>
+            <ul>
+                <li>Technical and financial reporting</li>
+                <li>Visibility and communication requirements</li>
+                <li>Deliverables and milestones tracking</li>
+                <li>EU procurement rules compliance</li>
+            </ul>
+            ]]>
+        </field>
+        <field name="reporting_frequency">semi_annual</field>
+        <field name="requires_financial_report" eval="True"/>
+        <field name="requires_narrative_report" eval="True"/>
+        <field name="requires_indicator_report" eval="True"/>
+        <field name="approval_workflow">single</field>
+        <field name="prior_review_threshold">150000</field>
+        <field name="reminder_days_before">10</field>
+        <field name="escalation_days_after">5</field>
+        <field name="report_template_id" ref="report_sama_promis_compliance_eu"/>
+        <field name="is_active" eval="True"/>
+    </record>
+
+    <record id="demo_compliance_profile_afd" model="sama.promis.compliance.profile">
+        <field name="name">AFD Convention Compliance</field>
+        <field name="code">AFD_CONV</field>
+        <field name="description">
+            <![CDATA[
+            <p>Agence Française de Développement compliance requirements:</p>
+            <ul>
+                <li>Rapports trimestriels d'avancement</li>
+                <li>Conformité passation de marchés AFD</li>
+                <li>Suivi des indicateurs de performance</li>
+                <li>Rapports financiers certifiés</li>
+            </ul>
+            ]]>
+        </field>
+        <field name="reporting_frequency">quarterly</field>
+        <field name="requires_financial_report" eval="True"/>
+        <field name="requires_narrative_report" eval="True"/>
+        <field name="requires_indicator_report" eval="True"/>
+        <field name="approval_workflow">single</field>
+        <field name="prior_review_threshold">75000</field>
+        <field name="reminder_days_before">7</field>
+        <field name="escalation_days_after">2</field>
+        <field name="report_template_id" ref="report_sama_promis_compliance_afd"/>
+        <field name="is_active" eval="True"/>
+    </record>
+
+    <!-- Link compliance profiles to donors -->
+    <record id="sama_promis.partner_donor_1" model="res.partner">
+        <field name="compliance_profile_ids" eval="[(4, ref('demo_compliance_profile_worldbank'))]"/>
+        <field name="default_compliance_profile_id" ref="demo_compliance_profile_worldbank"/>
+    </record>
+
+    <record id="demo_partner_international_foundation" model="res.partner">
+        <field name="compliance_profile_ids" eval="[(4, ref('demo_compliance_profile_eu'))]"/>
+        <field name="default_compliance_profile_id" ref="demo_compliance_profile_eu"/>
+    </record>
+
+    <!-- Update projects with compliance profiles -->
+    <record id="demo_project_solar_schools" model="sama.promis.project">
+        <field name="compliance_profile_id" ref="demo_compliance_profile_eu"/>
+        <field name="use_compliance_profile" eval="True"/>
+    </record>
+
+    <record id="demo_project_irrigation" model="sama.promis.project">
+        <field name="compliance_profile_id" ref="demo_compliance_profile_afd"/>
+        <field name="use_compliance_profile" eval="True"/>
+    </record>
+
+    <record id="demo_project_health_clinics" model="sama.promis.project">
+        <field name="compliance_profile_id" ref="demo_compliance_profile_eu"/>
+        <field name="use_compliance_profile" eval="True"/>
+    </record>
+
+    <record id="demo_project_multi_source_education" model="sama.promis.project">
+        <field name="compliance_profile_id" ref="demo_compliance_profile_worldbank"/>
+        <field name="use_compliance_profile" eval="True"/>
+    </record>
+
+    <!-- Compliance Tasks for Solar Schools Project -->
+    <record id="demo_compliance_task_solar_q1_report" model="sama.promis.compliance.task">
+        <field name="name">Q1 2024 Financial Report</field>
+        <field name="description">Quarterly financial report covering January-March 2024</field>
+        <field name="project_id" ref="demo_project_solar_schools"/>
+        <field name="contract_id" ref="demo_contract_solar_schools_grant"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_eu"/>
+        <field name="task_type">report</field>
+        <field name="priority">high</field>
+        <field name="deadline">2024-04-15</field>
+        <field name="state">completed</field>
+        <field name="actual_completion_date">2024-04-10</field>
+        <field name="requires_document" eval="True"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="demo_compliance_task_solar_q2_report" model="sama.promis.compliance.task">
+        <field name="name">Q2 2024 Technical Progress Report</field>
+        <field name="description">Technical progress report for April-June 2024</field>
+        <field name="project_id" ref="demo_project_solar_schools"/>
+        <field name="contract_id" ref="demo_contract_solar_schools_grant"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_eu"/>
+        <field name="task_type">report</field>
+        <field name="priority">high</field>
+        <field name="deadline">2024-07-15</field>
+        <field name="state">completed</field>
+        <field name="actual_completion_date">2024-07-12</field>
+        <field name="requires_document" eval="True"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="demo_compliance_task_solar_visibility" model="sama.promis.compliance.task">
+        <field name="name">EU Visibility Requirements</field>
+        <field name="description">Installation of EU visibility signage at all project sites</field>
+        <field name="project_id" ref="demo_project_solar_schools"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_eu"/>
+        <field name="task_type">checklist</field>
+        <field name="priority">normal</field>
+        <field name="deadline">2024-12-31</field>
+        <field name="state">in_progress</field>
+        <field name="requires_document" eval="True"/>
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="demo_compliance_task_solar_milestone1" model="sama.promis.compliance.task">
+        <field name="name">Milestone 1: 10 Schools Equipped</field>
+        <field name="description">Complete solar installation in first 10 schools</field>
+        <field name="project_id" ref="demo_project_solar_schools"/>
+        <field name="contract_id" ref="demo_contract_solar_schools_grant"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_eu"/>
+        <field name="task_type">milestone</field>
+        <field name="priority">high</field>
+        <field name="deadline">2024-08-31</field>
+        <field name="state">completed</field>
+        <field name="actual_completion_date">2024-08-25</field>
+        <field name="requires_approval" eval="True"/>
+        <field name="approved_by" ref="base.user_admin"/>
+        <field name="approval_date">2024-08-28</field>
+        <field name="sequence">40</field>
+    </record>
+
+    <!-- Compliance Tasks for Irrigation Project -->
+    <record id="demo_compliance_task_irrigation_q1" model="sama.promis.compliance.task">
+        <field name="name">Rapport Trimestriel Q1 2024</field>
+        <field name="description">Rapport d'avancement physique et financier T1 2024</field>
+        <field name="project_id" ref="demo_project_irrigation"/>
+        <field name="contract_id" ref="demo_contract_irrigation_service"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_afd"/>
+        <field name="task_type">report</field>
+        <field name="priority">high</field>
+        <field name="deadline">2024-04-20</field>
+        <field name="state">completed</field>
+        <field name="actual_completion_date">2024-04-18</field>
+        <field name="requires_document" eval="True"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="demo_compliance_task_irrigation_procurement" model="sama.promis.compliance.task">
+        <field name="name">Plan de Passation de Marché</field>
+        <field name="description">Soumission du plan de passation pour approbation AFD</field>
+        <field name="project_id" ref="demo_project_irrigation"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_afd"/>
+        <field name="task_type">approval</field>
+        <field name="priority">critical</field>
+        <field name="deadline">2024-10-15</field>
+        <field name="state">submitted</field>
+        <field name="requires_document" eval="True"/>
+        <field name="requires_approval" eval="True"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="demo_compliance_task_irrigation_overdue" model="sama.promis.compliance.task">
+        <field name="name">Environmental Impact Assessment</field>
+        <field name="description">Submit environmental impact assessment report</field>
+        <field name="project_id" ref="demo_project_irrigation"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_afd"/>
+        <field name="task_type">deliverable</field>
+        <field name="priority">high</field>
+        <field name="deadline">2024-09-15</field>
+        <field name="state">in_progress</field>
+        <field name="requires_document" eval="True"/>
+        <field name="sequence">30</field>
+    </record>
+
+    <!-- Compliance Tasks for Health Clinics Project -->
+    <record id="demo_compliance_task_health_baseline" model="sama.promis.compliance.task">
+        <field name="name">Baseline Survey Report</field>
+        <field name="description">Complete baseline health indicators survey</field>
+        <field name="project_id" ref="demo_project_health_clinics"/>
+        <field name="contract_id" ref="demo_contract_health_partnership"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_eu"/>
+        <field name="task_type">deliverable</field>
+        <field name="priority">high</field>
+        <field name="deadline">2024-11-30</field>
+        <field name="state">in_progress</field>
+        <field name="requires_document" eval="True"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="demo_compliance_task_health_safeguards" model="sama.promis.compliance.task">
+        <field name="name">Social Safeguards Checklist</field>
+        <field name="description">Complete social safeguards compliance checklist</field>
+        <field name="project_id" ref="demo_project_health_clinics"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_eu"/>
+        <field name="task_type">checklist</field>
+        <field name="priority">normal</field>
+        <field name="deadline">2024-12-15</field>
+        <field name="state">pending</field>
+        <field name="requires_document" eval="True"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <!-- Compliance Tasks for Multi-Source Education Project -->
+    <record id="demo_compliance_task_education_dli1" model="sama.promis.compliance.task">
+        <field name="name">DLI 1: Teacher Training Completion</field>
+        <field name="description">Complete training of 200 teachers as per DLI requirements</field>
+        <field name="project_id" ref="demo_project_multi_source_education"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_worldbank"/>
+        <field name="task_type">milestone</field>
+        <field name="priority">critical</field>
+        <field name="deadline">2024-12-31</field>
+        <field name="state">in_progress</field>
+        <field name="requires_document" eval="True"/>
+        <field name="requires_approval" eval="True"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="demo_compliance_task_education_audit" model="sama.promis.compliance.task">
+        <field name="name">Annual Financial Audit 2024</field>
+        <field name="description">Independent financial audit by approved auditor</field>
+        <field name="project_id" ref="demo_project_multi_source_education"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_worldbank"/>
+        <field name="task_type">review</field>
+        <field name="priority">high</field>
+        <field name="deadline">2025-03-31</field>
+        <field name="state">pending</field>
+        <field name="requires_document" eval="True"/>
+        <field name="requires_approval" eval="True"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="demo_compliance_task_education_procurement" model="sama.promis.compliance.task">
+        <field name="name">Procurement Plan Approval</field>
+        <field name="description">Submit procurement plan for World Bank prior review</field>
+        <field name="project_id" ref="demo_project_multi_source_education"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_worldbank"/>
+        <field name="task_type">approval</field>
+        <field name="priority">high</field>
+        <field name="deadline">2024-11-15</field>
+        <field name="state">submitted</field>
+        <field name="requires_document" eval="True"/>
+        <field name="requires_approval" eval="True"/>
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="demo_compliance_task_education_ess" model="sama.promis.compliance.task">
+        <field name="name">Environmental and Social Safeguards Report</field>
+        <field name="description">Quarterly ESS monitoring report</field>
+        <field name="project_id" ref="demo_project_multi_source_education"/>
+        <field name="compliance_profile_id" ref="demo_compliance_profile_worldbank"/>
+        <field name="task_type">report</field>
+        <field name="priority">normal</field>
+        <field name="deadline">2024-10-31</field>
+        <field name="state">in_progress</field>
+        <field name="requires_document" eval="True"/>
+        <field name="sequence">40</field>
+    </record>
+
+</odoo>

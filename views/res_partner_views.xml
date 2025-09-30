@@ -15,6 +15,8 @@
                             <field name="donor_code" invisible="not is_donor"/>
                             <field name="donor_since" invisible="not is_donor"/>
                             <field name="donor_focal_point" invisible="not is_donor"/>
+                            <field name="funding_origin" readonly="1" invisible="not is_donor"/>
+                            <field name="funding_origin_manual" invisible="not is_donor"/>
                         </group>
                         <group invisible="not is_donor">
                             <div class="o_stat_info">
@@ -27,6 +29,33 @@
                                     <field name="total_funding_amount" widget="monetary" options="{'display_currency': 'currency_id'}" string="Montant Total"/>
                                 </span>
                             </div>
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_international_funding_provided" widget="monetary" options="{'display_currency': 'currency_id'}" string="Financement International"/>
+                                </span>
+                            </div>
+                            <div class="o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_local_funding_provided" widget="monetary" options="{'display_currency': 'currency_id'}" string="Financement Local"/>
+                                </span>
+                            </div>
+                        </group>
+                    </group>
+                    
+                    <!-- Compliance Profiles Section -->
+                    <group string="Profils de Conformité" invisible="not is_donor">
+                        <group>
+                            <field name="default_compliance_profile_id" 
+                                   options="{'no_create': True, 'no_open': True}"
+                                   domain="[('is_active', '=', True)]"/>
+                            <field name="compliance_profile_ids" widget="many2many_tags"
+                                   options="{'no_create': True, 'color_field': 'is_active'}"
+                                   domain="[('is_active', '=', True)]"/>
+                        </group>
+                        <group>
+                            <p class="text-muted" invisible="not default_compliance_profile_id">
+                                Le profil de conformité par défaut sera automatiquement appliqué aux nouveaux projets financés par ce bailleur.
+                            </p>
                         </group>
                     </group>
                     

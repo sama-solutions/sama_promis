@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="call_for_proposal_demo_1" model="sama.promis.call.proposal">
+        <field name="name">CFP-2024-001</field>
+        <field name="title">Appel à Propositions Santé Communautaire</field>
+        <field name="donor_id" ref="sama_promis.partner_donor_1"/>
+        <field name="submission_deadline">2024-12-31</field>
+        <field name="state">published</field>
+    </record>
+
+    <record id="project_1" model="sama.promis.project">
+        <field name="name">Programme Santé Communautaire</field>
+        <field name="project_type">health</field>
+        <field name="priority">high</field>
+        <field name="state">approved</field>
+        <field name="partner_id" ref="sama_promis.partner_beneficiary_1"/>
+        <field name="donor_id" ref="sama_promis.partner_donor_1"/>
+        <field name="total_budget">250000000</field>
+        <field name="donor_contribution">200000000</field>
+        <field name="partner_contribution">50000000</field>
+        <field name="start_date">2024-01-15</field>
+        <field name="end_date">2025-12-31</field>
+        <field name="deadline">2025-12-31</field>
+        <field name="region">Dakar</field>
+        <field name="department">Pikine</field>
+        <field name="commune">Thiaroye</field>
+        <field name="call_for_proposal_id" ref="sama_promis.call_for_proposal_demo_1"/>
+        <field name="state_history">Création: approved</field>
+    </record>
+
+    <record id="project_2" model="sama.promis.project">
+        <field name="name">Initiative Agricole Résilience</field>
+        <field name="project_type">agriculture</field>
+        <field name="priority">normal</field>
+        <field name="state">in_progress</field>
+        <field name="partner_id" ref="sama_promis.partner_beneficiary_2"/>
+        <field name="donor_id" ref="sama_promis.partner_donor_2"/>
+        <field name="total_budget">180000000</field>
+        <field name="donor_contribution">150000000</field>
+        <field name="partner_contribution">30000000</field>
+        <field name="start_date">2023-09-01</field>
+        <field name="end_date">2025-08-31</field>
+        <field name="actual_start_date">2023-09-15</field>
+        <field name="deadline">2025-09-30</field>
+        <field name="region">Thiès</field>
+        <field name="department">Thiès</field>
+        <field name="commune">Ndiass</field>
+        <field name="call_for_proposal_id" ref="sama_promis.call_for_proposal_demo_1"/>
+        <field name="state_history">Création: in_progress</field>
+    </record>
+
+    <record id="project_3" model="sama.promis.project">
+        <field name="name">Projet Éducation pour Tous</field>
+        <field name="project_type">education</field>
+        <field name="priority">urgent</field>
+        <field name="state">completed</field>
+        <field name="partner_id" ref="sama_promis.partner_beneficiary_3"/>
+        <field name="donor_id" ref="sama_promis.partner_donor_1"/>
+        <field name="total_budget">90000000</field>
+        <field name="donor_contribution">70000000</field>
+        <field name="partner_contribution">20000000</field>
+        <field name="start_date">2022-02-01</field>
+        <field name="end_date">2023-06-30</field>
+        <field name="actual_start_date">2022-02-15</field>
+        <field name="actual_end_date">2023-06-15</field>
+        <field name="deadline">2023-06-30</field>
+        <field name="region">Saint-Louis</field>
+        <field name="department">Saint-Louis</field>
+        <field name="commune">Gandon</field>
+        <field name="call_for_proposal_id" ref="sama_promis.call_for_proposal_demo_1"/>
+        <field name="state_history">Création: completed</field>
+    </record>
+</odoo>
