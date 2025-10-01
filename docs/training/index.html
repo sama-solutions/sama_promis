@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Centre de Formation et Certification SAMA PROMIS - Formation complète par rôle avec certification officielle">
+    <title>SAMA PROMIS - Centre de Formation et Certification</title>
+    
+    <!-- Path Resolver for file:// mode -->
+    <script src="assets/js/path-resolver.js"></script>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/training-main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="training-header fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <i class="fas fa-graduation-cap me-2"></i>
+                    <strong>SAMA PROMIS</strong> Formation
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#formations">Formations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="certification/index.html">Certification</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="downloads/index.html">Ressources</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-promis-primary btn-sm ms-2" href="register.html">S'inscrire</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="training-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="display-3 fw-bold mb-4">Maîtrisez SAMA PROMIS</h1>
+                    <p class="lead mb-4">Formation Complète par Rôle avec Certification Officielle</p>
+                    <p class="mb-5">Développez vos compétences en gestion de projets, conformité et passation de marchés avec notre programme de formation certifiant.</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="register.html" class="btn btn-promis-primary btn-lg">
+                            <i class="fas fa-rocket me-2"></i>Commencer la Formation
+                        </a>
+                        <a href="certification/index.html" class="btn btn-promis-outline btn-lg">
+                            <i class="fas fa-certificate me-2"></i>Voir les Certifications
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-center mt-5 mt-lg-0">
+                    <div class="hero-illustration">
+                        <i class="fas fa-chalkboard-teacher fa-10x text-promis-secondary"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Overview -->
+    <section class="training-section bg-promis-light">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">Programme de Formation Complet</h2>
+                    <p class="section-subtitle">Une formation structurée et certifiante pour tous les utilisateurs de SAMA PROMIS</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="stat-card text-center">
+                        <div class="stat-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="stat-number">8</h3>
+                        <p class="stat-label">Rôles de Formation</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card text-center">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="stat-number">60+</h3>
+                        <p class="stat-label">Heures de Contenu</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card text-center">
+                        <div class="stat-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3 class="stat-number">100%</h3>
+                        <p class="stat-label">Certifié et Reconnu</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Role Selection -->
+    <section id="formations" class="training-section">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">Choisissez Votre Rôle</h2>
+                    <p class="section-subtitle">Sélectionnez le rôle qui correspond à votre fonction dans SAMA PROMIS</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <!-- Administrator -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="role-card">
+                        <div class="role-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3 class="role-title">Administrateur Système</h3>
+                        <p class="role-description">Installation, configuration, gestion des utilisateurs et sécurité</p>
+                        <div class="role-meta">
+                            <span class="badge bg-info"><i class="fas fa-clock me-1"></i>20 heures</span>
+                            <span class="badge bg-warning"><i class="fas fa-signal me-1"></i>Avancé</span>
+                        </div>
+                        <a href="roles/administrator/user-level.html" class="btn btn-promis-primary w-100 mt-3">
+                            Commencer <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project Manager -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="role-card">
+                        <div class="role-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3 class="role-title">Chef de Projet</h3>
+                        <p class="role-description">Gestion de projets, budgets, conformité et passation de marchés</p>
+                        <div class="role-meta">
+                            <span class="badge bg-info"><i class="fas fa-clock me-1"></i>24 heures</span>
+                            <span class="badge bg-warning"><i class="fas fa-signal me-1"></i>Intermédiaire</span>
+                        </div>
+                        <a href="roles/project-manager/user-level.html" class="btn btn-promis-primary w-100 mt-3">
+                            Commencer <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Donor -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="role-card">
+                        <div class="role-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <h3 class="role-title">Bailleur de Fonds</h3>
+                        <p class="role-description">Suivi des projets financés, conformité et rapports</p>
+                        <div class="role-meta">
+                            <span class="badge bg-info"><i class="fas fa-clock me-1"></i>6 heures</span>
+                            <span class="badge bg-success"><i class="fas fa-signal me-1"></i>Débutant</span>
+                        </div>
+                        <a href="roles/donor/user-level.html" class="btn btn-promis-primary w-100 mt-3">
+                            Commencer <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Beneficiary -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="role-card">
+                        <div class="role-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="role-title">Bénéficiaire/Partenaire</h3>
+                        <p class="role-description">Portail requérant, propositions, contrats et documents</p>
+                        <div class="role-meta">
+                            <span class="badge bg-info"><i class="fas fa-clock me-1"></i>8 heures</span>
+                            <span class="badge bg-success"><i class="fas fa-signal me-1"></i>Débutant</span>
+                        </div>
+                        <a href="roles/beneficiary/user-level.html" class="btn btn-promis-primary w-100 mt-3">
+                            Commencer <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Compliance Officer -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="role-card">
+                        <div class="role-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h3 class="role-title">Responsable Conformité</h3>
+                        <p class="role-description">Gestion des tâches de conformité et rapportage</p>
+                        <div class="role-meta">
+                            <span class="badge bg-info"><i class="fas fa-clock me-1"></i>8 heures</span>
+                            <span class="badge bg-warning"><i class="fas fa-signal me-1"></i>Intermédiaire</span>
+                        </div>
+                        <a href="roles/compliance-officer/user-level.html" class="btn btn-promis-primary w-100 mt-3">
+                            Commencer <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Procurement Officer -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="role-card">
+                        <div class="role-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3 class="role-title">Responsable Passation</h3>
+                        <p class="role-description">Plans de passation, appels d'offres et suivi</p>
+                        <div class="role-meta">
+                            <span class="badge bg-info"><i class="fas fa-clock me-1"></i>8 heures</span>
+                            <span class="badge bg-warning"><i class="fas fa-signal me-1"></i>Intermédiaire</span>
+                        </div>
+                        <a href="roles/procurement-officer/user-level.html" class="btn btn-promis-primary w-100 mt-3">
+                            Commencer <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Portal User -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="role-card">
+                        <div class="role-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h3 class="role-title">Utilisateur Portail</h3>
+                        <p class="role-description">Navigation du portail requérant et suivi</p>
+                        <div class="role-meta">
+                            <span class="badge bg-info"><i class="fas fa-clock me-1"></i>4 heures</span>
+                            <span class="badge bg-success"><i class="fas fa-signal me-1"></i>Débutant</span>
+                        </div>
+                        <a href="roles/portal-user/user-level.html" class="btn btn-promis-primary w-100 mt-3">
+                            Commencer <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Citizen -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="role-card">
+                        <div class="role-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3 class="role-title">Citoyen</h3>
+                        <p class="role-description">Consultation du portail public de transparence</p>
+                        <div class="role-meta">
+                            <span class="badge bg-info"><i class="fas fa-clock me-1"></i>2 heures</span>
+                            <span class="badge bg-success"><i class="fas fa-signal me-1"></i>Débutant</span>
+                        </div>
+                        <a href="roles/citizen/user-level.html" class="btn btn-promis-primary w-100 mt-3">
+                            Commencer <i class="fas fa-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Levels -->
+    <section class="training-section bg-promis-light">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">Deux Niveaux de Formation</h2>
+                    <p class="section-subtitle">Progressez de l'utilisation à l'enseignement</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="level-card">
+                        <div class="level-badge bg-promis-info">Niveau 1</div>
+                        <h3 class="level-title">Utilisateur</h3>
+                        <p class="level-description">Apprenez à utiliser SAMA PROMIS dans votre rôle quotidien</p>
+                        <ul class="level-features">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Formation pratique et opérationnelle</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Exercices guidés pas à pas</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Certification utilisateur</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Validité: 2 ans</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="level-card">
+                        <div class="level-badge bg-promis-secondary">Niveau 2</div>
+                        <h3 class="level-title">Formateur</h3>
+                        <p class="level-description">Devenez formateur certifié et enseignez SAMA PROMIS</p>
+                        <ul class="level-features">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Méthodologie pédagogique</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Ressources d'enseignement</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Certification formateur</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Validité: 3 ans</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certification Process -->
+    <section class="training-section">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">Processus de Certification</h2>
+                    <p class="section-subtitle">Obtenez votre certification en 5 étapes simples</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="process-timeline">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Inscription</h4>
+                                <p>Créez votre compte et choisissez votre rôle</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Formation</h4>
+                                <p>Suivez les modules de formation à votre rythme</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Évaluation</h4>
+                                <p>Passez les quiz et l'examen final</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Certification</h4>
+                                <p>Recevez votre certificat officiel</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h4>Téléchargement</h4>
+                                <p>Téléchargez et partagez votre certificat</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="training-section bg-promis-light">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">Témoignages</h2>
+                    <p class="section-subtitle">Ce que disent nos utilisateurs certifiés</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Formation excellente et très complète. J'ai pu maîtriser SAMA PROMIS en quelques semaines."</p>
+                        <div class="testimonial-author">
+                            <strong>Aminata Diallo</strong>
+                            <span>Chef de Projet, Ministère de l'Économie</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Les exercices pratiques sont très utiles. La certification a valorisé mon profil professionnel."</p>
+                        <div class="testimonial-author">
+                            <strong>Moussa Sow</strong>
+                            <span>Responsable Conformité, ONG Internationale</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Formation de qualité avec des ressources téléchargeables très pratiques. Je recommande vivement!"</p>
+                        <div class="testimonial-author">
+                            <strong>Fatou Ndiaye</strong>
+                            <span>Administratrice Système, SAMA ETAT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="training-section cta-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="text-white mb-4">Prêt à Commencer?</h2>
+                    <p class="text-white mb-5">Inscrivez-vous maintenant et commencez votre parcours de formation SAMA PROMIS</p>
+                    <a href="register.html" class="btn btn-light btn-lg">
+                        <i class="fas fa-user-plus me-2"></i>S'inscrire Gratuitement
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="training-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5>SAMA PROMIS Formation</h5>
+                    <p>Centre de Formation et Certification officiel pour le système SAMA PROMIS de gestion de projets et conformité.</p>
+                </div>
+                <div class="col-lg-2">
+                    <h6>Formations</h6>
+                    <ul class="footer-links">
+                        <li><a href="roles/administrator/user-level.html">Administrateur</a></li>
+                        <li><a href="roles/project-manager/user-level.html">Chef de Projet</a></li>
+                        <li><a href="roles/donor/user-level.html">Bailleur</a></li>
+                        <li><a href="roles/beneficiary/user-level.html">Bénéficiaire</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6>Ressources</h6>
+                    <ul class="footer-links">
+                        <li><a href="downloads/index.html">Téléchargements</a></li>
+                        <li><a href="certification/index.html">Certification</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6>Contact</h6>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-envelope me-2"></i>support@samaetat.sn</li>
+                        <li><i class="fas fa-phone me-2"></i>+221 33 XXX XX XX</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>Dakar, Sénégal</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 SAMA Transparent State Solutions. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">Licence: LGPL-3 | Version 1.0.0</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="assets/js/training-core.js"></script>
+</body>
+</html>

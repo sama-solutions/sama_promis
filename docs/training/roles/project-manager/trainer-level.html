@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation Chef de Projet - Niveau Formateur | SAMA PROMIS</title>
+    
+    <!-- Path Resolver for file:// mode -->
+    <script src="../../assets/js/path-resolver.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/training-main.css">
+    <style>
+        .training-sidebar {
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+        .module-list {
+            list-style: none;
+            padding: 0;
+        }
+        .module-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .module-item:hover {
+            background-color: #f8fafc;
+        }
+        .module-item.completed {
+            background-color: #d1fae5;
+        }
+        .module-item.active {
+            background-color: #dbeafe;
+            border-left: 4px solid #1e3a8a;
+        }
+        .lesson-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .lesson-header {
+            border-bottom: 2px solid #1e3a8a;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .trainer-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .exercise-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        .key-takeaway {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        .teaching-tip {
+            background: #d1fae5;
+            border-left: 4px solid #059669;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="training-header fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../index.html">
+                    <i class="fas fa-graduation-cap me-2"></i>
+                    <strong>SAMA PROMIS</strong> Formation
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../index.html">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../certification/index.html">Certification</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../downloads/index.html">Ressources</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="container mt-5 pt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="../../index.html#formations">Formations</a></li>
+                <li class="breadcrumb-item">Chef de Projet</li>
+                <li class="breadcrumb-item active">Niveau Formateur</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="training-sidebar" data-role="project-manager" data-level="trainer">
+                    <span class="trainer-badge">
+                        <i class="fas fa-chalkboard-teacher me-2"></i>Niveau Formateur
+                    </span>
+                    <h5 class="text-promis-primary mb-3">
+                        <i class="fas fa-project-diagram me-2"></i>Chef de Projet
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <small>Progression</small>
+                            <small class="text-promis-secondary"><strong>0%</strong></small>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar progress-bar-promis bg-success" role="progressbar" style="width: 0%" data-total-lessons="60"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <p class="small mb-1"><i class="fas fa-clock me-2"></i><strong>Durée:</strong> 14 heures</p>
+                        <p class="small mb-1"><i class="fas fa-book me-2"></i><strong>Modules:</strong> 5</p>
+                        <p class="small mb-1"><i class="fas fa-tasks me-2"></i><strong>Leçons:</strong> 15</p>
+                    </div>
+
+                    <div class="alert alert-warning small">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Prérequis:</strong> Certification Utilisateur Chef de Projet requise
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mb-3">Modules</h6>
+                    <ul class="module-list">
+                        <li class="module-item active" onclick="scrollToModule('module1')">
+                            <i class="fas fa-circle-notch me-2"></i>
+                            <strong>Module 1</strong><br>
+                            <small>Pédagogie et Méthodologie</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module2')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 2</strong><br>
+                            <small>Ressources Pédagogiques</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module3')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 3</strong><br>
+                            <small>Animation de Sessions</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module4')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 4</strong><br>
+                            <small>Évaluation des Apprenants</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module5')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 5</strong><br>
+                            <small>Cas Pratiques Avancés</small>
+                        </li>
+                    </ul>
+
+                    <hr>
+
+                    <a href="user-level.html" class="btn btn-outline-secondary w-100 mt-3">
+                        <i class="fas fa-arrow-left me-2"></i>Retour Niveau Utilisateur
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-lg-9">
+                <!-- Module 1 -->
+                <div id="module1" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-book-open me-2 text-promis-primary"></i>Module 1: Pédagogie et Méthodologie</h2>
+                        <p class="text-muted">Maîtrisez les techniques d'enseignement de SAMA PROMIS</p>
+                    </div>
+
+                    <!-- Lesson 1.1 -->
+                    <div class="mb-5">
+                        <h3 class="text-promis-secondary">
+                            <i class="fas fa-play-circle me-2"></i>Leçon 1.1: Principes de la Formation SAMA PROMIS
+                        </h3>
+                        
+                        <h4>Rôle du Formateur</h4>
+                        <p>En tant que formateur certifié SAMA PROMIS, vous devez:</p>
+                        <ul>
+                            <li>Transmettre les connaissances techniques du système</li>
+                            <li>Faciliter l'apprentissage pratique et opérationnel</li>
+                            <li>Adapter la formation au niveau des apprenants</li>
+                            <li>Évaluer les compétences acquises</li>
+                            <li>Assurer le suivi post-formation</li>
+                        </ul>
+
+                        <h4>Approche Pédagogique</h4>
+                        <p>La formation SAMA PROMIS suit une approche:</p>
+                        <ul>
+                            <li><strong>Pratique:</strong> 70% d'exercices pratiques</li>
+                            <li><strong>Interactive:</strong> Participation active des apprenants</li>
+                            <li><strong>Progressive:</strong> Du simple au complexe</li>
+                            <li><strong>Contextualisée:</strong> Cas réels et exemples locaux</li>
+                            <li><strong>Évaluative:</strong> Évaluation continue des acquis</li>
+                        </ul>
+
+                        <h4>Structure d'une Session de Formation</h4>
+                        <p>Chaque session doit suivre cette structure:</p>
+                        <ol>
+                            <li><strong>Introduction (10%):</strong> Objectifs et contexte</li>
+                            <li><strong>Théorie (20%):</strong> Concepts et fonctionnalités</li>
+                            <li><strong>Démonstration (20%):</strong> Présentation guidée</li>
+                            <li><strong>Pratique (40%):</strong> Exercices supervisés</li>
+                            <li><strong>Évaluation (10%):</strong> Quiz et questions</li>
+                        </ol>
+
+                        <div class="teaching-tip">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Conseil Pédagogique</h5>
+                            <p>Commencez toujours par un cas concret que les apprenants peuvent comprendre. Par exemple, pour enseigner la création de projet, utilisez un projet réel de leur ministère ou organisation.</p>
+                        </div>
+
+                        <div class="key-takeaway">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Points Clés</h5>
+                            <ul class="mb-0">
+                                <li>Le formateur est un facilitateur, pas un conférencier</li>
+                                <li>La pratique prime sur la théorie</li>
+                                <li>Adaptez le rythme au niveau du groupe</li>
+                                <li>Encouragez les questions et la participation</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Lesson 1.2 -->
+                    <div class="mb-5">
+                        <h3 class="text-promis-secondary">
+                            <i class="fas fa-play-circle me-2"></i>Leçon 1.2: Préparation d'une Formation
+                        </h3>
+
+                        <h4>Analyse des Besoins</h4>
+                        <p>Avant chaque formation, analysez:</p>
+                        <ul>
+                            <li>Le profil des apprenants (rôle, expérience)</li>
+                            <li>Leurs attentes et objectifs</li>
+                            <li>Le contexte organisationnel</li>
+                            <li>Les contraintes techniques (équipement, accès)</li>
+                            <li>Le temps disponible</li>
+                        </ul>
+
+                        <h4>Préparation Matérielle</h4>
+                        <p>Assurez-vous d'avoir:</p>
+                        <ul>
+                            <li>Un environnement SAMA PROMIS de formation (sandbox)</li>
+                            <li>Des données de démonstration réalistes</li>
+                            <li>Les supports de formation (slides, guides)</li>
+                            <li>Les exercices pratiques préparés</li>
+                            <li>Les quiz d'évaluation</li>
+                            <li>Un ordinateur et projecteur fonctionnels</li>
+                        </ul>
+
+                        <h4>Plan de Formation Type</h4>
+                        <p>Exemple pour une formation Chef de Projet (2 jours):</p>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Jour</th>
+                                        <th>Horaire</th>
+                                        <th>Module</th>
+                                        <th>Activité</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="4">Jour 1</td>
+                                        <td>9h-10h30</td>
+                                        <td>Introduction</td>
+                                        <td>Vue d'ensemble SAMA PROMIS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10h45-12h30</td>
+                                        <td>Module 1</td>
+                                        <td>Création et gestion de projets</td>
+                                    </tr>
+                                    <tr>
+                                        <td>14h-16h</td>
+                                        <td>Module 2</td>
+                                        <td>Budget multi-sources</td>
+                                    </tr>
+                                    <tr>
+                                        <td>16h15-17h30</td>
+                                        <td>Pratique</td>
+                                        <td>Exercices guidés</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="4">Jour 2</td>
+                                        <td>9h-10h30</td>
+                                        <td>Module 3</td>
+                                        <td>Passation de marchés</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10h45-12h30</td>
+                                        <td>Module 4</td>
+                                        <td>Conformité et rapportage</td>
+                                    </tr>
+                                    <tr>
+                                        <td>14h-16h</td>
+                                        <td>Pratique</td>
+                                        <td>Cas pratique complet</td>
+                                    </tr>
+                                    <tr>
+                                        <td>16h15-17h30</td>
+                                        <td>Évaluation</td>
+                                        <td>Quiz final et certification</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="exercise-box">
+                            <h5><i class="fas fa-tasks me-2"></i>Exercice Pratique</h5>
+                            <p><strong>Objectif:</strong> Préparer votre première formation</p>
+                            <ol>
+                                <li>Identifiez un groupe cible (ex: 10 chefs de projet)</li>
+                                <li>Créez un plan de formation de 2 jours</li>
+                                <li>Préparez les supports pour le Module 1</li>
+                                <li>Créez 3 exercices pratiques</li>
+                                <li>Préparez un quiz de 10 questions</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="text-center my-4">
+                        <button class="btn btn-promis-primary btn-lg" onclick="alert('Quiz Module 1 - Fonctionnalité à venir')">
+                            <i class="fas fa-question-circle me-2"></i>Passer le Quiz du Module 1
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div id="module2" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-folder-open me-2 text-promis-primary"></i>Module 2: Ressources Pédagogiques</h2>
+                        <p class="text-muted">Utilisez et créez des ressources de formation</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira les supports de formation, les guides, les vidéos, et les exercices.
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div id="module3" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-users-class me-2 text-promis-primary"></i>Module 3: Animation de Sessions</h2>
+                        <p class="text-muted">Animez des sessions de formation efficaces</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira les techniques d'animation, la gestion de groupe, et la résolution de problèmes.
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div id="module4" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-clipboard-check me-2 text-promis-primary"></i>Module 4: Évaluation des Apprenants</h2>
+                        <p class="text-muted">Évaluez les compétences acquises</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira les méthodes d'évaluation, les quiz, et la certification.
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div id="module5" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-briefcase me-2 text-promis-primary"></i>Module 5: Cas Pratiques Avancés</h2>
+                        <p class="text-muted">Maîtrisez les scénarios complexes</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira les cas d'usage avancés, les problèmes courants, et les solutions.
+                    </div>
+                </div>
+
+                <!-- Final Assessment -->
+                <div class="lesson-content bg-promis-light">
+                    <div class="text-center">
+                        <h2><i class="fas fa-trophy me-2 text-promis-secondary"></i>Évaluation Finale Formateur</h2>
+                        <p class="lead">Démontrez vos compétences de formateur</p>
+                        <div class="my-4">
+                            <p><strong>Format:</strong> Examen théorique + Démonstration pratique</p>
+                            <p><strong>Durée:</strong> 90 minutes (théorie) + 30 minutes (démo)</p>
+                            <p><strong>Score requis:</strong> 85%</p>
+                        </div>
+                        <div class="alert alert-warning">
+                            <h6><i class="fas fa-info-circle me-2"></i>Évaluation Pratique</h6>
+                            <p class="mb-0">Vous devrez animer une session de formation de 30 minutes devant un jury, démontrant vos compétences pédagogiques et votre maîtrise de SAMA PROMIS.</p>
+                        </div>
+                        <button class="btn btn-promis-success btn-lg" onclick="alert('Évaluation finale - Fonctionnalité à venir')">
+                            <i class="fas fa-play-circle me-2"></i>Commencer l'Évaluation Finale
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="training-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 SAMA Transparent State Solutions. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="../../index.html" class="text-white me-3">Accueil</a>
+                    <a href="../../downloads/index.html" class="text-white">Ressources</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/training-core.js"></script>
+    <script>
+        function scrollToModule(moduleId) {
+            document.getElementById(moduleId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation Administrateur - Niveau Utilisateur | SAMA PROMIS</title>
+    
+    <!-- Path Resolver for file:// mode -->
+    <script src="../../assets/js/path-resolver.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/training-main.css">
+    <style>
+        .training-sidebar {
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+        .module-list {
+            list-style: none;
+            padding: 0;
+        }
+        .module-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .module-item:hover {
+            background-color: #f8fafc;
+        }
+        .module-item.completed {
+            background-color: #d1fae5;
+        }
+        .module-item.active {
+            background-color: #dbeafe;
+            border-left: 4px solid #1e3a8a;
+        }
+        .lesson-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .lesson-header {
+            border-bottom: 2px solid #1e3a8a;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .code-block {
+            background: #1f2937;
+            color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .exercise-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        .key-takeaway {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="training-header fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../index.html">
+                    <i class="fas fa-graduation-cap me-2"></i>
+                    <strong>SAMA PROMIS</strong> Formation
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../index.html">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../certification/index.html">Certification</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../downloads/index.html">Ressources</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="container mt-5 pt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="../../index.html#formations">Formations</a></li>
+                <li class="breadcrumb-item">Administrateur</li>
+                <li class="breadcrumb-item active">Niveau Utilisateur</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="training-sidebar" data-role="administrator" data-level="user">
+                    <h5 class="text-promis-primary mb-3">
+                        <i class="fas fa-user-shield me-2"></i>Administrateur Système
+                    </h5>
+                    <p class="small text-muted mb-3">Niveau Utilisateur</p>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <small>Progression</small>
+                            <small class="text-promis-secondary"><strong>0%</strong></small>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar progress-bar-promis bg-success" role="progressbar" style="width: 0%" data-total-lessons="60"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <p class="small mb-1"><i class="fas fa-clock me-2"></i><strong>Durée:</strong> 8 heures</p>
+                        <p class="small mb-1"><i class="fas fa-book me-2"></i><strong>Modules:</strong> 6</p>
+                        <p class="small mb-1"><i class="fas fa-tasks me-2"></i><strong>Leçons:</strong> 18</p>
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mb-3">Modules</h6>
+                    <ul class="module-list">
+                        <li class="module-item active" onclick="scrollToModule('module1')">
+                            <i class="fas fa-circle-notch me-2"></i>
+                            <strong>Module 1</strong><br>
+                            <small>Introduction et Installation</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module2')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 2</strong><br>
+                            <small>Configuration de Base</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module3')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 3</strong><br>
+                            <small>Gestion des Utilisateurs</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module4')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 4</strong><br>
+                            <small>Sécurité et Permissions</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module5')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 5</strong><br>
+                            <small>Maintenance et Sauvegarde</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module6')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 6</strong><br>
+                            <small>Dépannage</small>
+                        </li>
+                    </ul>
+
+                    <hr>
+
+                    <a href="trainer-level.html" class="btn btn-promis-secondary w-100 mt-3">
+                        <i class="fas fa-arrow-right me-2"></i>Niveau Formateur
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-lg-9">
+                <!-- Module 1 -->
+                <div id="module1" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-book-open me-2 text-promis-primary"></i>Module 1: Introduction et Installation</h2>
+                        <p class="text-muted">Découvrez SAMA PROMIS et apprenez à l'installer sur Odoo 18 CE</p>
+                    </div>
+
+                    <!-- Lesson 1.1 -->
+                    <div class="mb-5">
+                        <h3 class="text-promis-secondary">
+                            <i class="fas fa-play-circle me-2"></i>Leçon 1.1: Vue d'ensemble de SAMA PROMIS
+                        </h3>
+                        
+                        <h4>Qu'est-ce que SAMA PROMIS?</h4>
+                        <p>SAMA PROMIS (Project Management Information System) est un système complet de gestion de projets développé pour le gouvernement sénégalais. Il permet de gérer l'ensemble du cycle de vie des projets, de la planification à l'exécution, en passant par le suivi et l'évaluation.</p>
+
+                        <h4>Architecture Micromodules</h4>
+                        <p>SAMA PROMIS est construit sur une architecture modulaire comprenant:</p>
+                        <ul>
+                            <li><strong>Core:</strong> Fonctionnalités de base (projets, contrats, partenaires)</li>
+                            <li><strong>Projects:</strong> Gestion avancée des projets et workflows</li>
+                            <li><strong>Public Portal:</strong> Portail de transparence publique</li>
+                        </ul>
+
+                        <h4>Fonctionnalités Clés (Phases 1-4)</h4>
+                        <div class="row g-3 my-3">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-money-bill-wave me-2 text-success"></i>Phase 1</h5>
+                                        <p class="card-text">Gestion multi-sources de financement avec support des devises multiples</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-shopping-cart me-2 text-primary"></i>Phase 2</h5>
+                                        <p class="card-text">Plans de passation de marchés et gestion des appels d'offres</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-clipboard-check me-2 text-warning"></i>Phase 3</h5>
+                                        <p class="card-text">Gestion de la conformité avec profils par bailleur (BM, CE, AFD)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-globe me-2 text-info"></i>Phase 4</h5>
+                                        <p class="card-text">Portail public de transparence et portail requérant</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4>Prérequis Système</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="Utils.copyToClipboard('Python 3.11+\nPostgreSQL 13+\nOdoo 18 Community Edition\n4GB RAM minimum\n10GB espace disque')">
+                                <i class="fas fa-copy"></i> Copier
+                            </button>
+                            <pre><code>Python 3.11+
+PostgreSQL 13+
+Odoo 18 Community Edition
+4GB RAM minimum
+10GB espace disque</code></pre>
+                        </div>
+
+                        <div class="key-takeaway">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Points Clés</h5>
+                            <ul class="mb-0">
+                                <li>SAMA PROMIS est un système complet de gestion de projets</li>
+                                <li>Architecture modulaire pour flexibilité et évolutivité</li>
+                                <li>4 phases complétées: financement, passation, conformité, transparence</li>
+                                <li>Compatible avec Odoo 18 CE</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Lesson 1.2 -->
+                    <div class="mb-5">
+                        <h3 class="text-promis-secondary">
+                            <i class="fas fa-play-circle me-2"></i>Leçon 1.2: Installation sur Odoo 18 CE
+                        </h3>
+
+                        <h4>Étape 1: Prérequis</h4>
+                        <p>Assurez-vous que votre système dispose de:</p>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="Utils.copyToClipboard('# Vérifier la version Python\npython3 --version\n\n# Vérifier PostgreSQL\npsql --version')">
+                                <i class="fas fa-copy"></i> Copier
+                            </button>
+                            <pre><code># Vérifier la version Python
+python3 --version
+
+# Vérifier PostgreSQL
+psql --version</code></pre>
+                        </div>
+
+                        <h4>Étape 2: Installation d'Odoo 18 CE</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="Utils.copyToClipboard('# Cloner Odoo 18\ngit clone https://github.com/odoo/odoo.git --depth 1 --branch 18.0\n\n# Installer les dépendances\npip3 install -r odoo/requirements.txt')">
+                                <i class="fas fa-copy"></i> Copier
+                            </button>
+                            <pre><code># Cloner Odoo 18
+git clone https://github.com/odoo/odoo.git --depth 1 --branch 18.0
+
+# Installer les dépendances
+pip3 install -r odoo/requirements.txt</code></pre>
+                        </div>
+
+                        <h4>Étape 3: Installation de SAMA PROMIS</h4>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="Utils.copyToClipboard('# Cloner le module SAMA PROMIS\ncd odoo/addons\ngit clone <repository_url> sama_promis\n\n# Redémarrer Odoo\n./odoo-bin -c odoo.conf --update sama_promis')">
+                                <i class="fas fa-copy"></i> Copier
+                            </button>
+                            <pre><code># Cloner le module SAMA PROMIS
+cd odoo/addons
+git clone &lt;repository_url&gt; sama_promis
+
+# Redémarrer Odoo
+./odoo-bin -c odoo.conf --update sama_promis</code></pre>
+                        </div>
+
+                        <h4>Étape 4: Vérification</h4>
+                        <ol>
+                            <li>Connectez-vous à Odoo (http://localhost:8069)</li>
+                            <li>Allez dans Apps</li>
+                            <li>Recherchez "SAMA PROMIS"</li>
+                            <li>Cliquez sur "Installer"</li>
+                        </ol>
+
+                        <div class="exercise-box">
+                            <h5><i class="fas fa-tasks me-2"></i>Exercice Pratique</h5>
+                            <p><strong>Objectif:</strong> Installer SAMA PROMIS sur votre environnement de test</p>
+                            <ol>
+                                <li>Préparez un environnement Odoo 18 CE</li>
+                                <li>Installez le module SAMA PROMIS</li>
+                                <li>Vérifiez que tous les micromodules sont chargés</li>
+                                <li>Prenez une capture d'écran du tableau de bord</li>
+                            </ol>
+                        </div>
+
+                        <div class="alert alert-warning">
+                            <h6><i class="fas fa-exclamation-triangle me-2"></i>Problèmes Courants</h6>
+                            <ul class="mb-0">
+                                <li><strong>Erreur de version Python:</strong> Utilisez Python 3.11 ou supérieur</li>
+                                <li><strong>Dépendances manquantes:</strong> Installez toutes les dépendances avec pip</li>
+                                <li><strong>Erreur PostgreSQL:</strong> Vérifiez que le service est démarré</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Lesson 1.3 -->
+                    <div class="mb-5">
+                        <h3 class="text-promis-secondary">
+                            <i class="fas fa-play-circle me-2"></i>Leçon 1.3: Premier Démarrage
+                        </h3>
+
+                        <h4>Accès au Système</h4>
+                        <p>Après l'installation, accédez à SAMA PROMIS via:</p>
+                        <ul>
+                            <li><strong>URL:</strong> http://localhost:8069</li>
+                            <li><strong>Utilisateur:</strong> admin</li>
+                            <li><strong>Mot de passe:</strong> (défini lors de l'installation)</li>
+                        </ul>
+
+                        <h4>Assistant de Configuration Initiale</h4>
+                        <p>Au premier démarrage, l'assistant vous guidera pour:</p>
+                        <ol>
+                            <li>Configurer les informations de l'organisation</li>
+                            <li>Définir la devise principale</li>
+                            <li>Activer les micromodules nécessaires</li>
+                            <li>Créer les premiers utilisateurs</li>
+                        </ol>
+
+                        <h4>Vue d'ensemble du Tableau de Bord</h4>
+                        <p>Le tableau de bord administrateur affiche:</p>
+                        <ul>
+                            <li>Nombre total de projets</li>
+                            <li>Utilisateurs actifs</li>
+                            <li>Tâches de conformité en attente</li>
+                            <li>Plans de passation actifs</li>
+                            <li>Statistiques du portail public</li>
+                        </ul>
+
+                        <div class="key-takeaway">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Points Clés</h5>
+                            <ul class="mb-0">
+                                <li>L'installation nécessite Python 3.11+ et PostgreSQL 13+</li>
+                                <li>SAMA PROMIS s'installe comme un module Odoo standard</li>
+                                <li>L'assistant de configuration facilite le premier démarrage</li>
+                                <li>Le tableau de bord offre une vue d'ensemble complète</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Button -->
+                    <div class="text-center my-4">
+                        <button class="btn btn-promis-primary btn-lg" onclick="alert('Quiz Module 1 - Fonctionnalité à venir')">
+                            <i class="fas fa-question-circle me-2"></i>Passer le Quiz du Module 1
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div id="module2" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-cog me-2 text-promis-primary"></i>Module 2: Configuration de Base</h2>
+                        <p class="text-muted">Configurez les paramètres essentiels de SAMA PROMIS</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira les paramètres système, la configuration des modules et la personnalisation de l'interface.
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div id="module3" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-users-cog me-2 text-promis-primary"></i>Module 3: Gestion des Utilisateurs</h2>
+                        <p class="text-muted">Créez et gérez les utilisateurs et leurs permissions</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira la création d'utilisateurs, les groupes de sécurité et la gestion des partenaires.
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div id="module4" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-shield-alt me-2 text-promis-primary"></i>Module 4: Sécurité et Permissions</h2>
+                        <p class="text-muted">Maîtrisez le modèle de sécurité de SAMA PROMIS</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira le modèle de sécurité, l'audit et la conformité RGPD.
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div id="module5" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-database me-2 text-promis-primary"></i>Module 5: Maintenance et Sauvegarde</h2>
+                        <p class="text-muted">Assurez la pérennité et la performance du système</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira les sauvegardes, les mises à jour et le monitoring.
+                    </div>
+                </div>
+
+                <!-- Module 6 -->
+                <div id="module6" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-wrench me-2 text-promis-primary"></i>Module 6: Dépannage</h2>
+                        <p class="text-muted">Résolvez les problèmes courants et diagnostiquez les erreurs</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira les problèmes courants, les logs et le support.
+                    </div>
+                </div>
+
+                <!-- Final Assessment -->
+                <div class="lesson-content bg-promis-light">
+                    <div class="text-center">
+                        <h2><i class="fas fa-trophy me-2 text-promis-secondary"></i>Évaluation Finale</h2>
+                        <p class="lead">Testez vos connaissances et obtenez votre certification</p>
+                        <div class="my-4">
+                            <p><strong>Format:</strong> 50 questions à choix multiples</p>
+                            <p><strong>Durée:</strong> 60 minutes</p>
+                            <p><strong>Score requis:</strong> 80%</p>
+                        </div>
+                        <button class="btn btn-promis-success btn-lg" onclick="alert('Évaluation finale - Fonctionnalité à venir')">
+                            <i class="fas fa-play-circle me-2"></i>Commencer l'Évaluation Finale
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="training-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 SAMA Transparent State Solutions. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="../../index.html" class="text-white me-3">Accueil</a>
+                    <a href="../../downloads/index.html" class="text-white">Ressources</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/training-core.js"></script>
+    <script>
+        function scrollToModule(moduleId) {
+            document.getElementById(moduleId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>

@@ -12,6 +12,7 @@ build/
 develop-eggs/
 dist/
 downloads/
+!docs/training/downloads/
 eggs/
 .eggs/
 lib/
@@ -169,6 +170,7 @@ migrations/
 *_REPORT.md
 *_GUIDE.md
 !docs/TESTING_GUIDE.md
+!docs/training/USAGE_GUIDE.md
 *_CLEANUP.md
 *_SUMMARY.md
 *_STATUS.md

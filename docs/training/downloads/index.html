@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Centre de Téléchargement - Ressources et Documents SAMA PROMIS">
+    <title>Ressources et Téléchargements | SAMA PROMIS Formation</title>
+    
+    <!-- Path Resolver for file:// mode -->
+    <script src="../assets/js/path-resolver.js"></script>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/training-main.css">
+    <style>
+        .resource-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .resource-card:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        .resource-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .resource-category {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .download-btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .file-size {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        .file-format {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .format-pdf {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .format-video {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        .format-doc {
+            background: #e0e7ff;
+            color: #4f46e5;
+        }
+        .format-ppt {
+            background: #fef3c7;
+            color: #f59e0b;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="training-header fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">
+                    <i class="fas fa-graduation-cap me-2"></i>
+                    <strong>SAMA PROMIS</strong> Formation
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html#formations">Formations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../certification/index.html">Certification</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">Ressources</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html#contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="training-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-4">Centre de Ressources</h1>
+                    <p class="lead mb-4">Téléchargez tous les documents, guides et ressources pour votre formation SAMA PROMIS</p>
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="#guides" class="btn btn-promis-primary">
+                            <i class="fas fa-book me-2"></i>Guides
+                        </a>
+                        <a href="#videos" class="btn btn-promis-outline">
+                            <i class="fas fa-video me-2"></i>Vidéos
+                        </a>
+                        <a href="#templates" class="btn btn-promis-outline">
+                            <i class="fas fa-file-alt me-2"></i>Modèles
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="training-section">
+        <div class="container">
+            <!-- Guides et Manuels -->
+            <div id="guides" class="resource-category">
+                <h2 class="section-title mb-4">
+                    <i class="fas fa-book text-promis-primary me-2"></i>Guides et Manuels
+                </h2>
+                <div class="row g-4">
+                    <!-- Guide Utilisateur Général -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-promis-primary">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <h4>Guide Utilisateur Général</h4>
+                            <p class="text-muted">Manuel complet d'utilisation de SAMA PROMIS pour tous les utilisateurs</p>
+                            <div class="mb-2">
+                                <span class="file-format format-pdf">PDF</span>
+                                <span class="file-size">5.2 MB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Guide Administrateur -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-promis-secondary">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <h4>Guide Administrateur</h4>
+                            <p class="text-muted">Installation, configuration et administration du système</p>
+                            <div class="mb-2">
+                                <span class="file-format format-pdf">PDF</span>
+                                <span class="file-size">8.7 MB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Guide Chef de Projet -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-success">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <h4>Guide Chef de Projet</h4>
+                            <p class="text-muted">Gestion de projets, budgets et passation de marchés</p>
+                            <div class="mb-2">
+                                <span class="file-format format-pdf">PDF</span>
+                                <span class="file-size">6.4 MB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Guide Conformité -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-warning">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <h4>Guide Conformité</h4>
+                            <p class="text-muted">Gestion de la conformité et rapportage par bailleur</p>
+                            <div class="mb-2">
+                                <span class="file-format format-pdf">PDF</span>
+                                <span class="file-size">4.8 MB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Guide Passation de Marchés -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-info">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <h4>Guide Passation de Marchés</h4>
+                            <p class="text-muted">Plans de passation et gestion des appels d'offres</p>
+                            <div class="mb-2">
+                                <span class="file-format format-pdf">PDF</span>
+                                <span class="file-size">5.9 MB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Guide Portail Requérant -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-primary">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4>Guide Portail Requérant</h4>
+                            <p class="text-muted">Utilisation du portail pour bénéficiaires et partenaires</p>
+                            <div class="mb-2">
+                                <span class="file-format format-pdf">PDF</span>
+                                <span class="file-size">3.6 MB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vidéos de Formation -->
+            <div id="videos" class="resource-category">
+                <h2 class="section-title mb-4">
+                    <i class="fas fa-video text-promis-primary me-2"></i>Vidéos de Formation
+                </h2>
+                <div class="row g-4">
+                    <!-- Vidéo Introduction -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-danger">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <h4>Introduction à SAMA PROMIS</h4>
+                            <p class="text-muted">Vue d'ensemble du système et de ses fonctionnalités</p>
+                            <div class="mb-2">
+                                <span class="file-format format-video">MP4</span>
+                                <span class="file-size">15 min</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-play me-2"></i>Voir la vidéo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Vidéo Création de Projet -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-danger">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <h4>Création d'un Projet</h4>
+                            <p class="text-muted">Tutoriel pas à pas pour créer et configurer un projet</p>
+                            <div class="mb-2">
+                                <span class="file-format format-video">MP4</span>
+                                <span class="file-size">12 min</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-play me-2"></i>Voir la vidéo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Vidéo Budget Multi-Sources -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-danger">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <h4>Budget Multi-Sources</h4>
+                            <p class="text-muted">Gestion des financements de multiples bailleurs</p>
+                            <div class="mb-2">
+                                <span class="file-format format-video">MP4</span>
+                                <span class="file-size">18 min</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-play me-2"></i>Voir la vidéo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Vidéo Plan de Passation -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-danger">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <h4>Plan de Passation</h4>
+                            <p class="text-muted">Création et gestion d'un plan de passation de marchés</p>
+                            <div class="mb-2">
+                                <span class="file-format format-video">MP4</span>
+                                <span class="file-size">20 min</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-play me-2"></i>Voir la vidéo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Vidéo Conformité -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-danger">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <h4>Gestion de la Conformité</h4>
+                            <p class="text-muted">Profils de conformité et tâches de conformité</p>
+                            <div class="mb-2">
+                                <span class="file-format format-video">MP4</span>
+                                <span class="file-size">16 min</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-play me-2"></i>Voir la vidéo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Vidéo Portail Public -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-danger">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <h4>Portail Public</h4>
+                            <p class="text-muted">Navigation et consultation du portail de transparence</p>
+                            <div class="mb-2">
+                                <span class="file-format format-video">MP4</span>
+                                <span class="file-size">10 min</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-play me-2"></i>Voir la vidéo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modèles et Templates -->
+            <div id="templates" class="resource-category">
+                <h2 class="section-title mb-4">
+                    <i class="fas fa-file-alt text-promis-primary me-2"></i>Modèles et Templates
+                </h2>
+                <div class="row g-4">
+                    <!-- Modèle Fiche Projet -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-primary">
+                                <i class="fas fa-file-word"></i>
+                            </div>
+                            <h4>Fiche de Projet</h4>
+                            <p class="text-muted">Modèle de fiche descriptive de projet</p>
+                            <div class="mb-2">
+                                <span class="file-format format-doc">DOCX</span>
+                                <span class="file-size">125 KB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Modèle Plan de Passation -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-success">
+                                <i class="fas fa-file-excel"></i>
+                            </div>
+                            <h4>Plan de Passation</h4>
+                            <p class="text-muted">Template Excel pour plan de passation de marchés</p>
+                            <div class="mb-2">
+                                <span class="file-format format-doc">XLSX</span>
+                                <span class="file-size">85 KB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Modèle Rapport Conformité -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-warning">
+                                <i class="fas fa-file-word"></i>
+                            </div>
+                            <h4>Rapport de Conformité</h4>
+                            <p class="text-muted">Modèle de rapport de conformité par bailleur</p>
+                            <div class="mb-2">
+                                <span class="file-format format-doc">DOCX</span>
+                                <span class="file-size">156 KB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Présentation Formation -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-danger">
+                                <i class="fas fa-file-powerpoint"></i>
+                            </div>
+                            <h4>Présentation Formation</h4>
+                            <p class="text-muted">Slides PowerPoint pour sessions de formation</p>
+                            <div class="mb-2">
+                                <span class="file-format format-ppt">PPTX</span>
+                                <span class="file-size">3.2 MB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Checklist Conformité -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-info">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <h4>Checklist Conformité</h4>
+                            <p class="text-muted">Liste de vérification pour tâches de conformité</p>
+                            <div class="mb-2">
+                                <span class="file-format format-pdf">PDF</span>
+                                <span class="file-size">245 KB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Guide Rapide -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-secondary">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <h4>Guide Rapide</h4>
+                            <p class="text-muted">Aide-mémoire des fonctions principales</p>
+                            <div class="mb-2">
+                                <span class="file-format format-pdf">PDF</span>
+                                <span class="file-size">1.8 MB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documentation Technique -->
+            <div id="technical" class="resource-category">
+                <h2 class="section-title mb-4">
+                    <i class="fas fa-code text-promis-primary me-2"></i>Documentation Technique
+                </h2>
+                <div class="row g-4">
+                    <!-- Documentation API -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-info">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h4>Documentation API</h4>
+                            <p class="text-muted">Documentation complète de l'API SAMA PROMIS</p>
+                            <div class="mb-2">
+                                <span class="file-format format-pdf">PDF</span>
+                                <span class="file-size">2.4 MB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Guide Installation -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-success">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <h4>Guide d'Installation</h4>
+                            <p class="text-muted">Instructions détaillées pour installation serveur</p>
+                            <div class="mb-2">
+                                <span class="file-format format-pdf">PDF</span>
+                                <span class="file-size">1.9 MB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Architecture Système -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="resource-card">
+                            <div class="resource-icon text-primary">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            <h4>Architecture Système</h4>
+                            <p class="text-muted">Diagrammes et documentation d'architecture</p>
+                            <div class="mb-2">
+                                <span class="file-format format-pdf">PDF</span>
+                                <span class="file-size">3.7 MB</span>
+                            </div>
+                            <button class="btn btn-promis-primary download-btn" onclick="alert('Téléchargement à venir')">
+                                <i class="fas fa-download me-2"></i>Télécharger
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pack Complet -->
+            <div class="text-center my-5">
+                <div class="card mx-auto" style="max-width: 600px;">
+                    <div class="card-body p-4">
+                        <div class="resource-icon text-promis-primary">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3>Pack Complet de Formation</h3>
+                        <p class="text-muted">Téléchargez toutes les ressources en un seul fichier ZIP</p>
+                        <p class="mb-3"><strong>Taille totale:</strong> 125 MB</p>
+                        <button class="btn btn-promis-success btn-lg" onclick="alert('Téléchargement à venir')">
+                            <i class="fas fa-download me-2"></i>Télécharger le Pack Complet
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="training-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5>SAMA PROMIS Formation</h5>
+                    <p>Centre de Formation et Certification officiel pour le système SAMA PROMIS de gestion de projets et conformité.</p>
+                </div>
+                <div class="col-lg-2">
+                    <h6>Formations</h6>
+                    <ul class="footer-links">
+                        <li><a href="../roles/administrator/user-level.html">Administrateur</a></li>
+                        <li><a href="../roles/project-manager/user-level.html">Chef de Projet</a></li>
+                        <li><a href="../roles/donor/user-level.html">Bailleur</a></li>
+                        <li><a href="../roles/beneficiary/user-level.html">Bénéficiaire</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6>Ressources</h6>
+                    <ul class="footer-links">
+                        <li><a href="#guides">Guides</a></li>
+                        <li><a href="#videos">Vidéos</a></li>
+                        <li><a href="#templates">Modèles</a></li>
+                        <li><a href="#technical">Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6>Contact</h6>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-envelope me-2"></i>support@samaetat.sn</li>
+                        <li><i class="fas fa-phone me-2"></i>+221 33 XXX XX XX</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i>Dakar, Sénégal</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 SAMA Transparent State Solutions. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">Licence: LGPL-3 | Version 1.0.0</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../assets/js/training-core.js"></script>
+</body>
+</html>

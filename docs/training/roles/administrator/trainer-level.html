@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation Administrateur - Niveau Formateur | SAMA PROMIS</title>
+    
+    <!-- Path Resolver for file:// mode -->
+    <script src="../../assets/js/path-resolver.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/training-main.css">
+    <style>
+        .training-sidebar {
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+        .module-list {
+            list-style: none;
+            padding: 0;
+        }
+        .module-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .module-item:hover {
+            background-color: #f8fafc;
+        }
+        .module-item.active {
+            background-color: #dbeafe;
+            border-left: 4px solid #059669;
+        }
+        .lesson-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .lesson-header {
+            border-bottom: 2px solid #059669;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .trainer-tip {
+            background: #d1fae5;
+            border-left: 4px solid #059669;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        .teaching-activity {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="training-header fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../index.html">
+                    <i class="fas fa-graduation-cap me-2"></i>
+                    <strong>SAMA PROMIS</strong> Formation
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../index.html">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../certification/index.html">Certification</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../downloads/index.html">Ressources</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="container mt-5 pt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="../../index.html#formations">Formations</a></li>
+                <li class="breadcrumb-item">Administrateur</li>
+                <li class="breadcrumb-item active">Niveau Formateur</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="training-sidebar" data-role="administrator" data-level="trainer">
+                    <h5 class="text-promis-secondary mb-3">
+                        <i class="fas fa-chalkboard-teacher me-2"></i>Formateur Administrateur
+                    </h5>
+                    <p class="small text-muted mb-3">Niveau Formateur</p>
+                    
+                    <div class="alert alert-warning small">
+                        <i class="fas fa-lock me-2"></i>
+                        <strong>Prérequis:</strong> Niveau Utilisateur complété
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <small>Progression</small>
+                            <small class="text-promis-secondary"><strong>0%</strong></small>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar progress-bar-promis bg-success" role="progressbar" style="width: 0%" data-total-lessons="80"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <p class="small mb-1"><i class="fas fa-clock me-2"></i><strong>Durée:</strong> 12 heures</p>
+                        <p class="small mb-1"><i class="fas fa-book me-2"></i><strong>Modules:</strong> 8</p>
+                        <p class="small mb-1"><i class="fas fa-tasks me-2"></i><strong>Leçons:</strong> 24</p>
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mb-3">Modules</h6>
+                    <ul class="module-list">
+                        <li class="module-item active" onclick="scrollToModule('module1')">
+                            <i class="fas fa-circle-notch me-2"></i>
+                            <strong>Module 1</strong><br>
+                            <small>Pédagogie et Méthodologie</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module2')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 2</strong><br>
+                            <small>Enseigner l'Installation</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module3')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 3</strong><br>
+                            <small>Formation à la Configuration</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module4')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 4</strong><br>
+                            <small>Enseigner la Gestion Utilisateurs</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module5')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 5</strong><br>
+                            <small>Formation à la Sécurité</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module6')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 6</strong><br>
+                            <small>Formation à la Maintenance</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module7')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 7</strong><br>
+                            <small>Formation au Dépannage</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module8')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 8</strong><br>
+                            <small>Ressources Pédagogiques</small>
+                        </li>
+                    </ul>
+
+                    <hr>
+
+                    <a href="user-level.html" class="btn btn-outline-secondary w-100 mt-3">
+                        <i class="fas fa-arrow-left me-2"></i>Niveau Utilisateur
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-lg-9">
+                <!-- Module 1 -->
+                <div id="module1" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-graduation-cap me-2 text-promis-secondary"></i>Module 1: Pédagogie et Méthodologie</h2>
+                        <p class="text-muted">Maîtrisez les principes de formation pour adultes et structurez vos sessions</p>
+                    </div>
+
+                    <!-- Lesson 1.1 -->
+                    <div class="mb-5">
+                        <h3 class="text-promis-primary">
+                            <i class="fas fa-play-circle me-2"></i>Leçon 1.1: Principes de Formation pour Adultes
+                        </h3>
+                        
+                        <h4>Andragogie vs Pédagogie</h4>
+                        <p>L'andragogie (formation des adultes) diffère de la pédagogie (formation des enfants) sur plusieurs aspects clés:</p>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Aspect</th>
+                                        <th>Enfants</th>
+                                        <th>Adultes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Motivation</strong></td>
+                                        <td>Externe (notes, récompenses)</td>
+                                        <td>Interne (développement professionnel)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Expérience</strong></td>
+                                        <td>Limitée</td>
+                                        <td>Riche ressource d'apprentissage</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Application</strong></td>
+                                        <td>Future</td>
+                                        <td>Immédiate</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Orientation</strong></td>
+                                        <td>Centrée sur le sujet</td>
+                                        <td>Centrée sur le problème</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>Les 6 Principes de l'Andragogie (Malcolm Knowles)</h4>
+                        <ol>
+                            <li><strong>Besoin de savoir:</strong> Les adultes doivent comprendre pourquoi ils apprennent quelque chose</li>
+                            <li><strong>Concept de soi:</strong> Les adultes sont autonomes et auto-dirigés</li>
+                            <li><strong>Expérience:</strong> L'expérience est la base de l'apprentissage</li>
+                            <li><strong>Disposition:</strong> Les adultes sont prêts à apprendre ce qui est pertinent</li>
+                            <li><strong>Orientation:</strong> L'apprentissage est centré sur les problèmes</li>
+                            <li><strong>Motivation:</strong> La motivation est principalement interne</li>
+                        </ol>
+
+                        <h4>Styles d'Apprentissage (VARK)</h4>
+                        <div class="row g-3 my-3">
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-eye me-2 text-primary"></i>Visuel</h5>
+                                        <p class="card-text">Apprend par les images, diagrammes, vidéos</p>
+                                        <p class="small text-muted"><strong>Stratégies:</strong> Captures d'écran, schémas, démonstrations visuelles</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-ear me-2 text-success"></i>Auditif</h5>
+                                        <p class="card-text">Apprend par l'écoute et la discussion</p>
+                                        <p class="small text-muted"><strong>Stratégies:</strong> Explications verbales, discussions, podcasts</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-book me-2 text-warning"></i>Lecture/Écriture</h5>
+                                        <p class="card-text">Apprend par la lecture et la prise de notes</p>
+                                        <p class="small text-muted"><strong>Stratégies:</strong> Documentation, guides écrits, exercices</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="fas fa-hands me-2 text-danger"></i>Kinesthésique</h5>
+                                        <p class="card-text">Apprend par la pratique et l'expérimentation</p>
+                                        <p class="small text-muted"><strong>Stratégies:</strong> Exercices pratiques, simulations, ateliers</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4>Techniques d'Engagement</h4>
+                        <ul>
+                            <li><strong>Questions ouvertes:</strong> Encouragez la réflexion et la discussion</li>
+                            <li><strong>Études de cas:</strong> Utilisez des exemples concrets et pertinents</li>
+                            <li><strong>Travail en groupe:</strong> Favorisez l'apprentissage collaboratif</li>
+                            <li><strong>Pauses actives:</strong> Maintenez l'attention avec des pauses régulières</li>
+                            <li><strong>Feedback immédiat:</strong> Fournissez un retour constructif en temps réel</li>
+                        </ul>
+
+                        <div class="trainer-tip">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Conseil de Formateur</h5>
+                            <p class="mb-0">Commencez toujours par demander aux participants leurs attentes et leur niveau d'expérience. Cela vous permet d'adapter votre formation et de créer un environnement d'apprentissage inclusif.</p>
+                        </div>
+                    </div>
+
+                    <!-- Lesson 1.2 -->
+                    <div class="mb-5">
+                        <h3 class="text-promis-primary">
+                            <i class="fas fa-play-circle me-2"></i>Leçon 1.2: Structurer une Session de Formation
+                        </h3>
+
+                        <h4>Modèle de Planification de Session</h4>
+                        <p>Une session de formation efficace suit généralement cette structure:</p>
+
+                        <div class="accordion accordion-promis" id="sessionStructure">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#intro">
+                                        1. Introduction (10% du temps)
+                                    </button>
+                                </h2>
+                                <div id="intro" class="accordion-collapse collapse show" data-bs-parent="#sessionStructure">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li>Accueil et présentations</li>
+                                            <li>Objectifs de la session</li>
+                                            <li>Agenda et règles de base</li>
+                                            <li>Évaluation des attentes</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#content">
+                                        2. Contenu Principal (60% du temps)
+                                    </button>
+                                </h2>
+                                <div id="content" class="accordion-collapse collapse" data-bs-parent="#sessionStructure">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li>Présentation théorique (20%)</li>
+                                            <li>Démonstrations pratiques (40%)</li>
+                                            <li>Exercices guidés (40%)</li>
+                                            <li>Pauses régulières (toutes les 60-90 min)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#practice">
+                                        3. Pratique Autonome (20% du temps)
+                                    </button>
+                                </h2>
+                                <div id="practice" class="accordion-collapse collapse" data-bs-parent="#sessionStructure">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li>Exercices individuels ou en groupe</li>
+                                            <li>Résolution de problèmes</li>
+                                            <li>Assistance personnalisée</li>
+                                            <li>Partage des solutions</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#conclusion">
+                                        4. Conclusion (10% du temps)
+                                    </button>
+                                </h2>
+                                <div id="conclusion" class="accordion-collapse collapse" data-bs-parent="#sessionStructure">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li>Récapitulatif des points clés</li>
+                                            <li>Questions et réponses</li>
+                                            <li>Évaluation de la session</li>
+                                            <li>Prochaines étapes et ressources</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4 class="mt-4">Gestion du Temps</h4>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Durée Session</th>
+                                        <th>Nombre de Pauses</th>
+                                        <th>Durée Pause</th>
+                                        <th>Recommandation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2 heures</td>
+                                        <td>1</td>
+                                        <td>10 min</td>
+                                        <td>Pause au milieu</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4 heures</td>
+                                        <td>2-3</td>
+                                        <td>10-15 min</td>
+                                        <td>Pause déjeuner de 30-60 min</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8 heures</td>
+                                        <td>4-5</td>
+                                        <td>10-15 min</td>
+                                        <td>Pause déjeuner de 60 min</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>Préparation des Matériaux</h4>
+                        <div class="checklist">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="check1">
+                                <label class="form-check-label" for="check1">
+                                    Présentation PowerPoint/PDF
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="check2">
+                                <label class="form-check-label" for="check2">
+                                    Guides d'exercices imprimés
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="check3">
+                                <label class="form-check-label" for="check3">
+                                    Environnement de démonstration testé
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="check4">
+                                <label class="form-check-label" for="check4">
+                                    Formulaires d'évaluation
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="check5">
+                                <label class="form-check-label" for="check5">
+                                    Ressources supplémentaires (liens, documentation)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="teaching-activity">
+                            <h5><i class="fas fa-tasks me-2"></i>Activité Pratique</h5>
+                            <p><strong>Objectif:</strong> Créer un plan de session pour une formation de 4 heures sur l'installation de SAMA PROMIS</p>
+                            <ol>
+                                <li>Définissez les objectifs d'apprentissage</li>
+                                <li>Structurez le contenu selon le modèle 10-60-20-10</li>
+                                <li>Planifiez les pauses et les activités</li>
+                                <li>Préparez la liste des matériaux nécessaires</li>
+                                <li>Créez un timing détaillé minute par minute</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- Lesson 1.3 -->
+                    <div class="mb-5">
+                        <h3 class="text-promis-primary">
+                            <i class="fas fa-play-circle me-2"></i>Leçon 1.3: Évaluation des Apprenants
+                        </h3>
+
+                        <h4>Types d'Évaluation</h4>
+                        
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-header bg-primary text-white">
+                                        <h5 class="mb-0">Diagnostique</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Quand:</strong> Avant la formation</p>
+                                        <p><strong>Objectif:</strong> Évaluer le niveau initial</p>
+                                        <p class="mb-0"><strong>Méthodes:</strong> Questionnaire, entretien, test de positionnement</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100 border-warning">
+                                    <div class="card-header bg-warning">
+                                        <h5 class="mb-0">Formative</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Quand:</strong> Pendant la formation</p>
+                                        <p><strong>Objectif:</strong> Suivre la progression</p>
+                                        <p class="mb-0"><strong>Méthodes:</strong> Quiz, exercices, observations, questions</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card h-100 border-success">
+                                    <div class="card-header bg-success text-white">
+                                        <h5 class="mb-0">Sommative</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p><strong>Quand:</strong> Après la formation</p>
+                                        <p><strong>Objectif:</strong> Valider les acquis</p>
+                                        <p class="mb-0"><strong>Méthodes:</strong> Examen final, projet, certification</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4>Techniques de Feedback</h4>
+                        <ul>
+                            <li><strong>Feedback sandwich:</strong> Positif → Constructif → Positif</li>
+                            <li><strong>Feedback spécifique:</strong> Évitez les généralités, soyez précis</li>
+                            <li><strong>Feedback actionnable:</strong> Proposez des actions concrètes</li>
+                            <li><strong>Feedback opportun:</strong> Donnez le feedback rapidement</li>
+                            <li><strong>Feedback équilibré:</strong> Reconnaissez les forces et les axes d'amélioration</li>
+                        </ul>
+
+                        <h4>Modèle d'Évaluation de Kirkpatrick</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Niveau</th>
+                                        <th>Évaluation</th>
+                                        <th>Question Clé</th>
+                                        <th>Méthode</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>1. Réaction</strong></td>
+                                        <td>Satisfaction</td>
+                                        <td>Les participants ont-ils aimé?</td>
+                                        <td>Questionnaire de satisfaction</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>2. Apprentissage</strong></td>
+                                        <td>Connaissances</td>
+                                        <td>Ont-ils appris?</td>
+                                        <td>Tests, quiz, exercices</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>3. Comportement</strong></td>
+                                        <td>Application</td>
+                                        <td>Appliquent-ils au travail?</td>
+                                        <td>Observation, suivi post-formation</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>4. Résultats</strong></td>
+                                        <td>Impact</td>
+                                        <td>Quel est l'impact organisationnel?</td>
+                                        <td>KPIs, métriques de performance</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="trainer-tip">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Conseil de Formateur</h5>
+                            <p class="mb-0">Utilisez l'évaluation formative tout au long de la formation pour ajuster votre approche en temps réel. Des questions simples comme "Est-ce clair?" ou "Avez-vous des questions?" permettent de vérifier la compréhension.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Button -->
+                    <div class="text-center my-4">
+                        <button class="btn btn-promis-secondary btn-lg" onclick="alert('Quiz Module 1 - Fonctionnalité à venir')">
+                            <i class="fas fa-question-circle me-2"></i>Passer le Quiz du Module 1
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Other Modules (Placeholder) -->
+                <div id="module2" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-download me-2 text-promis-secondary"></i>Module 2: Enseigner l'Installation</h2>
+                        <p class="text-muted">Techniques pour démontrer et enseigner l'installation de SAMA PROMIS</p>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Démonstration d'installation, exercices pratiques guidés, cas d'usage et scénarios.
+                    </div>
+                </div>
+
+                <div id="module3" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-cog me-2 text-promis-secondary"></i>Module 3: Formation à la Configuration</h2>
+                        <p class="text-muted">Enseigner la configuration système et la personnalisation</p>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Démonstration de configuration, ateliers pratiques, personnalisation avancée.
+                    </div>
+                </div>
+
+                <div id="module4" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-users-cog me-2 text-promis-secondary"></i>Module 4: Enseigner la Gestion des Utilisateurs</h2>
+                        <p class="text-muted">Former à la création d'utilisateurs et la gestion des permissions</p>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Démonstration de création d'utilisateurs, exercices de sécurité, cas pratiques.
+                    </div>
+                </div>
+
+                <div id="module5" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-shield-alt me-2 text-promis-secondary"></i>Module 5: Formation à la Sécurité</h2>
+                        <p class="text-muted">Enseigner les concepts de sécurité et conformité</p>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Enseigner les concepts de sécurité, démonstration d'audit, exercices de conformité.
+                    </div>
+                </div>
+
+                <div id="module6" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-database me-2 text-promis-secondary"></i>Module 6: Formation à la Maintenance</h2>
+                        <p class="text-muted">Former aux sauvegardes, mises à jour et monitoring</p>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Enseigner les sauvegardes, démonstration de mise à jour, exercices de performance.
+                    </div>
+                </div>
+
+                <div id="module7" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-wrench me-2 text-promis-secondary"></i>Module 7: Formation au Dépannage</h2>
+                        <p class="text-muted">Enseigner la méthodologie de dépannage et diagnostic</p>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Méthodologie de dépannage, enseigner le diagnostic, exercices de résolution.
+                    </div>
+                </div>
+
+                <div id="module8" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-book-reader me-2 text-promis-secondary"></i>Module 8: Ressources et Matériel Pédagogique</h2>
+                        <p class="text-muted">Créer et utiliser des ressources de formation efficaces</p>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Créer des supports de formation, utiliser les outils, évaluation et amélioration.
+                    </div>
+                </div>
+
+                <!-- Final Trainer Assessment -->
+                <div class="lesson-content bg-promis-light">
+                    <div class="text-center">
+                        <h2><i class="fas fa-trophy me-2 text-promis-secondary"></i>Évaluation Finale Formateur</h2>
+                        <p class="lead">Démontrez vos compétences pédagogiques et obtenez votre certification formateur</p>
+                        <div class="my-4">
+                            <p><strong>Format:</strong> Examen (60 questions) + Démonstration d'enseignement + Portfolio</p>
+                            <p><strong>Durée:</strong> 90 minutes (examen) + 30 minutes (démonstration)</p>
+                            <p><strong>Score requis:</strong> 85%</p>
+                        </div>
+                        <div class="alert alert-warning">
+                            <h6><i class="fas fa-clipboard-list me-2"></i>Composantes de l'Évaluation</h6>
+                            <ul class="text-start mb-0">
+                                <li>Examen théorique sur la pédagogie et le contenu (40%)</li>
+                                <li>Démonstration d'enseignement enregistrée ou en direct (40%)</li>
+                                <li>Portfolio de matériaux pédagogiques créés (20%)</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-promis-success btn-lg mt-3" onclick="alert('Évaluation formateur - Fonctionnalité à venir')">
+                            <i class="fas fa-play-circle me-2"></i>Commencer l'Évaluation Formateur
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="training-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 SAMA Transparent State Solutions. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="../../index.html" class="text-white me-3">Accueil</a>
+                    <a href="../../downloads/index.html" class="text-white">Ressources</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/training-core.js"></script>
+    <script>
+        function scrollToModule(moduleId) {
+            document.getElementById(moduleId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>

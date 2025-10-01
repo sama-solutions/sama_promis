@@ -158,6 +158,95 @@ Après installation, vérifiez que:
 - ✅ Les listes sont éditables en masse (`multi_edit`)
 - ✅ Les QR codes se génèrent correctement
 
+## Validation de l'Installation
+
+### Script de Validation Automatique
+
+Après l'installation, exécutez le script de validation pour vérifier que tous les composants sont correctement chargés:
+
+```bash
+# Rendre le script exécutable
+chmod +x scripts/validate_module_loading.py
+
+# Exécuter le script
+python3 scripts/validate_module_loading.py
+```
+
+**Résultat attendu:**
+```
+============================================================
+SAMA PROMIS - Module Loading Validation
+============================================================
+
+[1] Checking Mixin Files...
+✓ Workflow Mixin exists: /path/to/shared/mixins/workflow_mixin.py
+✓ Audit Mixin exists: /path/to/shared/mixins/audit_mixin.py
+
+[2] Checking Import Order...
+✓ Import order correct in __init__.py: shared before models
+
+[3] Checking Model Names...
+✓ Model name correct in models/call_for_proposal.py: sama.promis.call.proposal
+✓ Model name correct in shared/mixins/workflow_mixin.py: sama.promis.workflow.mixin
+✓ Model name correct in shared/mixins/audit_mixin.py: sama.promis.audit.mixin
+
+[4] Checking Mixin Inheritance...
+✓ Mixin inheritance found in models/compliance_task.py: sama.promis.workflow.mixin
+✓ Mixin inheritance found in micromodules/core/models/base_model.py: sama.promis.workflow.mixin
+✓ Mixin inheritance found in micromodules/core/models/base_model.py: sama.promis.audit.mixin
+
+[5] Checking call_for_proposal References...
+✓ Correct model name in micromodules/projects/models/project.py
+
+[6] Checking One2many Relations...
+✓ Correct One2many relation in call_for_proposal.py
+
+============================================================
+✓ ALL CHECKS PASSED! Module should load correctly.
+============================================================
+```
+
+### Vérification Manuelle
+
+Si vous préférez vérifier manuellement:
+
+1. **Vérifier l'ordre d'import dans `__init__.py`:**
+   ```python
+   from . import shared        # DOIT être en premier
+   from . import models
+   from . import controllers
+   from . import micromodules
+   ```
+
+2. **Vérifier le nom du modèle dans `micromodules/projects/models/project.py` ligne 200:**
+   ```python
+   call_for_proposal_id = fields.Many2one(
+       'sama.promis.call.proposal',  # Correct (sans "for")
+       ...
+   )
+   ```
+
+3. **Vérifier la relation One2many dans `models/call_for_proposal.py` ligne 46:**
+   ```python
+   project_ids = fields.One2many('project.project', 'call_for_proposal_id',
+                               string="Projets Soumis")
+   ```
+
+### Dépannage
+
+**Erreur: "Model not found: sama.promis.workflow.mixin"**
+- Vérifiez que `from . import shared` est présent dans `__init__.py`
+- Vérifiez que `from . import mixins` est présent dans `shared/__init__.py`
+- Vérifiez que les fichiers mixin existent dans `shared/mixins/`
+
+**Erreur: "Field 'call_for_proposal_id' does not exist"**
+- Vérifiez que le nom du modèle est `sama.promis.call.proposal` (sans "for")
+- Vérifiez que la relation One2many pointe vers `project.project`
+
+**Erreur: "Invalid field on model"**
+- Exécutez le script de validation pour identifier le problème exact
+- Vérifiez les logs Odoo pour plus de détails
+
 ## 📖 Configuration
 
 ### Configuration initiale

@@ -43,7 +43,7 @@ class SamaPromisCallProposal(models.Model):
     # Relations
     donor_id = fields.Many2one('res.partner', string="Bailleur de Fonds",
                              domain="[('is_company', '=', True)]", required=True)
-    project_ids = fields.One2many('sama.promis.project', 'call_for_proposal_id',
+    project_ids = fields.One2many('project.project', 'call_for_proposal_id',
                                 string="Projets Soumis")
     evaluation_criteria_ids = fields.One2many('sama.promis.evaluation.criteria',
                                            'call_id',

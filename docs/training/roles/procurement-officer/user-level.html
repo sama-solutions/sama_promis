@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation Responsable Passation - Niveau Utilisateur | SAMA PROMIS</title>
+    
+    <!-- Path Resolver for file:// mode -->
+    <script src="../../assets/js/path-resolver.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/training-main.css">
+    <style>
+        .training-sidebar {
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+        .module-list {
+            list-style: none;
+            padding: 0;
+        }
+        .module-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .module-item:hover {
+            background-color: #f8fafc;
+        }
+        .module-item.completed {
+            background-color: #d1fae5;
+        }
+        .module-item.active {
+            background-color: #dbeafe;
+            border-left: 4px solid #1e3a8a;
+        }
+        .lesson-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .lesson-header {
+            border-bottom: 2px solid #1e3a8a;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .exercise-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        .key-takeaway {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="training-header fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="../../index.html">
+                    <i class="fas fa-graduation-cap me-2"></i>
+                    <strong>SAMA PROMIS</strong> Formation
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../index.html">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../certification/index.html">Certification</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../downloads/index.html">Ressources</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="container mt-5 pt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="../../index.html#formations">Formations</a></li>
+                <li class="breadcrumb-item">Responsable Passation</li>
+                <li class="breadcrumb-item active">Niveau Utilisateur</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="training-sidebar" data-role="procurement-officer" data-level="user">
+                    <h5 class="text-promis-primary mb-3">
+                        <i class="fas fa-shopping-cart me-2"></i>Responsable Passation
+                    </h5>
+                    <p class="small text-muted mb-3">Niveau Utilisateur</p>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <small>Progression</small>
+                            <small class="text-promis-secondary"><strong>0%</strong></small>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar progress-bar-promis bg-success" role="progressbar" style="width: 0%" data-total-lessons="60"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <p class="small mb-1"><i class="fas fa-clock me-2"></i><strong>Durée:</strong> 8 heures</p>
+                        <p class="small mb-1"><i class="fas fa-book me-2"></i><strong>Modules:</strong> 6</p>
+                        <p class="small mb-1"><i class="fas fa-tasks me-2"></i><strong>Leçons:</strong> 18</p>
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mb-3">Modules</h6>
+                    <ul class="module-list">
+                        <li class="module-item active" onclick="scrollToModule('module1')">
+                            <i class="fas fa-circle-notch me-2"></i>
+                            <strong>Module 1</strong><br>
+                            <small>Plans de Passation</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module2')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 2</strong><br>
+                            <small>Appels d'Offres</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module3')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 3</strong><br>
+                            <small>Évaluation des Offres</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module4')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 4</strong><br>
+                            <small>Attribution et Contrats</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module5')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 5</strong><br>
+                            <small>Suivi de l'Exécution</small>
+                        </li>
+                        <li class="module-item" onclick="scrollToModule('module6')">
+                            <i class="fas fa-circle me-2 text-muted"></i>
+                            <strong>Module 6</strong><br>
+                            <small>Conformité Passation</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-lg-9">
+                <!-- Module 1 -->
+                <div id="module1" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-book-open me-2 text-promis-primary"></i>Module 1: Plans de Passation</h2>
+                        <p class="text-muted">Créez et gérez les plans de passation de marchés</p>
+                    </div>
+
+                    <div class="mb-5">
+                        <h3 class="text-promis-secondary">
+                            <i class="fas fa-play-circle me-2"></i>Leçon 1.1: Création d'un Plan de Passation
+                        </h3>
+                        
+                        <h4>Qu'est-ce qu'un Plan de Passation?</h4>
+                        <p>Le plan de passation de marchés est un document stratégique qui:</p>
+                        <ul>
+                            <li>Liste tous les marchés prévus pour un projet</li>
+                            <li>Définit les méthodes de passation</li>
+                            <li>Établit le calendrier de passation</li>
+                            <li>Estime les budgets par marché</li>
+                            <li>Identifie les sources de financement</li>
+                        </ul>
+
+                        <h4>Créer un Plan de Passation</h4>
+                        <p>Pour créer un plan de passation dans SAMA PROMIS:</p>
+                        <ol>
+                            <li>Allez dans <strong>Passation de Marchés</strong> > <strong>Plans de Passation</strong></li>
+                            <li>Cliquez sur <strong>Créer</strong></li>
+                            <li>Sélectionnez le projet concerné</li>
+                            <li>Définissez l'année du plan</li>
+                            <li>Ajoutez les lignes de marché</li>
+                        </ol>
+
+                        <h4>Informations par Ligne de Marché</h4>
+                        <p>Pour chaque marché, renseignez:</p>
+                        <ul>
+                            <li><strong>Description:</strong> Nature du marché</li>
+                            <li><strong>Méthode:</strong> AOI, AON, Consultation, Gré à gré</li>
+                            <li><strong>Type:</strong> Travaux, Fournitures, Services</li>
+                            <li><strong>Budget estimé:</strong> Montant prévisionnel</li>
+                            <li><strong>Dates clés:</strong> Publication, ouverture, attribution</li>
+                            <li><strong>Source de financement:</strong> Bailleur concerné</li>
+                        </ul>
+
+                        <div class="exercise-box">
+                            <h5><i class="fas fa-tasks me-2"></i>Exercice Pratique</h5>
+                            <p><strong>Objectif:</strong> Créer un plan de passation simple</p>
+                            <ol>
+                                <li>Créez un plan de passation pour un projet test</li>
+                                <li>Ajoutez 3 lignes de marché différentes</li>
+                                <li>Définissez les méthodes et budgets</li>
+                                <li>Validez le plan</li>
+                            </ol>
+                        </div>
+
+                        <div class="key-takeaway">
+                            <h5><i class="fas fa-lightbulb me-2"></i>Points Clés</h5>
+                            <ul class="mb-0">
+                                <li>Le plan de passation est obligatoire pour chaque projet</li>
+                                <li>Il doit être approuvé par le bailleur</li>
+                                <li>Les méthodes doivent respecter les seuils réglementaires</li>
+                                <li>Le plan peut être révisé en cours d'année</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="text-center my-4">
+                        <button class="btn btn-promis-primary btn-lg" onclick="alert('Quiz Module 1 - Fonctionnalité à venir')">
+                            <i class="fas fa-question-circle me-2"></i>Passer le Quiz du Module 1
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div id="module2" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-bullhorn me-2 text-promis-primary"></i>Module 2: Appels d'Offres</h2>
+                        <p class="text-muted">Lancez et gérez les appels d'offres</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira la publication d'appels d'offres, les dossiers d'appel d'offres, et la gestion des soumissions.
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div id="module3" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-balance-scale me-2 text-promis-primary"></i>Module 3: Évaluation des Offres</h2>
+                        <p class="text-muted">Évaluez les offres reçues</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira les critères d'évaluation, les grilles de notation, et les rapports d'évaluation.
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div id="module4" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-file-signature me-2 text-promis-primary"></i>Module 4: Attribution et Contrats</h2>
+                        <p class="text-muted">Attribuez les marchés et créez les contrats</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira l'attribution, la notification, et la signature des contrats.
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div id="module5" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-chart-line me-2 text-promis-primary"></i>Module 5: Suivi de l'Exécution</h2>
+                        <p class="text-muted">Suivez l'exécution des marchés</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira le suivi des délais, les avenants, et les réceptions.
+                    </div>
+                </div>
+
+                <!-- Module 6 -->
+                <div id="module6" class="lesson-content">
+                    <div class="lesson-header">
+                        <h2><i class="fas fa-check-double me-2 text-promis-primary"></i>Module 6: Conformité Passation</h2>
+                        <p class="text-muted">Assurez la conformité des procédures</p>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Contenu à venir:</strong> Ce module couvrira les exigences de conformité, les revues a priori/a posteriori, et les audits.
+                    </div>
+                </div>
+
+                <!-- Final Assessment -->
+                <div class="lesson-content bg-promis-light">
+                    <div class="text-center">
+                        <h2><i class="fas fa-trophy me-2 text-promis-secondary"></i>Évaluation Finale</h2>
+                        <p class="lead">Testez vos connaissances et obtenez votre certification</p>
+                        <div class="my-4">
+                            <p><strong>Format:</strong> 40 questions à choix multiples</p>
+                            <p><strong>Durée:</strong> 50 minutes</p>
+                            <p><strong>Score requis:</strong> 80%</p>
+                        </div>
+                        <button class="btn btn-promis-success btn-lg" onclick="alert('Évaluation finale - Fonctionnalité à venir')">
+                            <i class="fas fa-play-circle me-2"></i>Commencer l'Évaluation Finale
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="training-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 SAMA Transparent State Solutions. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="../../index.html" class="text-white me-3">Accueil</a>
+                    <a href="../../downloads/index.html" class="text-white">Ressources</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/training-core.js"></script>
+    <script>
+        function scrollToModule(moduleId) {
+            document.getElementById(moduleId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>

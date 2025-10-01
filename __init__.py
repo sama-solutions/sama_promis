@@ -6,7 +6,10 @@ SAMA PROMIS - Module Principal
 Module principal pour SAMA PROMIS.
 """
 
-# Import des modules
+# IMPORTANT: Charger shared en PREMIER pour que les mixins soient disponibles
+from . import shared
+
+# Ensuite charger les autres modules
 from . import models
 from . import controllers
 from . import micromodules

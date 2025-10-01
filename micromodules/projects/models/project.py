@@ -197,7 +197,7 @@ class SamaPromisProject(models.Model):
     
     # Relations avec autres modèles
     call_for_proposal_id = fields.Many2one(
-        'sama.promis.call.for.proposal',
+        'sama.promis.call.proposal',
         string='Appel à Propositions',
         help="Appel à propositions d'origine (si applicable)"
     )

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ressources Téléchargeables | SAMA PROMIS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/training-main.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="training-header fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">
+                    <i class="fas fa-graduation-cap me-2"></i>
+                    <strong>SAMA PROMIS</strong> Formation
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../certification/index.html">Certification</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.html">Ressources</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="training-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-3 fw-bold mb-4">Ressources Téléchargeables</h1>
+                    <p class="lead mb-4">Guides, présentations, exercices et documentation pour votre formation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search and Filter -->
+    <section class="training-section">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-lg-8 mx-auto">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        <input type="text" class="form-control" id="searchResources" placeholder="Rechercher des ressources...">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-lg-8 mx-auto">
+                    <div class="d-flex gap-2 flex-wrap justify-content-center">
+                        <button class="btn btn-outline-primary active" data-filter="all">Tous</button>
+                        <button class="btn btn-outline-primary" data-filter="guides">Guides</button>
+                        <button class="btn btn-outline-primary" data-filter="presentations">Présentations</button>
+                        <button class="btn btn-outline-primary" data-filter="exercises">Exercices</button>
+                        <button class="btn btn-outline-primary" data-filter="videos">Vidéos</button>
+                        <button class="btn btn-outline-primary" data-filter="templates">Templates</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Categories -->
+    <section class="training-section bg-promis-light">
+        <div class="container">
+            <!-- User Guides -->
+            <div class="mb-5">
+                <h3 class="mb-4"><i class="fas fa-book me-2 text-promis-primary"></i>Guides Utilisateur</h3>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-file-pdf fa-3x text-danger me-3"></i>
+                                    <div>
+                                        <h5 class="card-title mb-1">Guide Administrateur</h5>
+                                        <p class="text-muted small mb-0">PDF | 50 pages | FR</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">Guide complet pour l'installation, configuration et administration de SAMA PROMIS</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-info">Populaire</span>
+                                    <button class="btn btn-promis-primary btn-sm" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                        <i class="fas fa-download me-1"></i>Télécharger
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-file-pdf fa-3x text-danger me-3"></i>
+                                    <div>
+                                        <h5 class="card-title mb-1">Guide Chef de Projet</h5>
+                                        <p class="text-muted small mb-0">PDF | 60 pages | FR</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">Gestion de projets, budgets multi-sources, passation de marchés et conformité</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-info">Populaire</span>
+                                    <button class="btn btn-promis-primary btn-sm" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                        <i class="fas fa-download me-1"></i>Télécharger
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-file-pdf fa-3x text-danger me-3"></i>
+                                    <div>
+                                        <h5 class="card-title mb-1">Guide Conformité</h5>
+                                        <p class="text-muted small mb-0">PDF | 40 pages | FR</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">Gestion des tâches de conformité, profils bailleurs et rapportage</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-secondary">Nouveau</span>
+                                    <button class="btn btn-promis-primary btn-sm" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                        <i class="fas fa-download me-1"></i>Télécharger
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trainer Guides -->
+            <div class="mb-5">
+                <h3 class="mb-4"><i class="fas fa-chalkboard-teacher me-2 text-promis-secondary"></i>Guides Formateur</h3>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-file-pdf fa-3x text-danger me-3"></i>
+                                    <div>
+                                        <h5 class="card-title mb-1">Manuel Formateur</h5>
+                                        <p class="text-muted small mb-0">PDF | 80 pages | FR</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">Méthodologie pédagogique, techniques d'enseignement et évaluation</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-warning">Formateurs</span>
+                                    <button class="btn btn-promis-secondary btn-sm" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                        <i class="fas fa-download me-1"></i>Télécharger
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-file-pdf fa-3x text-danger me-3"></i>
+                                    <div>
+                                        <h5 class="card-title mb-1">Guide Évaluation</h5>
+                                        <p class="text-muted small mb-0">PDF | 30 pages | FR</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">Conception d'évaluations, grilles de notation et feedback</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-warning">Formateurs</span>
+                                    <button class="btn btn-promis-secondary btn-sm" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                        <i class="fas fa-download me-1"></i>Télécharger
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Reference Cards -->
+            <div class="mb-5">
+                <h3 class="mb-4"><i class="fas fa-id-card me-2 text-promis-accent"></i>Cartes de Référence Rapide</h3>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-user-shield fa-3x text-promis-primary mb-3"></i>
+                                <h6>Administrateur</h6>
+                                <p class="small text-muted">2 pages | Imprimable</p>
+                                <button class="btn btn-outline-primary btn-sm w-100" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                    <i class="fas fa-download me-1"></i>PDF
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-project-diagram fa-3x text-promis-primary mb-3"></i>
+                                <h6>Chef de Projet</h6>
+                                <p class="small text-muted">2 pages | Imprimable</p>
+                                <button class="btn btn-outline-primary btn-sm w-100" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                    <i class="fas fa-download me-1"></i>PDF
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-clipboard-check fa-3x text-promis-primary mb-3"></i>
+                                <h6>Conformité</h6>
+                                <p class="small text-muted">2 pages | Imprimable</p>
+                                <button class="btn btn-outline-primary btn-sm w-100" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                    <i class="fas fa-download me-1"></i>PDF
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-shopping-cart fa-3x text-promis-primary mb-3"></i>
+                                <h6>Passation</h6>
+                                <p class="small text-muted">2 pages | Imprimable</p>
+                                <button class="btn btn-outline-primary btn-sm w-100" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                    <i class="fas fa-download me-1"></i>PDF
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Presentations -->
+            <div class="mb-5">
+                <h3 class="mb-4"><i class="fas fa-presentation me-2 text-promis-info"></i>Présentations</h3>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-file-powerpoint fa-3x text-warning me-3"></i>
+                                    <div>
+                                        <h5 class="card-title mb-1">Vue d'ensemble SAMA PROMIS</h5>
+                                        <p class="text-muted small mb-0">PPTX/PDF | 30 slides</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">Présentation complète des fonctionnalités et architecture</p>
+                                <button class="btn btn-promis-primary btn-sm w-100" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                    <i class="fas fa-download me-1"></i>Télécharger
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-file-powerpoint fa-3x text-warning me-3"></i>
+                                    <div>
+                                        <h5 class="card-title mb-1">Financement Multi-Sources</h5>
+                                        <p class="text-muted small mb-0">PPTX/PDF | 20 slides</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">Phase 1: Gestion des sources de financement multiples</p>
+                                <button class="btn btn-promis-primary btn-sm w-100" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                    <i class="fas fa-download me-1"></i>Télécharger
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-start mb-3">
+                                    <i class="fas fa-file-powerpoint fa-3x text-warning me-3"></i>
+                                    <div>
+                                        <h5 class="card-title mb-1">Gestion de la Conformité</h5>
+                                        <p class="text-muted small mb-0">PPTX/PDF | 30 slides</p>
+                                    </div>
+                                </div>
+                                <p class="card-text">Phase 3: Conformité et rapportage par bailleur</p>
+                                <button class="btn btn-promis-primary btn-sm w-100" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                    <i class="fas fa-download me-1"></i>Télécharger
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise Worksheets -->
+            <div class="mb-5">
+                <h3 class="mb-4"><i class="fas fa-tasks me-2 text-promis-secondary"></i>Exercices Pratiques</h3>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-file-alt me-2"></i>Création de Projet</h5>
+                                <p class="card-text">Exercice guidé pour créer un projet complet avec budget et partenaires</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-primary btn-sm" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                        <i class="fas fa-download me-1"></i>PDF
+                                    </button>
+                                    <button class="btn btn-outline-success btn-sm" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                        <i class="fas fa-file-excel me-1"></i>Excel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-file-alt me-2"></i>Plan de Passation</h5>
+                                <p class="card-text">Exercice pour créer et gérer un plan de passation de marchés</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-primary btn-sm" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                        <i class="fas fa-download me-1"></i>PDF
+                                    </button>
+                                    <button class="btn btn-outline-success btn-sm" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                        <i class="fas fa-file-excel me-1"></i>Excel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Tutorials -->
+            <div class="mb-5">
+                <h3 class="mb-4"><i class="fas fa-video me-2 text-danger"></i>Tutoriels Vidéo</h3>
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>À venir:</strong> Les tutoriels vidéo seront disponibles prochainement. Inscrivez-vous à la newsletter pour être informé.
+                </div>
+            </div>
+
+            <!-- Templates -->
+            <div class="mb-5">
+                <h3 class="mb-4"><i class="fas fa-file-contract me-2 text-promis-primary"></i>Templates</h3>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-file-word fa-3x text-primary mb-3"></i>
+                                <h6>Proposition de Projet</h6>
+                                <p class="small text-muted">DOCX</p>
+                                <button class="btn btn-outline-primary btn-sm w-100" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                    <i class="fas fa-download me-1"></i>Télécharger
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-file-excel fa-3x text-success mb-3"></i>
+                                <h6>Budget Template</h6>
+                                <p class="small text-muted">XLSX</p>
+                                <button class="btn btn-outline-success btn-sm w-100" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                    <i class="fas fa-download me-1"></i>Télécharger
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-file-excel fa-3x text-success mb-3"></i>
+                                <h6>Plan de Passation</h6>
+                                <p class="small text-muted">XLSX</p>
+                                <button class="btn btn-outline-success btn-sm w-100" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                    <i class="fas fa-download me-1"></i>Télécharger
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-file-excel fa-3x text-success mb-3"></i>
+                                <h6>Checklist Conformité</h6>
+                                <p class="small text-muted">XLSX</p>
+                                <button class="btn btn-outline-success btn-sm w-100" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                                    <i class="fas fa-download me-1"></i>Télécharger
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Downloads -->
+    <section class="training-section">
+        <div class="container">
+            <h3 class="mb-4 text-center">Ressources les Plus Téléchargées</h3>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center p-3 bg-light rounded">
+                        <i class="fas fa-file-pdf fa-2x text-danger me-3"></i>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-0">Guide Chef de Projet</h6>
+                            <small class="text-muted">1,234 téléchargements</small>
+                        </div>
+                        <button class="btn btn-sm btn-promis-primary" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center p-3 bg-light rounded">
+                        <i class="fas fa-file-pdf fa-2x text-danger me-3"></i>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-0">Guide Administrateur</h6>
+                            <small class="text-muted">987 téléchargements</small>
+                        </div>
+                        <button class="btn btn-sm btn-promis-primary" onclick="Utils.showNotification('Téléchargement à venir', 'info')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="training-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 SAMA Transparent State Solutions. Tous droits réservés.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="../index.html" class="text-white me-3">Accueil</a>
+                    <a href="../certification/index.html" class="text-white">Certification</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/training-core.js"></script>
+</body>
+</html>

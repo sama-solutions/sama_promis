@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'SAMA PROMIS - Program Management Information System',
-    'version': '18.0.4.0.0',  # Phase 4: Public & Requestor Portals
+    'version': '18.0.4.0.1',  # Phase 4: Public & Requestor Portals
     'category': 'Project Management/Public Transparency',
     'summary': 'Program Management Information System - Micromodules Architecture (Phase 4: Portals)',
     'description': """
