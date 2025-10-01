@@ -152,7 +152,7 @@ class SamaPromisBaseModel(models.AbstractModel):
         """Retourne le préfixe de référence pour le modèle (à surcharger)."""
         return 'SP'  # SAMA PROMIS par défaut
 
-    @api.depends('name', 'reference', 'id')
+    @api.depends('name', 'reference')
     def _compute_qr_code_data(self):
         """Calcule les données à encoder dans le QR code."""
         for record in self:

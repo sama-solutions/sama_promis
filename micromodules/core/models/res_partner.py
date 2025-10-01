@@ -212,7 +212,7 @@ class ResPartner(models.Model):
             else:
                 partner.total_funding = 0
 
-    @api.depends('name', 'id', 'partner_type')
+    @api.depends('name', 'partner_type')
     def _compute_qr_code_data(self):
         """Calcule les données du QR code pour le partenaire."""
         for partner in self:

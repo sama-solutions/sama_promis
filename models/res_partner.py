@@ -280,7 +280,7 @@ class ResPartner(models.Model):
             partner.is_international_donor = (partner.funding_origin == 'international')
             partner.is_local_donor = (partner.funding_origin == 'local')
     
-    @api.depends('name', 'id')
+    @api.depends('name')
     def _compute_qr_code_data(self):
         """Calcule les données du QR code."""
         # TODO: Pointer vers le portail public une fois développé
